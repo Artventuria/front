@@ -54,3 +54,6 @@ Thumbs.db
 *.apk
 *.aab
 *.so
+
+# Additional Flutter generated files
+/.dart_tool/
