@@ -1,0 +1,56 @@
+# Flutter/Dart specific
+# Ignore Dart packages
+.packages
+.pub-cache/
+.pub/
+
+# Build outputs
+build/
+# iOS specific
+ios/Flutter/App.framework
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Pods/
+ios/Runner.xcworkspace/
+ios/Podfile.lock
+
+# Android specific
+android/.gradle/
+android/app/build/
+android/app/intermediates/
+android/app/outputs/
+android/app/src/main/res/mipmap-*
+android/app/src/main/res/drawable-*
+
+# MacOS specific
+macos/Flutter/ephemeral/
+macos/Flutter/Flutter.podspec
+
+# Linux specific
+linux/Flutter/ephemeral/
+linux/Flutter/Flutter.podspec
+
+# Windows specific
+windows/Flutter/ephemeral/
+windows/Flutter/Flutter.podspec
+
+# IDE specific
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs and other temporary files
+*.log
+*.tmp
+
+# Generated files
+*.class
+*.apk
+*.aab
+*.so
