@@ -3,6 +3,7 @@
 .packages
 .pub-cache/
 .pub/
+.flutter-plugins-dependencies
 
 # Build outputs
 build/
