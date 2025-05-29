@@ -88,11 +88,6 @@ flutter:
         - asset: assets/fonts/Merriweather-Regular.ttf
         - asset: assets/fonts/Merriweather-Bold.ttf
           weight: 700
-    - family: Circe
-      fonts:
-        - asset: assets/fonts/Circe-Regular.ttf
-        - asset: assets/fonts/Circe-Bold.ttf
-          weight: 700
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
