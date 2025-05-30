@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../utils/constants.dart';
 import '../widgets/landing/model_viewer_widget.dart';
 import '../widgets/landing/header_container_widget.dart';
+import '../widgets/landing/explore_button_widget.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -41,8 +42,7 @@ class _LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     const double whiteContainerHeight = 270.0;
-    const double swipeThreshold =
-        200.0; // Threshold for swipe gesture velocity
+    const double swipeThreshold = 200.0; // Threshold for swipe gesture velocity
 
     // Calculate image position and size
     final double imageDisplayHeight =
@@ -101,6 +101,22 @@ class _LandingPageState extends State<LandingPage> {
                         height: imageDisplayHeight,
                       ),
                     ),
+                    if (index ==
+                        3) // Conditionally add button for the fourth page
+                      Positioned(
+                        bottom:
+                            60, // Position at the bottom of the screen as shown in design
+                        left: 0,
+                        right: 0,
+                        child: Center(
+                          child: ExploreButton(
+                            onTap: () {
+                              // TODO: Implement navigation or action for the button
+                              print('Let\'s explore button tapped!');
+                            },
+                          ),
+                        ),
+                      ),
                   ],
                 );
               },
