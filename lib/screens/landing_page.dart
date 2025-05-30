@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:front/utils/constants.dart';
-import 'package:front/l10n/app_localizations.dart';
-import 'package:auto_size_text/auto_size_text.dart';
+import '../utils/constants.dart';
+import '../widgets/landing/model_viewer_widget.dart';
+import '../widgets/landing/header_container_widget.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -13,14 +13,36 @@ class LandingPage extends StatefulWidget {
 class _LandingPageState extends State<LandingPage> {
   final int _totalPages = 4;
   int _currentPage = 0;
-
+  final PageController _pageController = PageController(initialPage: 0);
   final double titleApproxHeight = 55;
   final double subtitleApproxHeight = 38;
+
+  // List of 3D model paths for each page
+  final List<String> _modelPaths = [
+    'assets/3D/napoleon_on_a_horse.glb',
+    'assets/3D/bust_of_nefertiti_foia_results.glb',
+    'assets/3D/psx_painting.glb',
+    'assets/3D/death_crowning_innocence_1896.glb',
+  ];
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  void _onPageChanged(int page) {
+    setState(() {
+      _currentPage = page;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     const double whiteContainerHeight = 270.0;
+    const double swipeThreshold =
+        200.0; // Threshold for swipe gesture velocity
 
     // Calculate image position and size
     final double imageDisplayHeight =
@@ -30,7 +52,7 @@ class _LandingPageState extends State<LandingPage> {
     // Adjust top padding to raise the image: divide remaining space by a larger factor for top padding
     final double imageTopPaddingInPinkArea =
         (pinkAreaHeight - imageDisplayHeight) > 0
-            ? (pinkAreaHeight - imageDisplayHeight) / 2.8 // Raised from center
+            ? (pinkAreaHeight - imageDisplayHeight) / 4 // Raised from center
             : 0;
     final double imageActualTop =
         whiteContainerHeight + imageTopPaddingInPinkArea;
@@ -38,9 +60,6 @@ class _LandingPageState extends State<LandingPage> {
     // Adjusted SizedBox heights for more compact content in white box
     final double spaceBetweenTitleSubtitle =
         (150.0 - (48.0 + titleApproxHeight)) * 0.45;
-    final double spaceBetweenSubtitleIndicator =
-        (220.0 - (150.0 + subtitleApproxHeight)) * 0.85;
-
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -50,111 +69,89 @@ class _LandingPageState extends State<LandingPage> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              AppColors.gradientStart, // Top page
-              AppColors.gradientMiddle, // Middle page (F4D1D8)
-              AppColors.gradientEnd, // Bottom page
+              AppColors.gradientStart,
+              AppColors.gradientMiddle,
+              AppColors.gradientEnd,
             ],
             stops: [0.0, 0.5, 1.0],
           ),
         ),
         child: Stack(
           children: [
-            // 3D Artwork Image
-            Positioned(
-              top: imageActualTop,
-              left: 0,
-              right: 0,
-              child: Image.asset(
-                'assets/images/3D.png',
-                fit: BoxFit.fitWidth,
-              ),
+            // Layer 1: PageView for 3D models
+            PageView.builder(
+              controller: _pageController,
+              onPageChanged: _onPageChanged,
+              physics:
+                  const NeverScrollableScrollPhysics(), // Disable direct PageView scrolling
+              itemCount: _totalPages,
+              itemBuilder: (context, index) {
+                // Each page in PageView is a Stack with the positioned 3D model
+                return Stack(
+                  children: [
+                    // Position the 3D model
+                    Positioned(
+                      top: imageActualTop,
+                      left: 0,
+                      right: 0,
+                      height: imageDisplayHeight,
+                      child: LandingModelViewer(
+                        modelPath: _modelPaths[index],
+                        isTableModel: index == 3,
+                        height: imageDisplayHeight,
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
-
-            // Top white curved container
+            // Layer 2: White container with swipe gesture detection
             Positioned(
               top: 0,
               left: 0,
               right: 0,
-              child: Container(
-                height: whiteContainerHeight,
-                decoration: const BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(AppSizes.borderRadius),
-                    bottomRight: Radius.circular(AppSizes.borderRadius),
-                  ),
-                ),
-                child: SafeArea(
-                  bottom: false,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: AppSizes.pagePadding > 0
-                                  ? AppSizes.pagePadding
-                                  : AppSizes.pagePadding / 2),
-                          child: AutoSizeText(
-                            AppLocalizations.of(context)!.landingPageTitle,
-                            style: Theme.of(context).textTheme.headlineMedium,
-                            textAlign: TextAlign.center,
-                            maxLines: 2,
-                            minFontSize: 18,
-                          ),
-                        ),
-                        SizedBox(height: spaceBetweenTitleSubtitle),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: AppSizes.pagePadding + 10 > 0
-                                  ? AppSizes.pagePadding + 15
-                                  : AppSizes.pagePadding / 2 + 15),
-                          child: AutoSizeText(
-                            AppLocalizations.of(context)!.landingPageSubtitle,
-                            style: AppTextStyles.subtitleStyle,
-                            textAlign: TextAlign.center,
-                            maxLines: 4,
-                            minFontSize: 12,
-                          ),
-                        ),
-                        SizedBox(height: spaceBetweenSubtitleIndicator),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              left: AppSizes.pagePadding > 0
-                                  ? AppSizes.pagePadding
-                                  : AppSizes.pagePadding / 2),
-                          child: _buildPageIndicator(),
-                        ),
-                      ],
-                    ),
-                  ),
+              child: GestureDetector(
+                onHorizontalDragEnd: (DragEndDetails details) {
+                  if (details.primaryVelocity == null) return; // No swipe
+                  // Check if swipe velocity is significant enough
+                  if (details.primaryVelocity!.abs() < swipeThreshold) return;
+
+                  if (details.primaryVelocity! < 0) {
+                    // Swiped left (finger moves R to L)
+                    if (_currentPage < _totalPages - 1) {
+                      _pageController.nextPage(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeOut,
+                      );
+                    }
+                  } else if (details.primaryVelocity! > 0) {
+                    // Swiped right (finger moves L to R)
+                    if (_currentPage > 0) {
+                      _pageController.previousPage(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeOut,
+                      );
+                    }
+                  }
+                },
+                child: HeaderContainer(
+                  currentPage: _currentPage,
+                  totalPages: _totalPages,
+                  onPageTapped: (index) {
+                    _pageController.animateToPage(
+                      index,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                    );
+                  },
+                  height: whiteContainerHeight,
+                  spaceBetweenTitleSubtitle: spaceBetweenTitleSubtitle,
                 ),
               ),
             ),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildPageIndicator() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: List.generate(_totalPages, (index) {
-        return Container(
-          width: AppSizes.indicatorSize,
-          height: AppSizes.indicatorSize,
-          margin:
-              const EdgeInsets.symmetric(horizontal: AppSizes.indicatorSpacing / 2),
-          decoration: BoxDecoration(
-            color: _currentPage == index
-                ? AppColors.purpleIndicator
-                : AppColors.purpleIndicatorLight,
-            shape: BoxShape.circle,
-          ),
-        );
-      }),
     );
   }
 }
