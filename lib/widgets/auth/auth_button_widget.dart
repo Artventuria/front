@@ -29,14 +29,6 @@ class AuthButton extends StatelessWidget {
           ],
         ),
         borderRadius: BorderRadius.circular(23.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.2),
-            spreadRadius: 1,
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
       ),
       child: Material(
         color: Colors.transparent,
@@ -49,7 +41,7 @@ class AuthButton extends StatelessWidget {
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 18,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
