@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import '../utils/constants.dart';
-import '../widgets/landing/model_viewer_widget.dart';
-import '../widgets/landing/header_container_widget.dart';
-import '../widgets/landing/explore_button_widget.dart';
+import '../../utils/constants.dart';
+import '../../widgets/landing/model_viewer_widget.dart';
+import '../../widgets/landing/page_indicator_widget.dart';
+import '../../widgets/landing/explore_button_widget.dart';
+import '../../widgets/common/white_header_container.dart';
+import '../../l10n/app_localizations.dart';
+import '../auth/sign_in_page.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -38,16 +41,47 @@ class _LandingPageState extends State<LandingPage> {
     });
   }
 
+  String _getLocalizedTitle(BuildContext context, int index) {
+    final l10n = AppLocalizations.of(context)!;
+    switch (index) {
+      case 0:
+        return l10n.landingPage1Title;
+      case 1:
+        return l10n.landingPage2Title;
+      case 2:
+        return l10n.landingPage3Title;
+      case 3:
+        return l10n.landingPage4Title;
+      default:
+        return '';
+    }
+  }
+
+  String _getLocalizedSubtitle(BuildContext context, int index) {
+    final l10n = AppLocalizations.of(context)!;
+    switch (index) {
+      case 0:
+        return l10n.landingPage1Subtitle;
+      case 1:
+        return l10n.landingPage2Subtitle;
+      case 2:
+        return l10n.landingPage3Subtitle;
+      case 3:
+        return l10n.landingPage4Subtitle;
+      default:
+        return '';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
     const double whiteContainerHeight = 270.0;
     const double swipeThreshold = 200.0; // Threshold for swipe gesture velocity
 
     // Calculate image position and size
     final double imageDisplayHeight =
-        size.height * 0.60; // Slightly larger image
-    final double pinkAreaHeight = size.height - whiteContainerHeight;
+        MediaQuery.of(context).size.height * 0.60; // Slightly larger image
+    final double pinkAreaHeight = MediaQuery.of(context).size.height - whiteContainerHeight;
 
     // Adjust top padding to raise the image: divide remaining space by a larger factor for top padding
     final double imageTopPaddingInPinkArea =
@@ -101,18 +135,20 @@ class _LandingPageState extends State<LandingPage> {
                         height: imageDisplayHeight,
                       ),
                     ),
-                    if (index ==
-                        3) // Conditionally add button for the fourth page
+                    if (index == 3) // Conditionally add button for the fourth page
                       Positioned(
-                        bottom:
-                            60, // Position at the bottom of the screen as shown in design
+                        bottom: 60, // Position at the bottom of the screen as shown in design
                         left: 0,
                         right: 0,
                         child: Center(
                           child: ExploreButton(
                             onTap: () {
-                              // TODO: Implement navigation or action for the button
-                              print('Let\'s explore button tapped!');
+                              // Navigate to the sign in page
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const SignInPage(),
+                                ),
+                              );
                             },
                           ),
                         ),
@@ -150,18 +186,22 @@ class _LandingPageState extends State<LandingPage> {
                     }
                   }
                 },
-                child: HeaderContainer(
-                  currentPage: _currentPage,
-                  totalPages: _totalPages,
-                  onPageTapped: (index) {
-                    _pageController.animateToPage(
-                      index,
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                  },
+                child: WhiteHeaderContainer(
+                  title: _getLocalizedTitle(context, _currentPage),
+                  subtitle: _getLocalizedSubtitle(context, _currentPage),
                   height: whiteContainerHeight,
                   spaceBetweenTitleSubtitle: spaceBetweenTitleSubtitle,
+                  bottomWidget: PageIndicator(
+                    totalPages: _totalPages,
+                    currentPage: _currentPage,
+                    onPageTapped: (index) {
+                      _pageController.animateToPage(
+                        index,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                      );
+                    },
+                  ),
                 ),
               ),
             ),

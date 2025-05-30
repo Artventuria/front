@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:front/screens/landing_page.dart';
+import 'package:front/screens/landing/landing_page.dart';
 import 'package:front/utils/constants.dart';
 import 'package:front/l10n/app_localizations.dart';
 
