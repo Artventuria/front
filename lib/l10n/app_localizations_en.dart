@@ -35,4 +35,41 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get landingPage4Subtitle =>
       'Become the world\'s top art hunter! Step into Artventuria and prove it.';
+
+  @override
+  String get signInTitle => 'Welcome to Artventuria';
+
+  @override
+  String get signInSubtitle =>
+      'Sign in or create your account to begin your artistic adventure.';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get signInButton => 'Sign In';
+
+  @override
+  String get noAccount => 'Don\'t have an account? Sign up';
+
+  @override
+  String get forgotPassword => 'Forgotten password ?';
+
+  @override
+  String get emailRequired => 'Please enter your email';
+
+  @override
+  String get emailInvalid => 'Please enter a valid email';
+
+  @override
+  String get passwordRequired => 'Please enter your password';
+
+  @override
+  String get passwordTooShort => 'Password must be at least 6 characters';
+
+  @override
+  String get exploreButton => 'Let\'s explore!';
 }
