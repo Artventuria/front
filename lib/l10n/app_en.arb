@@ -29,8 +29,15 @@
   "hasAccount": "Already have an account? Sign in",
   "usernameRequired": "Please enter your username",
 
-  "resetPasswordTitle": "Reset password",
+  "resetPasswordTitle": "Reset",
   "resetPasswordSubtitle": "Enter your email and we'll send you a reset link.",
   "sendButton": "Send",
-  "backToSignIn": "Back to Sign in"
+  "backToSignIn": "Back to Sign in",
+
+  "newPasswordTitle": "Create new password",
+  "newPasswordSubtitle": "Your password must be different from previous used passwords.",
+  "newPassword": "New password",
+  "confirmPassword": "Confirm password",
+  "resetButton": "Reset",
+  "passwordsDoNotMatch": "Passwords do not match"
 }

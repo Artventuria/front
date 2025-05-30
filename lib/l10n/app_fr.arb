@@ -32,5 +32,12 @@
   "resetPasswordTitle": "Réinitialiser le mot de passe",
   "resetPasswordSubtitle": "Saisissez votre email et nous vous enverrons un lien de réinitialisation.",
   "sendButton": "Envoyer",
-  "backToSignIn": "Retour à la connexion"
+  "backToSignIn": "Retour à la connexion",
+
+  "newPasswordTitle": "Créer un nouveau mot de passe",
+  "newPasswordSubtitle": "Votre mot de passe doit être différent des mots de passe précédemment utilisés.",
+  "newPassword": "Nouveau mot de passe",
+  "confirmPassword": "Confirmer le mot de passe",
+  "resetButton": "Réinitialiser le mot de passe",
+  "passwordsDoNotMatch": "Les mots de passe ne correspondent pas"
 }

@@ -105,4 +105,23 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get backToSignIn => 'Retour à la connexion';
+
+  @override
+  String get newPasswordTitle => 'Créer un nouveau mot de passe';
+
+  @override
+  String get newPasswordSubtitle =>
+      'Votre mot de passe doit être différent des mots de passe précédemment utilisés.';
+
+  @override
+  String get newPassword => 'Nouveau mot de passe';
+
+  @override
+  String get confirmPassword => 'Confirmer le mot de passe';
+
+  @override
+  String get resetButton => 'Réinitialiser le mot de passe';
+
+  @override
+  String get passwordsDoNotMatch => 'Les mots de passe ne correspondent pas';
 }

@@ -257,7 +257,7 @@ abstract class AppLocalizations {
   /// No description provided for @resetPasswordTitle.
   ///
   /// In en, this message translates to:
-  /// **'Reset password'**
+  /// **'Reset'**
   String get resetPasswordTitle;
 
   /// No description provided for @resetPasswordSubtitle.
@@ -277,6 +277,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Back to Sign in'**
   String get backToSignIn;
+
+  /// No description provided for @newPasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create new password'**
+  String get newPasswordTitle;
+
+  /// No description provided for @newPasswordSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your password must be different from previous used passwords.'**
+  String get newPasswordSubtitle;
+
+  /// No description provided for @newPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New password'**
+  String get newPassword;
+
+  /// No description provided for @confirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm password'**
+  String get confirmPassword;
+
+  /// No description provided for @resetButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get resetButton;
+
+  /// No description provided for @passwordsDoNotMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get passwordsDoNotMatch;
 }
 
 class _AppLocalizationsDelegate

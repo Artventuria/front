@@ -93,7 +93,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get usernameRequired => 'Please enter your username';
 
   @override
-  String get resetPasswordTitle => 'Reset password';
+  String get resetPasswordTitle => 'Reset';
 
   @override
   String get resetPasswordSubtitle =>
@@ -104,4 +104,23 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get backToSignIn => 'Back to Sign in';
+
+  @override
+  String get newPasswordTitle => 'Create new password';
+
+  @override
+  String get newPasswordSubtitle =>
+      'Your password must be different from previous used passwords.';
+
+  @override
+  String get newPassword => 'New password';
+
+  @override
+  String get confirmPassword => 'Confirm password';
+
+  @override
+  String get resetButton => 'Reset';
+
+  @override
+  String get passwordsDoNotMatch => 'Passwords do not match';
 }
