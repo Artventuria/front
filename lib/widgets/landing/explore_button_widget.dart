@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:front/l10n/app_localizations.dart';
 
 class ExploreButton extends StatelessWidget {
   final VoidCallback onTap;
@@ -43,9 +44,9 @@ class ExploreButton extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  'Let\'s explore!',
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context)!.exploreButton,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
