@@ -4,6 +4,7 @@ import '../../utils/constants.dart';
 import '../../widgets/auth/auth_button_widget.dart';
 import '../../widgets/auth/auth_input_field_widget.dart';
 import '../../widgets/common/white_header_container.dart';
+import 'sign_up_page.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -118,7 +119,12 @@ class _SignInPageState extends State<SignInPage> {
                       Center(
                         child: TextButton(
                           onPressed: () {
-                            // TODO: Navigate to sign up page
+                            // Navigate to sign up page
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => const SignUpPage(),
+                              ),
+                            );
                           },
                           child: Text(
                             l10n.noAccount,
