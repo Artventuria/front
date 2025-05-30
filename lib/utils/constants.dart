@@ -15,7 +15,7 @@ class AppColors {
 class AppTextStyles {
   static final headlineStyle = GoogleFonts.merriweather(
     fontSize: 26,
-    fontWeight: FontWeight.w300,
+    fontWeight: FontWeight.w600,
     color: AppColors.textPrimary,
     height: 1.5,
   );
