@@ -20,5 +20,12 @@
   "emailInvalid": "Veuillez saisir un email valide",
   "passwordRequired": "Veuillez saisir votre mot de passe",
   "passwordTooShort": "Le mot de passe doit contenir au moins 6 caractères",
-  "exploreButton": "Commençons !"
+  "exploreButton": "Commençons !",
+
+  "signUpTitle": "Créez Votre Compte",
+  "signUpSubtitle": "Rejoignez l'aventure et commencez à construire votre collection.",
+  "username": "Nom d'utilisateur",
+  "createButton": "Créer",
+  "hasAccount": "Vous avez déjà un compte ? Connectez-vous",
+  "usernameRequired": "Veuillez saisir votre nom d'utilisateur"
 }

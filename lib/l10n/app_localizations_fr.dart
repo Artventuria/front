@@ -73,4 +73,23 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get exploreButton => 'Commençons !';
+
+  @override
+  String get signUpTitle => 'Créez Votre Compte';
+
+  @override
+  String get signUpSubtitle =>
+      'Rejoignez l\'aventure et commencez à construire votre collection.';
+
+  @override
+  String get username => 'Nom d\'utilisateur';
+
+  @override
+  String get createButton => 'Créer';
+
+  @override
+  String get hasAccount => 'Vous avez déjà un compte ? Connectez-vous';
+
+  @override
+  String get usernameRequired => 'Veuillez saisir votre nom d\'utilisateur';
 }

@@ -217,6 +217,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Let\'s explore!'**
   String get exploreButton;
+
+  /// No description provided for @signUpTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Your Account'**
+  String get signUpTitle;
+
+  /// No description provided for @signUpSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Join the adventure and start building your collection.'**
+  String get signUpSubtitle;
+
+  /// No description provided for @username.
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get username;
+
+  /// No description provided for @createButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get createButton;
+
+  /// No description provided for @hasAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account? Sign in'**
+  String get hasAccount;
+
+  /// No description provided for @usernameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your username'**
+  String get usernameRequired;
 }
 
 class _AppLocalizationsDelegate

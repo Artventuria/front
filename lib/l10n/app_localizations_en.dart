@@ -72,4 +72,23 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get exploreButton => 'Let\'s explore!';
+
+  @override
+  String get signUpTitle => 'Create Your Account';
+
+  @override
+  String get signUpSubtitle =>
+      'Join the adventure and start building your collection.';
+
+  @override
+  String get username => 'Username';
+
+  @override
+  String get createButton => 'Create';
+
+  @override
+  String get hasAccount => 'Already have an account? Sign in';
+
+  @override
+  String get usernameRequired => 'Please enter your username';
 }

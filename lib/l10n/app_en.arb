@@ -20,5 +20,12 @@
   "emailInvalid": "Please enter a valid email",
   "passwordRequired": "Please enter your password",
   "passwordTooShort": "Password must be at least 6 characters",
-  "exploreButton": "Let's explore!"
+  "exploreButton": "Let's explore!",
+
+  "signUpTitle": "Create Your Account",
+  "signUpSubtitle": "Join the adventure and start building your collection.",
+  "username": "Username",
+  "createButton": "Create",
+  "hasAccount": "Already have an account? Sign in",
+  "usernameRequired": "Please enter your username"
 }
