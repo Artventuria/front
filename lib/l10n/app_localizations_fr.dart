@@ -92,4 +92,17 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get usernameRequired => 'Veuillez saisir votre nom d\'utilisateur';
+
+  @override
+  String get resetPasswordTitle => 'Réinitialiser le mot de passe';
+
+  @override
+  String get resetPasswordSubtitle =>
+      'Saisissez votre email et nous vous enverrons un lien de réinitialisation.';
+
+  @override
+  String get sendButton => 'Envoyer';
+
+  @override
+  String get backToSignIn => 'Retour à la connexion';
 }

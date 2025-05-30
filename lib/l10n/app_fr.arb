@@ -27,5 +27,10 @@
   "username": "Nom d'utilisateur",
   "createButton": "Créer",
   "hasAccount": "Vous avez déjà un compte ? Connectez-vous",
-  "usernameRequired": "Veuillez saisir votre nom d'utilisateur"
+  "usernameRequired": "Veuillez saisir votre nom d'utilisateur",
+
+  "resetPasswordTitle": "Réinitialiser le mot de passe",
+  "resetPasswordSubtitle": "Saisissez votre email et nous vous enverrons un lien de réinitialisation.",
+  "sendButton": "Envoyer",
+  "backToSignIn": "Retour à la connexion"
 }

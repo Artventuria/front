@@ -253,6 +253,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please enter your username'**
   String get usernameRequired;
+
+  /// No description provided for @resetPasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset password'**
+  String get resetPasswordTitle;
+
+  /// No description provided for @resetPasswordSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email and we\'ll send you a reset link.'**
+  String get resetPasswordSubtitle;
+
+  /// No description provided for @sendButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get sendButton;
+
+  /// No description provided for @backToSignIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Sign in'**
+  String get backToSignIn;
 }
 
 class _AppLocalizationsDelegate

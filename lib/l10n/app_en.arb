@@ -27,5 +27,10 @@
   "username": "Username",
   "createButton": "Create",
   "hasAccount": "Already have an account? Sign in",
-  "usernameRequired": "Please enter your username"
+  "usernameRequired": "Please enter your username",
+
+  "resetPasswordTitle": "Reset password",
+  "resetPasswordSubtitle": "Enter your email and we'll send you a reset link.",
+  "sendButton": "Send",
+  "backToSignIn": "Back to Sign in"
 }

@@ -91,4 +91,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get usernameRequired => 'Please enter your username';
+
+  @override
+  String get resetPasswordTitle => 'Reset password';
+
+  @override
+  String get resetPasswordSubtitle =>
+      'Enter your email and we\'ll send you a reset link.';
+
+  @override
+  String get sendButton => 'Send';
+
+  @override
+  String get backToSignIn => 'Back to Sign in';
 }
