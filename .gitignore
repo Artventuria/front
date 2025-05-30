@@ -58,3 +58,13 @@ Thumbs.db
 
 # Additional Flutter generated files
 /.dart_tool/
+
+# Generated files
+*.g.dart
+*.freezed.dart
+*.mocks.dart
+*.pb.dart
+*.gen.dart
+*.config.dart
+generated_*
+
