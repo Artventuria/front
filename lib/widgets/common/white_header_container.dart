@@ -50,13 +50,12 @@ class WhiteHeaderContainer extends StatelessWidget {
               bottom: false,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(height: topPadding), // Top padding inside SafeArea
+                  const Spacer(flex: 2),
                   Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: AppSizes.pagePadding > 0
-                          ? AppSizes.pagePadding
-                          : AppSizes.pagePadding / 2,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24.0,
                     ),
                     child: AutoSizeText(
                       title,
@@ -68,10 +67,8 @@ class WhiteHeaderContainer extends StatelessWidget {
                   ),
                   SizedBox(height: spaceBetweenTitleSubtitle),
                   Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: (AppSizes.pagePadding + 10) > 0
-                          ? AppSizes.pagePadding + 15
-                          : (AppSizes.pagePadding / 2) + 15,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 39.0,
                     ),
                     child: AutoSizeText(
                       subtitle,
@@ -81,8 +78,9 @@ class WhiteHeaderContainer extends StatelessWidget {
                       minFontSize: 12,
                     ),
                   ),
-                  const SizedBox(height: 10.0), // Margin below subtitle
-                  const Spacer(),
+                  const Spacer(
+                      flex:
+                          3),
                   if (bottomWidget != null)
                     Padding(
                       padding: const EdgeInsets.only(bottom: 16.0),
