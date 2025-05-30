@@ -68,3 +68,12 @@ Thumbs.db
 *.config.dart
 generated_*
 
+# Generated files for native plugins
+**/generated_plugin_registrant.*
+**/generated_plugins.*
+
+# Temporary directories
+.dart_tool/
+build/
+
+
