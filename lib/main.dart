@@ -2,19 +2,45 @@ import 'package:flutter/material.dart';
 import 'package:front/screens/landing/landing_page.dart';
 import 'package:front/utils/constants.dart';
 import 'package:front/l10n/app_localizations.dart';
+import 'package:front/services/deep_link_service.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final DeepLinkService _deepLinkService = DeepLinkService();
+  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the deep link service after the initial build
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initializeDeepLinks();
+    });
+  }
+
+  void _initializeDeepLinks() {
+    // Initialize the deep link service with the navigator context
+    if (_navigatorKey.currentContext != null) {
+      _deepLinkService.initialize(_navigatorKey.currentContext!);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Artventuria',
       debugShowCheckedModeBanner: false,
+      navigatorKey: _navigatorKey, // Navigator key for deep link service
       // i18n configuration
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
