@@ -3,6 +3,7 @@
 .packages
 .pub-cache/
 .pub/
+.flutter-plugins-dependencies
 
 # Build outputs
 build/
@@ -57,3 +58,22 @@ Thumbs.db
 
 # Additional Flutter generated files
 /.dart_tool/
+
+# Generated files
+*.g.dart
+*.freezed.dart
+*.mocks.dart
+*.pb.dart
+*.gen.dart
+*.config.dart
+generated_*
+
+# Generated files for native plugins
+**/generated_plugin_registrant.*
+**/generated_plugins.*
+
+# Temporary directories
+.dart_tool/
+build/
+
+
