@@ -30,7 +30,7 @@ class _SignUpPageState extends State<SignUpPage> {
   void _signUp() {
     if (_formKey.currentState?.validate() ?? false) {
       // TODO: Implement sign up logic
-      print(
+      debugPrint(
           'Sign up with username: ${_usernameController.text}, email: ${_emailController.text}');
     }
   }

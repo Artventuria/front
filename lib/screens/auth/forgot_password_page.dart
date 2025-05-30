@@ -26,11 +26,12 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   void _sendResetLink() {
     if (_formKey.currentState?.validate() ?? false) {
       // TODO: Implement password reset logic
-      print('Send password reset link to: ${_emailController.text}');
+      debugPrint('Send password reset link to: ${_emailController.text}');
       // Show a snackbar to inform the user
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Password reset link sent to: ${_emailController.text}'),
+          content:
+              Text('Password reset link sent to: ${_emailController.text}'),
           duration: const Duration(seconds: 3),
         ),
       );
@@ -69,7 +70,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 title: l10n.resetPasswordTitle,
                 subtitle: l10n.resetPasswordSubtitle,
                 height: whiteContainerHeight,
-                topPadding: 40.0, // Augmentation du padding supérieur pour un meilleur centrage
+                topPadding: 40.0,
               ),
             ),
             // Form content

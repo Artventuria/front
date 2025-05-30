@@ -29,7 +29,7 @@ class _SignInPageState extends State<SignInPage> {
   void _signIn() {
     if (_formKey.currentState?.validate() ?? false) {
       // TODO: Implement sign in logic
-      print('Sign in with email: ${_emailController.text}');
+      debugPrint('Sign in with email: ${_emailController.text}');
     }
   }
 
