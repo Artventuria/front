@@ -1,5 +1,11 @@
 {
   "@@locale": "en",
-  "landingPageTitle": "Discover & collect artworks",
-  "landingPageSubtitle": "Scan NFC tags in museums to uncover masterpieces 🔍"
+  "landingPage1Title": "Discover & Collect Art 🔍",
+  "landingPage1Subtitle": "Scan NFC tags in museums to find masterpieces.",
+  "landingPage2Title": "Build Your Personal Museum 🏛️",
+  "landingPage2Subtitle": "Each scan adds art to your unique collection. Create your digital museum!",
+  "landingPage3Title": "Unlock Rewards & Climb Ranks ⭐",
+  "landingPage3Subtitle": "Earn points and badges as you explore. Level up and show off your art-hunting skills!",
+  "landingPage4Title": "Compete Nationally & Globally 🏆",
+  "landingPage4Subtitle": "Become the world's top art hunter! Step into Artventuria and prove it."
 }

@@ -98,17 +98,53 @@ abstract class AppLocalizations {
     Locale('fr')
   ];
 
-  /// No description provided for @landingPageTitle.
+  /// No description provided for @landingPage1Title.
   ///
   /// In en, this message translates to:
-  /// **'Discover & collect artworks'**
-  String get landingPageTitle;
+  /// **'Discover & Collect Art 🔍'**
+  String get landingPage1Title;
 
-  /// No description provided for @landingPageSubtitle.
+  /// No description provided for @landingPage1Subtitle.
   ///
   /// In en, this message translates to:
-  /// **'Scan NFC tags in museums to uncover masterpieces 🔍'**
-  String get landingPageSubtitle;
+  /// **'Scan NFC tags in museums to find masterpieces.'**
+  String get landingPage1Subtitle;
+
+  /// No description provided for @landingPage2Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Build Your Personal Museum 🏛️'**
+  String get landingPage2Title;
+
+  /// No description provided for @landingPage2Subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Each scan adds art to your unique collection. Create your digital museum!'**
+  String get landingPage2Subtitle;
+
+  /// No description provided for @landingPage3Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock Rewards & Climb Ranks ⭐'**
+  String get landingPage3Title;
+
+  /// No description provided for @landingPage3Subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Earn points and badges as you explore. Level up and show off your art-hunting skills!'**
+  String get landingPage3Subtitle;
+
+  /// No description provided for @landingPage4Title.
+  ///
+  /// In en, this message translates to:
+  /// **'Compete Nationally & Globally 🏆'**
+  String get landingPage4Title;
+
+  /// No description provided for @landingPage4Subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Become the world\'s top art hunter! Step into Artventuria and prove it.'**
+  String get landingPage4Subtitle;
 }
 
 class _AppLocalizationsDelegate
