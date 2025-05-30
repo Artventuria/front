@@ -8,6 +8,7 @@ class WhiteHeaderContainer extends StatelessWidget {
   final double height;
   final Widget? bottomWidget;
   final double spaceBetweenTitleSubtitle;
+  final double topPadding;
 
   const WhiteHeaderContainer({
     super.key,
@@ -16,6 +17,7 @@ class WhiteHeaderContainer extends StatelessWidget {
     required this.height,
     this.bottomWidget,
     this.spaceBetweenTitleSubtitle = 16.0,
+    this.topPadding = 20.0,
   });
 
   @override
@@ -49,7 +51,7 @@ class WhiteHeaderContainer extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 20), // Top padding inside SafeArea
+                  SizedBox(height: topPadding), // Top padding inside SafeArea
                   Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: AppSizes.pagePadding > 0
