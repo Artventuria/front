@@ -153,6 +153,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               fontSize: 14,
                               fontWeight: FontWeight.w300,
                             ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       ),
