@@ -41,7 +41,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get signInSubtitle =>
-      'Connectez-vous ou créez votre compte pour commencer votre aventure artistique.';
+      'Connecte-toi ou crée ton compte pour commencer ton aventure artistique.';
 
   @override
   String get email => 'Email';
@@ -53,7 +53,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get signInButton => 'Se connecter';
 
   @override
-  String get noAccount => 'Pas encore de compte ? Inscrivez-vous';
+  String get noAccount => 'Pas encore de compte ? Inscris-toi';
 
   @override
   String get forgotPassword => 'Mot de passe oublié ?';
@@ -75,11 +75,11 @@ class AppLocalizationsFr extends AppLocalizations {
   String get exploreButton => 'Commençons !';
 
   @override
-  String get signUpTitle => 'Créez Votre Compte';
+  String get signUpTitle => 'Crée ton compte';
 
   @override
   String get signUpSubtitle =>
-      'Rejoignez l\'aventure et commencez à construire votre collection.';
+      'Rejoins l\'aventure et commence à construire ta collection.';
 
   @override
   String get username => 'Nom d\'utilisateur';
@@ -88,17 +88,17 @@ class AppLocalizationsFr extends AppLocalizations {
   String get createButton => 'Créer';
 
   @override
-  String get hasAccount => 'Vous avez déjà un compte ? Connectez-vous';
+  String get hasAccount => 'Tu as déjà un compte ? Connecte-toi';
 
   @override
   String get usernameRequired => 'Veuillez saisir votre nom d\'utilisateur';
 
   @override
-  String get resetPasswordTitle => 'Réinitialiser le mot de passe';
+  String get resetPasswordTitle => 'Réinitialise ton mot de passe';
 
   @override
   String get resetPasswordSubtitle =>
-      'Saisissez votre email et nous vous enverrons un lien de réinitialisation.';
+      'Saisis ton email et nous t\'enverrons un lien de réinitialisation.';
 
   @override
   String get sendButton => 'Envoyer';
@@ -120,7 +120,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get confirmPassword => 'Confirmer le mot de passe';
 
   @override
-  String get resetButton => 'Réinitialiser le mot de passe';
+  String get resetButton => 'Réinitialiser';
 
   @override
   String get passwordsDoNotMatch => 'Les mots de passe ne correspondent pas';

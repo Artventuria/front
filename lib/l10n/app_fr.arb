@@ -10,11 +10,11 @@
   "landingPage4Subtitle": "Deviens le N°1 des chasseurs d'art ! Entre dans Artventuria et prouve-le.",
 
   "signInTitle": "Bienvenue sur Artventuria",
-  "signInSubtitle": "Connectez-vous ou créez votre compte pour commencer votre aventure artistique.",
+  "signInSubtitle": "Connecte-toi ou crée ton compte pour commencer ton aventure artistique.",
   "email": "Email",
   "password": "Mot de passe",
   "signInButton": "Se connecter",
-  "noAccount": "Pas encore de compte ? Inscrivez-vous",
+  "noAccount": "Pas encore de compte ? Inscris-toi",
   "forgotPassword": "Mot de passe oublié ?",
   "emailRequired": "Veuillez saisir votre email",
   "emailInvalid": "Veuillez saisir un email valide",
@@ -22,15 +22,15 @@
   "passwordTooShort": "Le mot de passe doit contenir au moins 6 caractères",
   "exploreButton": "Commençons !",
 
-  "signUpTitle": "Créez Votre Compte",
-  "signUpSubtitle": "Rejoignez l'aventure et commencez à construire votre collection.",
+  "signUpTitle": "Crée ton compte",
+  "signUpSubtitle": "Rejoins l'aventure et commence à construire ta collection.",
   "username": "Nom d'utilisateur",
   "createButton": "Créer",
-  "hasAccount": "Vous avez déjà un compte ? Connectez-vous",
+  "hasAccount": "Tu as déjà un compte ? Connecte-toi",
   "usernameRequired": "Veuillez saisir votre nom d'utilisateur",
 
-  "resetPasswordTitle": "Réinitialiser le mot de passe",
-  "resetPasswordSubtitle": "Saisissez votre email et nous vous enverrons un lien de réinitialisation.",
+  "resetPasswordTitle": "Réinitialise ton mot de passe",
+  "resetPasswordSubtitle": "Saisis ton email et nous t'enverrons un lien de réinitialisation.",
   "sendButton": "Envoyer",
   "backToSignIn": "Retour à la connexion",
 
@@ -38,6 +38,6 @@
   "newPasswordSubtitle": "Votre mot de passe doit être différent des mots de passe précédemment utilisés.",
   "newPassword": "Nouveau mot de passe",
   "confirmPassword": "Confirmer le mot de passe",
-  "resetButton": "Réinitialiser le mot de passe",
+  "resetButton": "Réinitialiser",
   "passwordsDoNotMatch": "Les mots de passe ne correspondent pas"
 }
