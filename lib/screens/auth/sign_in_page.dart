@@ -5,6 +5,7 @@ import '../../widgets/auth/auth_button_widget.dart';
 import '../../widgets/auth/auth_input_field_widget.dart';
 import '../../widgets/common/white_header_container.dart';
 import '../../widgets/common/disable_swipe_back.dart';
+import '../../widgets/common/page_transition.dart';
 import 'sign_up_page.dart';
 import 'forgot_password_page.dart';
 
@@ -124,9 +125,7 @@ class _SignInPageState extends State<SignInPage> {
                           onPressed: () {
                             // Navigate to sign up page
                             Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) => const SignUpPage(),
-                              ),
+                              AppPageTransition.fade(const SignUpPage()),
                             );
                           },
                           child: Text(
@@ -144,9 +143,7 @@ class _SignInPageState extends State<SignInPage> {
                           onPressed: () {
                             // Navigate to forgot password page
                             Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) => const ForgotPasswordPage(),
-                              ),
+                              AppPageTransition.fade(const ForgotPasswordPage()),
                             );
                           },
                           child: Text(

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:uni_links/uni_links.dart';
 import '../screens/auth/reset_password_page.dart';
+import '../widgets/common/page_transition.dart';
 
 /// Service to handle deep links in the app
 class DeepLinkService {
@@ -76,9 +77,7 @@ class DeepLinkService {
   void _navigateToResetPassword(BuildContext context, String token) {
     // Use Navigator.pushAndRemoveUntil to clear the navigation stack
     Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(
-        builder: (context) => ResetPasswordPage(token: token),
-      ),
+      AppPageTransition.fade(ResetPasswordPage(token: token)),
       (route) => false, // Clear all previous routes
     );
   }

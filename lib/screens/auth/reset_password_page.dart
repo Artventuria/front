@@ -5,6 +5,7 @@ import '../../widgets/auth/auth_button_widget.dart';
 import '../../widgets/auth/auth_input_field_widget.dart';
 import '../../widgets/common/white_header_container.dart';
 import '../../widgets/common/disable_swipe_back.dart';
+import '../../widgets/common/page_transition.dart';
 import 'sign_in_page.dart';
 
 class ResetPasswordPage extends StatefulWidget {
@@ -53,9 +54,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         if (!mounted) return;
 
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => const SignInPage(),
-          ),
+          AppPageTransition.fade(const SignInPage()),
         );
       });
     }
@@ -155,9 +154,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           onPressed: () {
                             // Navigate to sign in page
                             Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) => const SignInPage(),
-                              ),
+                              AppPageTransition.fade(const SignInPage()),
                             );
                           },
                           child: Text(
