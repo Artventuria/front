@@ -4,6 +4,7 @@ import '../../utils/constants.dart';
 import '../../widgets/auth/auth_button_widget.dart';
 import '../../widgets/auth/auth_input_field_widget.dart';
 import '../../widgets/common/white_header_container.dart';
+import '../../widgets/common/disable_swipe_back.dart';
 import 'sign_in_page.dart';
 
 class ResetPasswordPage extends StatefulWidget {
@@ -65,8 +66,9 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     final l10n = AppLocalizations.of(context)!;
     const double whiteContainerHeight = 270.0;
 
-    return Scaffold(
-      body: Container(
+    return DisableSwipeBack(
+      child: Scaffold(
+        body: Container(
         width: double.infinity,
         height: double.infinity,
         decoration: const BoxDecoration(
@@ -175,6 +177,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
             ),
           ],
         ),
+      ),
       ),
     );
   }
