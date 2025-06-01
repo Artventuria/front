@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:front/l10n/app_localizations.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
@@ -32,7 +33,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       // Close keyboard before submitting
       FocusScope.of(context).unfocus();
       // TODO: Implement password reset logic
-      debugPrint('Send password reset link to: ${_emailController.text}');
+      if (kDebugMode) {
+        debugPrint('Send password reset link request');
+      }
       // Show a snackbar to inform the user
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

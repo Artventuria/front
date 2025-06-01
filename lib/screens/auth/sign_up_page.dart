@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:front/l10n/app_localizations.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
@@ -34,8 +35,9 @@ class _SignUpPageState extends State<SignUpPage> {
   void _signUp() {
     if (_formKey.currentState?.validate() ?? false) {
       // TODO: Implement sign up logic
-      debugPrint(
-          'Sign up with username: ${_usernameController.text}, email: ${_emailController.text}');
+      if (kDebugMode) {
+        debugPrint('Processing sign up request');
+      }
     }
   }
 

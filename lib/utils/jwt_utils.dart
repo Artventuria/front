@@ -12,7 +12,7 @@ class JwtUtils {
       return jwt.payload as Map<String, dynamic>;
     } catch (e) {
       if (kDebugMode) {
-        print('Error decoding JWT: $e');
+        debugPrint('Error decoding JWT: $e');
       }
       return null;
     }
@@ -45,7 +45,7 @@ class JwtUtils {
           .isAfter(expirationDate.subtract(const Duration(seconds: 10)));
     } catch (e) {
       if (kDebugMode) {
-        print('Error checking JWT expiration: $e');
+        debugPrint('Error checking JWT expiration: $e');
       }
       return true; // In case of doubt, we consider the token is expired
     }
@@ -78,7 +78,7 @@ class JwtUtils {
       return expirationDate.difference(now).inSeconds;
     } catch (e) {
       if (kDebugMode) {
-        print('Error calculating time to expiry: $e');
+        debugPrint('Error calculating time to expiry: $e');
       }
       return null;
     }

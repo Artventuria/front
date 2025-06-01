@@ -73,7 +73,9 @@ class AuthService {
       final refreshToken = await _storageService.getRefreshToken();
 
       if (refreshToken == null || refreshToken.isEmpty) {
-        debugPrint('No refresh token available');
+        if (kDebugMode) {
+          debugPrint('No refresh token available');
+        }
         return false;
       }
 
@@ -95,11 +97,15 @@ class AuthService {
 
         return true;
       } else {
-        debugPrint('Error refreshing token: ${response.statusCode}');
+        if (kDebugMode) {
+          debugPrint('Error refreshing token: ${response.statusCode}');
+        }
         return false;
       }
     } catch (e) {
-      debugPrint('Exception refreshing token: $e');
+      if (kDebugMode) {
+        debugPrint('Exception refreshing token: $e');
+      }
       return false;
     }
   }
@@ -119,10 +125,14 @@ class AuthService {
         try {
           // The token will be automatically added by the Dio interceptor
           await _apiService.post('/api/auth/logout');
-          debugPrint('Server logout request successful');
+          if (kDebugMode) {
+            debugPrint('Server logout request successful');
+          }
         } catch (e) {
           // Continue with local logout even if server logout fails
-          debugPrint('Server logout request failed: $e');
+          if (kDebugMode) {
+            debugPrint('Server logout request failed: $e');
+          }
         }
       }
 
@@ -132,9 +142,13 @@ class AuthService {
       // 3. Notify the app that user has manually logged out
       _authNotificationService.notifyManualLogout();
 
-      debugPrint('Logout completed successfully');
+      if (kDebugMode) {
+        debugPrint('Logout completed successfully');
+      }
     } catch (e) {
-      debugPrint('Logout error: $e');
+      if (kDebugMode) {
+        debugPrint('Logout error: $e');
+      }
       // Ensure we always clear local data even in case of error
       await _storageService.clearAuthData();
     }

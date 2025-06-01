@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:front/l10n/app_localizations.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
@@ -39,8 +40,10 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       FocusScope.of(context).unfocus();
 
       // TODO: Implement password reset logic using the token
-      debugPrint('Reset password with token: ${widget.token}');
-      debugPrint('New password: ${_newPasswordController.text}');
+      if (kDebugMode) {
+        debugPrint('Processing password reset request');
+        debugPrint('Token received: ${widget.token.substring(0, 3)}...');
+      }
 
       // Verify the widget is still mounted before using context
       if (!mounted) return;

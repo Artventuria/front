@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:uni_links/uni_links.dart';
 import '../screens/auth/reset_password_page.dart';
 import '../widgets/common/page_transition.dart';
@@ -37,7 +38,9 @@ class DeepLinkService {
         _handleDeepLink(initialLink, _storedContext!);
       }
     } catch (e) {
-      debugPrint('Error getting initial deep link: $e');
+      if (kDebugMode) {
+        debugPrint('Error getting initial deep link: $e');
+      }
     }
 
     // Listen for deep links while the app is open
@@ -48,13 +51,17 @@ class DeepLinkService {
         _deepLinkStreamController.add(link);
       }
     }, onError: (error) {
-      debugPrint('Error handling deep link: $error');
+      if (kDebugMode) {
+        debugPrint('Error handling deep link: $error');
+      }
     });
   }
 
   /// Handle received deep link
   void _handleDeepLink(String link, BuildContext context) {
-    debugPrint('Deep link received: $link');
+    if (kDebugMode) {
+      debugPrint('Deep link received: $link');
+    }
 
     try {
       final uri = Uri.parse(link);
@@ -65,11 +72,15 @@ class DeepLinkService {
         if (token != null && token.isNotEmpty) {
           _navigateToResetPassword(context, token);
         } else {
-          debugPrint('Token missing in deep link');
+          if (kDebugMode) {
+            debugPrint('Token missing in deep link');
+          }
         }
       }
     } catch (e) {
-      debugPrint('Error handling deep link: $e');
+      if (kDebugMode) {
+        debugPrint('Error handling deep link: $e');
+      }
     }
   }
 

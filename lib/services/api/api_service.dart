@@ -63,7 +63,7 @@ class ApiService {
             if (_isRefreshing) {
               // A refresh is already in progress, wait for it to finish
               if (kDebugMode) {
-                print('Refresh already in progress, waiting...');
+                debugPrint('Refresh already in progress, waiting...');
               }
               refreshSuccess = await _refreshCompleter!.future;
             } else {
@@ -116,7 +116,7 @@ class ApiService {
                     retryCount++;
                   } catch (e) {
                     if (kDebugMode) {
-                      print(
+                      debugPrint(
                           'Error refreshing token (attempt ${retryCount}): $e');
                     }
                     retryCount++;
@@ -152,7 +152,7 @@ class ApiService {
                 }
               } catch (e) {
                 if (kDebugMode) {
-                  print('Error refreshing token: $e');
+                  debugPrint('Error refreshing token: $e');
                 }
                 // Notify other waiting requests of the failure
                 _refreshCompleter!.complete(false);

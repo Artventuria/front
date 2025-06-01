@@ -12,7 +12,9 @@ class EnvConfigService {
       try {
         await dotenv.load(fileName: '.env');
       } catch (e) {
-        debugPrint('Error loading environment files: $e');
+        if (kDebugMode) {
+          debugPrint('Error loading environment files: $e');
+        }
         // Set default values if no env file is found
         dotenv.env['API_BASE_URL'] = 'http://localhost:8081';
       }

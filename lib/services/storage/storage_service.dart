@@ -38,7 +38,7 @@ class StorageService {
       // Take the closest date to be sure
       if (jwtExpiresAt.isBefore(expiresAt)) {
         if (kDebugMode) {
-          print(
+          debugPrint(
               'JWT expiration ($jwtExpiresAt) different from server expiration ($expiresAt), using JWT value');
         }
         await _secureStorage.write(
@@ -101,7 +101,7 @@ class StorageService {
         }
       } catch (e) {
         if (kDebugMode) {
-          print('Error parsing expiration date: $e');
+          debugPrint('Error parsing expiration date: $e');
         }
       }
     }
