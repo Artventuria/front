@@ -117,7 +117,7 @@ class ApiService {
                   } catch (e) {
                     if (kDebugMode) {
                       debugPrint(
-                          'Error refreshing token (attempt ${retryCount}): $e');
+                          'Error refreshing token (attempt $retryCount): $e');
                     }
                     retryCount++;
                     if (retryCount > maxRetries) break;
