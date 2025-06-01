@@ -1,11 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:front/screens/landing/landing_page.dart';
 import 'package:front/utils/constants.dart';
 import 'package:front/l10n/app_localizations.dart';
 import 'package:front/services/deep_link_service.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'services/env_config_service.dart';
+import 'services/service_locator.dart';
+import 'widgets/auth/auth_wrapper.dart';
+
+void main() async {
+  // Ensure Flutter binding is initialized
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  // Initialize environment configuration
+  await EnvConfigService.initialize();
+  
+  // Initialize service locator and services
+  await ServiceLocator.init();
+  
+  runApp(
+    MultiProvider(
+      providers: ServiceLocator.providers,
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -72,7 +90,7 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
       ),
-      home: const LandingPage(),
+      home: const AuthWrapper(),
     );
   }
 }
