@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:front/l10n/app_localizations.dart';
+import 'package:keyboard_dismisser/keyboard_dismisser.dart';
+
 import '../../utils/constants.dart';
 import '../../widgets/auth/auth_button_widget.dart';
 import '../../widgets/auth/auth_input_field_widget.dart';
@@ -27,6 +29,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   void _sendResetLink() {
     if (_formKey.currentState?.validate() ?? false) {
+      // Close keyboard before submitting
+      FocusScope.of(context).unfocus();
       // TODO: Implement password reset logic
       debugPrint('Send password reset link to: ${_emailController.text}');
       // Show a snackbar to inform the user
@@ -46,100 +50,123 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     const double whiteContainerHeight = 270.0;
 
     return DisableSwipeBack(
-      child: Scaffold(
-        body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              AppColors.gradientStart,
-              AppColors.gradientMiddle,
-              AppColors.gradientEnd,
-            ],
-            stops: [0.0, 0.5, 1.0],
-          ),
-        ),
-        child: Stack(
-          children: [
-            // White container at the top
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: WhiteHeaderContainer(
-                title: l10n.resetPasswordTitle,
-                subtitle: l10n.resetPasswordSubtitle,
-                height: whiteContainerHeight,
-                topPadding: 40.0,
+      child: KeyboardDismisser(
+        gestures: const [
+          GestureType.onTap,
+          GestureType.onPanUpdateDownDirection
+        ],
+        child: Scaffold(
+          // Prevent content from being hidden by the keyboard
+          resizeToAvoidBottomInset: true,
+          body: Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  AppColors.gradientStart,
+                  AppColors.gradientMiddle,
+                  AppColors.gradientEnd,
+                ],
+                stops: [0.0, 0.5, 1.0],
               ),
             ),
-            // Form content
-            Positioned(
-              top: whiteContainerHeight + 50,
-              left: 0,
-              right: 0,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Email field
-                      AuthInputField(
-                        label: l10n.email,
-                        controller: _emailController,
-                        keyboardType: TextInputType.emailAddress,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return l10n.emailRequired;
-                          }
-                          if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                              .hasMatch(value)) {
-                            return l10n.emailInvalid;
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 40),
-                      // Send button
-                      Center(
-                        child: AuthButton(
-                          text: l10n.sendButton,
-                          onTap: _sendResetLink,
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-                      // Back to sign in text button
-                      Center(
-                        child: TextButton(
-                          onPressed: () {
-                            // Navigate to sign in page
-                            Navigator.of(context).pushReplacement(
-                              AppPageTransition.fade(const SignInPage()),
-                            );
-                          },
-                          child: Text(
-                            l10n.backToSignIn,
-                            style: const TextStyle(
-                              color: AppColors.textPrimary,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w300,
-                            ),
+            child: Stack(
+              children: [
+                // White container at the top
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  child: WhiteHeaderContainer(
+                    title: l10n.resetPasswordTitle,
+                    subtitle: l10n.resetPasswordSubtitle,
+                    height: whiteContainerHeight,
+                    topPadding: 40.0,
+                  ),
+                ),
+                // Scrollable form with keyboard optimization
+                Positioned(
+                  top: whiteContainerHeight,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: SingleChildScrollView(
+                    // Close keyboard when scrolling down
+                    keyboardDismissBehavior:
+                        ScrollViewKeyboardDismissBehavior.onDrag,
+                    // Ensure scroll works even with little content
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 30, bottom: 40),
+                      child: Form(
+                        key: _formKey,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Email field
+                              AuthInputField(
+                                label: l10n.email,
+                                controller: _emailController,
+                                keyboardType: TextInputType.emailAddress,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return l10n.emailRequired;
+                                  }
+                                  if (!RegExp(
+                                          r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                      .hasMatch(value)) {
+                                    return l10n.emailInvalid;
+                                  }
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(height: 24),
+                              // Send button
+                              Center(
+                                child: AuthButton(
+                                  text: l10n.sendButton,
+                                  onTap: _sendResetLink,
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              // Back to sign in text button
+                              Center(
+                                child: TextButton(
+                                  onPressed: () {
+                                    // Close keyboard before navigating
+                                    FocusScope.of(context).unfocus();
+                                    // Navigate to sign in page
+                                    Navigator.of(context).pushReplacement(
+                                      AppPageTransition.fade(
+                                          const SignInPage()),
+                                    );
+                                  },
+                                  child: Text(
+                                    l10n.backToSignIn,
+                                    style: const TextStyle(
+                                      color: AppColors.textPrimary,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
       ),
     );
   }
