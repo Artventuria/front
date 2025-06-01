@@ -77,4 +77,8 @@ generated_*
 .dart_tool/
 build/
 
+# Environment files
+.env.development
+.env.production
+.env
 
