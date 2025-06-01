@@ -48,33 +48,45 @@ class _SignInPageState extends State<SignInPage> {
         _errorMessage = '';
       });
 
+      late bool loginSuccess;
+      String? errorMsg;
+
       try {
+        // Get the provider before async gap
         final authProvider = Provider.of<AuthProvider>(context, listen: false);
-        final success = await authProvider.login(
+
+        // Perform login operation
+        loginSuccess = await authProvider.login(
           _emailController.text.trim(),
           _passwordController.text,
         );
 
-        if (success) {
-          // Navigate to the home test page after successful login
-          if (context.mounted) {
-            Navigator.of(context).pushAndRemoveUntil(
-              AppPageTransition.fade(
-                const HomeTestPage(),
-              ),
-              (route) => false,
-            );
-          }
-        } else {
-          setState(() {
-            _errorMessage = authProvider.errorMessage;
-          });
-        }
+        // Store error message if login failed
+        errorMsg = loginSuccess ? null : authProvider.errorMessage;
       } catch (e) {
+        // Handle any exceptions
+        loginSuccess = false;
+        errorMsg = e.toString();
+      }
+
+      // Check if widget is still mounted after async operation
+      if (!mounted) return;
+
+      // Update state based on login results
+      if (loginSuccess) {
+        // Navigate to home page - this is safe since we've checked mounted
+        Navigator.of(context).pushAndRemoveUntil(
+          AppPageTransition.fade(
+            const HomeTestPage(),
+          ),
+          (route) => false,
+        );
+      } else if (errorMsg != null) {
         setState(() {
-          _errorMessage = e.toString();
+          _errorMessage = errorMsg!;
+          _isLoading = false;
         });
-      } finally {
+      } else {
         setState(() {
           _isLoading = false;
         });
