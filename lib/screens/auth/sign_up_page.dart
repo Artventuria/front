@@ -75,7 +75,7 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
             // Form content
             Positioned(
-              top: whiteContainerHeight + 50,
+              top: whiteContainerHeight + 30,
               left: 0,
               right: 0,
               child: Padding(
@@ -96,7 +96,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           return null;
                         },
                       ),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 16),
                       // Email field
                       AuthInputField(
                         label: l10n.email,
@@ -113,7 +113,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           return null;
                         },
                       ),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 16),
                       // Password field
                       AuthInputField(
                         label: l10n.password,
@@ -129,7 +129,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           return null;
                         },
                       ),
-                      const SizedBox(height: 40),
+                      const SizedBox(height: 24),
                       // Create button
                       Center(
                         child: AuthButton(
@@ -137,7 +137,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           onTap: _signUp,
                         ),
                       ),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 16),
                       // Already have an account text button
                       Center(
                         child: TextButton(
