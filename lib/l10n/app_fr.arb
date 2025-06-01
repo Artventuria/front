@@ -39,5 +39,10 @@
   "newPassword": "Nouveau mot de passe",
   "confirmPassword": "Confirmer le mot de passe",
   "resetButton": "Réinitialiser",
-  "passwordsDoNotMatch": "Les mots de passe ne correspondent pas"
+  "passwordsDoNotMatch": "Les mots de passe ne correspondent pas",
+  "sessionExpired": "Votre session a expiré. Veuillez vous reconnecter.",
+  "loginErrorInvalidCredentials": "Email ou mot de passe incorrect",
+  "loginErrorAccountBlocked": "Votre compte est bloqué",
+  "loginErrorConnection": "Erreur de connexion. Veuillez vérifier votre connexion internet et réessayer.",
+  "loginErrorUnexpected": "Une erreur inattendue est survenue. Veuillez réessayer plus tard."
 }

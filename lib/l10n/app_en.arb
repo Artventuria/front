@@ -39,5 +39,10 @@
   "newPassword": "New password",
   "confirmPassword": "Confirm password",
   "resetButton": "Reset",
-  "passwordsDoNotMatch": "Passwords do not match"
+  "passwordsDoNotMatch": "Passwords do not match",
+  "sessionExpired": "Your session has expired. Please sign in again.",
+  "loginErrorInvalidCredentials": "Email or password is incorrect",
+  "loginErrorAccountBlocked": "Your account is blocked",
+  "loginErrorConnection": "Connection error. Please check your internet connection and try again.",
+  "loginErrorUnexpected": "An unexpected error occurred. Please try again later."
 }

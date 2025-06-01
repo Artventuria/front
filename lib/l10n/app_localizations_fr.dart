@@ -124,4 +124,22 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get passwordsDoNotMatch => 'Les mots de passe ne correspondent pas';
+
+  @override
+  String get sessionExpired =>
+      'Votre session a expiré. Veuillez vous reconnecter.';
+
+  @override
+  String get loginErrorInvalidCredentials => 'Email ou mot de passe incorrect';
+
+  @override
+  String get loginErrorAccountBlocked => 'Votre compte est bloqué';
+
+  @override
+  String get loginErrorConnection =>
+      'Erreur de connexion. Veuillez vérifier votre connexion internet et réessayer.';
+
+  @override
+  String get loginErrorUnexpected =>
+      'Une erreur inattendue est survenue. Veuillez réessayer plus tard.';
 }

@@ -123,4 +123,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get passwordsDoNotMatch => 'Passwords do not match';
+
+  @override
+  String get sessionExpired =>
+      'Your session has expired. Please sign in again.';
+
+  @override
+  String get loginErrorInvalidCredentials => 'Email or password is incorrect';
+
+  @override
+  String get loginErrorAccountBlocked => 'Your account is blocked';
+
+  @override
+  String get loginErrorConnection =>
+      'Connection error. Please check your internet connection and try again.';
+
+  @override
+  String get loginErrorUnexpected =>
+      'An unexpected error occurred. Please try again later.';
 }

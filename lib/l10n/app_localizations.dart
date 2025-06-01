@@ -313,6 +313,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Passwords do not match'**
   String get passwordsDoNotMatch;
+
+  /// No description provided for @sessionExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Your session has expired. Please sign in again.'**
+  String get sessionExpired;
+
+  /// No description provided for @loginErrorInvalidCredentials.
+  ///
+  /// In en, this message translates to:
+  /// **'Email or password is incorrect'**
+  String get loginErrorInvalidCredentials;
+
+  /// No description provided for @loginErrorAccountBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account is blocked'**
+  String get loginErrorAccountBlocked;
+
+  /// No description provided for @loginErrorConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection error. Please check your internet connection and try again.'**
+  String get loginErrorConnection;
+
+  /// No description provided for @loginErrorUnexpected.
+  ///
+  /// In en, this message translates to:
+  /// **'An unexpected error occurred. Please try again later.'**
+  String get loginErrorUnexpected;
 }
 
 class _AppLocalizationsDelegate
