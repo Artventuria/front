@@ -343,6 +343,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'An unexpected error occurred. Please try again later.'**
   String get loginErrorUnexpected;
+
+  /// No description provided for @registerErrorDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'This email or username already exists'**
+  String get registerErrorDuplicate;
+
+  /// No description provided for @registerErrorUserExists.
+  ///
+  /// In en, this message translates to:
+  /// **'This username already exists'**
+  String get registerErrorUserExists;
+
+  /// No description provided for @registerErrorEmailExists.
+  ///
+  /// In en, this message translates to:
+  /// **'This email is already in use'**
+  String get registerErrorEmailExists;
+
+  /// No description provided for @registerErrorValidation.
+  ///
+  /// In en, this message translates to:
+  /// **'Please check your information'**
+  String get registerErrorValidation;
 }
 
 class _AppLocalizationsDelegate

@@ -44,5 +44,9 @@
   "loginErrorInvalidCredentials": "Email or password is incorrect",
   "loginErrorAccountBlocked": "Your account is blocked",
   "loginErrorConnection": "Connection error. Please check your internet connection and try again.",
-  "loginErrorUnexpected": "An unexpected error occurred. Please try again later."
+  "loginErrorUnexpected": "An unexpected error occurred. Please try again later.",
+  "registerErrorDuplicate": "This email or username already exists",
+  "registerErrorUserExists": "This username already exists",
+  "registerErrorEmailExists": "This email is already in use",
+  "registerErrorValidation": "Please check your information"
 }

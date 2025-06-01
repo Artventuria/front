@@ -44,5 +44,9 @@
   "loginErrorInvalidCredentials": "Email ou mot de passe incorrect",
   "loginErrorAccountBlocked": "Votre compte est bloqué",
   "loginErrorConnection": "Erreur de connexion. Veuillez vérifier votre connexion internet et réessayer.",
-  "loginErrorUnexpected": "Une erreur inattendue est survenue. Veuillez réessayer plus tard."
+  "loginErrorUnexpected": "Une erreur inattendue est survenue. Veuillez réessayer plus tard.",
+  "registerErrorDuplicate": "Cet email ou nom d'utilisateur existe déjà",
+  "registerErrorUserExists": "Cet utilisateur existe déjà",
+  "registerErrorEmailExists": "Cet email est déjà utilisé",
+  "registerErrorValidation": "Veuillez vérifier vos informations"
 }

@@ -141,4 +141,16 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get loginErrorUnexpected =>
       'An unexpected error occurred. Please try again later.';
+
+  @override
+  String get registerErrorDuplicate => 'This email or username already exists';
+
+  @override
+  String get registerErrorUserExists => 'This username already exists';
+
+  @override
+  String get registerErrorEmailExists => 'This email is already in use';
+
+  @override
+  String get registerErrorValidation => 'Please check your information';
 }

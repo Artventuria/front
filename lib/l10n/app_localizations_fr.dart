@@ -142,4 +142,17 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get loginErrorUnexpected =>
       'Une erreur inattendue est survenue. Veuillez réessayer plus tard.';
+
+  @override
+  String get registerErrorDuplicate =>
+      'Cet email ou nom d\'utilisateur existe déjà';
+
+  @override
+  String get registerErrorUserExists => 'Cet utilisateur existe déjà';
+
+  @override
+  String get registerErrorEmailExists => 'Cet email est déjà utilisé';
+
+  @override
+  String get registerErrorValidation => 'Veuillez vérifier vos informations';
 }
