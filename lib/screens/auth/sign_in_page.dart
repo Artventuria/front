@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:front/l10n/app_localizations.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
+import 'package:provider/provider.dart';
 
+import '../../providers/auth_provider.dart';
 import '../../utils/constants.dart';
 import '../../widgets/auth/auth_button_widget.dart';
 import '../../widgets/auth/auth_input_field_widget.dart';
@@ -10,6 +12,7 @@ import '../../widgets/common/disable_swipe_back.dart';
 import '../../widgets/common/page_transition.dart';
 import 'sign_up_page.dart';
 import 'forgot_password_page.dart';
+import '../../screens/authenticated/home_test_page.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -23,6 +26,9 @@ class _SignInPageState extends State<SignInPage> {
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+  bool _isLoading = false;
+  String _errorMessage = '';
+
   @override
   void dispose() {
     _emailController.dispose();
@@ -30,10 +36,65 @@ class _SignInPageState extends State<SignInPage> {
     super.dispose();
   }
 
-  void _signIn() {
+  // Helper method to get localized error message
+  String _getLocalizedErrorMessage(AppLocalizations l10n, String errorKey) {
+    switch (errorKey) {
+      case 'loginErrorInvalidCredentials':
+        return l10n.loginErrorInvalidCredentials;
+      case 'loginErrorAccountBlocked':
+        return l10n.loginErrorAccountBlocked;
+      case 'loginErrorConnection':
+        return l10n.loginErrorConnection;
+      case 'loginErrorUnexpected':
+        return l10n.loginErrorUnexpected;
+      case 'sessionExpired':
+        return l10n.sessionExpired;
+      default:
+        return errorKey; // Return the original message if no translation is found
+    }
+  }
+
+  Future<void> _signIn() async {
+    // Close keyboard first
+    FocusScope.of(context).unfocus();
+
     if (_formKey.currentState?.validate() ?? false) {
-      // TODO: Implement sign in logic
-      debugPrint('Sign in with email: ${_emailController.text}');
+      setState(() {
+        _isLoading = true;
+        _errorMessage = '';
+      });
+
+      try {
+        final authProvider = Provider.of<AuthProvider>(context, listen: false);
+        final success = await authProvider.login(
+          _emailController.text.trim(),
+          _passwordController.text,
+        );
+
+        if (success) {
+          // Navigate to the home test page after successful login
+          if (context.mounted) {
+            Navigator.of(context).pushAndRemoveUntil(
+              AppPageTransition.fade(
+                const HomeTestPage(),
+              ),
+              (route) => false,
+            );
+          }
+        } else {
+          setState(() {
+            _errorMessage = authProvider.errorMessage;
+          });
+        }
+      } catch (e) {
+        setState(() {
+          _errorMessage = e.toString();
+        });
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
   }
 
@@ -134,16 +195,33 @@ class _SignInPageState extends State<SignInPage> {
                                 },
                               ),
                               const SizedBox(height: 24),
+                              // Error message if any
+                              if (_errorMessage.isNotEmpty)
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 16.0),
+                                  child: Center(
+                                    child: Text(
+                                      // Translate error message based on key
+                                      _getLocalizedErrorMessage(l10n, _errorMessage),
+                                      style: const TextStyle(
+                                        color: AppColors.errorColor,
+                                        fontSize: 14,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+
                               // Sign in button
                               Center(
-                                child: AuthButton(
-                                  text: l10n.signInButton,
-                                  onTap: () {
-                                    // Close keyboard before validating
-                                    FocusScope.of(context).unfocus();
-                                    _signIn();
-                                  },
-                                ),
+                                child: _isLoading
+                                    ? const CircularProgressIndicator(
+                                        color: AppColors.white,
+                                      )
+                                    : AuthButton(
+                                        text: l10n.signInButton,
+                                        onTap: _signIn,
+                                      ),
                               ),
                               const SizedBox(height: 16),
                               // Link to sign up
