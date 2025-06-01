@@ -42,6 +42,10 @@ dependencies:
   flutter_svg: ^2.0.10+1
   model_viewer_plus: ^1.7.0
   uni_links: ^0.5.1 # To handle deep links
+  
+  # Keyboard UX management packages
+  keyboard_dismisser: ^3.0.0 # Fermer le clavier en tapant ailleurs
+  flutter_keyboard_visibility: ^6.0.0 # Détecter l'ouverture/fermeture du clavier
 
 dev_dependencies:
   flutter_test:
