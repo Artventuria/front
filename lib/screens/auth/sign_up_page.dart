@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
-import 'package:front/l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
+import '../../utils/error_messages_helper.dart';
+
+import '../../providers/auth_provider.dart';
+import '../../l10n/app_localizations.dart';
 import '../../utils/constants.dart';
 import '../../widgets/auth/auth_button_widget.dart';
 import '../../widgets/auth/auth_input_field_widget.dart';
@@ -10,6 +14,7 @@ import '../../widgets/common/white_header_container.dart';
 import '../../widgets/common/disable_swipe_back.dart';
 import '../../widgets/common/page_transition.dart';
 import 'sign_in_page.dart';
+import 'password_validator.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -19,10 +24,13 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  final _usernameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  bool _isLoading = false;
+  String _errorMessage = '';
 
   @override
   void dispose() {
@@ -32,11 +40,60 @@ class _SignUpPageState extends State<SignUpPage> {
     super.dispose();
   }
 
-  void _signUp() {
+  void _signUp() async {
+    // Close keyboard first
+    FocusScope.of(context).unfocus();
+
     if (_formKey.currentState?.validate() ?? false) {
-      // TODO: Implement sign up logic
+      setState(() {
+        _isLoading = true;
+        _errorMessage = '';
+      });
+
       if (kDebugMode) {
         debugPrint('Processing sign up request');
+      }
+
+      try {
+        // Get the authentication provider
+        final authProvider = Provider.of<AuthProvider>(context, listen: false);
+
+        // Try to sign up
+        final success = await authProvider.signup(
+          _usernameController.text.trim(),
+          _emailController.text.trim(),
+          _passwordController.text,
+        );
+
+        if (success && mounted) {
+          // Redirect to home page
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            '/home',
+            (route) => false,
+          );
+        } else if (mounted) {
+          // Store the error message
+          setState(() {
+            _errorMessage = authProvider.errorMessage;
+          });
+        }
+      } catch (e) {
+        if (kDebugMode) {
+          debugPrint('Error during signup: $e');
+        }
+
+        if (mounted) {
+          // Store the generic error
+          setState(() {
+            _errorMessage = "registerErrorUnexpected";
+          });
+        }
+      } finally {
+        if (mounted) {
+          setState(() {
+            _isLoading = false;
+          });
+        }
       }
     }
   }
@@ -48,17 +105,14 @@ class _SignUpPageState extends State<SignUpPage> {
 
     return DisableSwipeBack(
       child: KeyboardDismisser(
-        gestures: const [
-          GestureType.onTap,
-          GestureType.onPanUpdateDownDirection
-        ],
+        gestures: [GestureType.onTap, GestureType.onPanUpdateDownDirection],
         child: Scaffold(
           // Prevent content from being hidden by the keyboard
           resizeToAvoidBottomInset: true,
           body: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -67,7 +121,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   AppColors.gradientMiddle,
                   AppColors.gradientEnd,
                 ],
-                stops: [0.0, 0.5, 1.0],
+                stops: const [0.0, 0.5, 1.0],
               ),
             ),
             child: Stack(
@@ -142,27 +196,37 @@ class _SignUpPageState extends State<SignUpPage> {
                                 label: l10n.password,
                                 controller: _passwordController,
                                 isPassword: true,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return l10n.passwordRequired;
-                                  }
-                                  if (value.length < 6) {
-                                    return l10n.passwordTooShort;
-                                  }
-                                  return null;
-                                },
+                                validator: PasswordValidator.validate,
                               ),
                               const SizedBox(height: 24),
+                              // Show error message if any
+                              if (_errorMessage.isNotEmpty)
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 16.0),
+                                  child: Center(
+                                    child: Text(
+                                      // Show error message
+                                      ErrorMessagesHelper.getAuthErrorMessage(
+                                          AppLocalizations.of(context)!,
+                                          _errorMessage),
+                                      style: const TextStyle(
+                                        color: AppColors.errorColor,
+                                        fontSize: 14,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
                               // Create button
                               Center(
-                                child: AuthButton(
-                                  text: l10n.createButton,
-                                  onTap: () {
-                                    // Close keyboard before validating
-                                    FocusScope.of(context).unfocus();
-                                    _signUp();
-                                  },
-                                ),
+                                child: _isLoading
+                                    ? const CircularProgressIndicator(
+                                        color: AppColors.white,
+                                      )
+                                    : AuthButton(
+                                        text: l10n.createButton,
+                                        onTap: _signUp,
+                                      ),
                               ),
                               const SizedBox(height: 16),
                               // Already have an account text button
@@ -179,7 +243,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   },
                                   child: Text(
                                     l10n.hasAccount,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: AppColors.textPrimary,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w300,
