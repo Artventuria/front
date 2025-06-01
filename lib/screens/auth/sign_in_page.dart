@@ -3,6 +3,8 @@ import 'package:front/l10n/app_localizations.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:provider/provider.dart';
 
+import '../../utils/error_messages_helper.dart';
+
 import '../../providers/auth_provider.dart';
 import '../../utils/constants.dart';
 import '../../widgets/auth/auth_button_widget.dart';
@@ -34,24 +36,6 @@ class _SignInPageState extends State<SignInPage> {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
-  }
-
-  // Helper method to get localized error message
-  String _getLocalizedErrorMessage(AppLocalizations l10n, String errorKey) {
-    switch (errorKey) {
-      case 'loginErrorInvalidCredentials':
-        return l10n.loginErrorInvalidCredentials;
-      case 'loginErrorAccountBlocked':
-        return l10n.loginErrorAccountBlocked;
-      case 'loginErrorConnection':
-        return l10n.loginErrorConnection;
-      case 'loginErrorUnexpected':
-        return l10n.loginErrorUnexpected;
-      case 'sessionExpired':
-        return l10n.sessionExpired;
-      default:
-        return errorKey; // Return the original message if no translation is found
-    }
   }
 
   Future<void> _signIn() async {
@@ -202,7 +186,8 @@ class _SignInPageState extends State<SignInPage> {
                                   child: Center(
                                     child: Text(
                                       // Translate error message based on key
-                                      _getLocalizedErrorMessage(l10n, _errorMessage),
+                                      ErrorMessagesHelper.getAuthErrorMessage(
+                                          l10n, _errorMessage),
                                       style: const TextStyle(
                                         color: AppColors.errorColor,
                                         fontSize: 14,
