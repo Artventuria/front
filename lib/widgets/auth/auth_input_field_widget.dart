@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../utils/constants.dart';
 
 class AuthInputField extends StatelessWidget {
   final String label;
@@ -55,7 +56,7 @@ class AuthInputField extends StatelessWidget {
                       border: Border.all(
                         // Red border if error, otherwise transparent
                         color: state.hasError
-                            ? const Color(0xFFE57373)
+                            ? AppColors.errorColor
                             : Colors.transparent,
                         width: 1.0,
                       ),
@@ -97,20 +98,27 @@ class AuthInputField extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // Error message below the field
-                  if (state.hasError)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 6.0, left: 4.0),
+                  // Error message container with fixed height
+                  Container(
+                    height: 20, // Fixed height for error messages
+                    padding: const EdgeInsets.only(top: 4.0, left: 4.0),
+                    alignment: Alignment.centerLeft, // Align text to the left
+                    child: AnimatedOpacity(
+                      opacity: state.hasError ? 1.0 : 0.0,
+                      duration: const Duration(milliseconds: 200),
                       child: Text(
-                        state.errorText!,
+                        state.hasError ? state.errorText! : '',
                         style: const TextStyle(
-                          color: Color(0xFFE57373),
+                          color: AppColors.errorColor,
                           fontSize: 12.0,
                           fontWeight: FontWeight.w400,
                           letterSpacing: 0.2,
                         ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
+                  ),
                 ],
               );
             },

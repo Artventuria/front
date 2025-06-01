@@ -10,6 +10,7 @@ class AppColors {
   static const textPrimary = Color(0xFF6A515E);
   static const white = Colors.white;
   static const solidPinkBackground = Color(0xFFF1CBD1);
+  static const errorColor = Color(0xFFE57373);
 }
 
 class AppTextStyles {
