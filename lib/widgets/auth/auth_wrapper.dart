@@ -129,18 +129,18 @@ class _AuthWrapperState extends State<AuthWrapper> {
       );
     }
 
-    /// If it's the first launch, redirect to the landing page
+    /// If the user is authenticated, show the home test page regardless of whether it's first launch
+    /// This ensures that after successful registration, user goes to home page
+    if (authProvider.isAuthenticated) {
+      return const HomeTestPage();
+    }
+
+    /// If it's the first launch and user is not authenticated, redirect to the landing page
     if (!_hasLaunchedBefore) {
       return const LandingPage();
     }
 
     /// If the user is not authenticated, show the sign-in page
-    if (!authProvider.isAuthenticated) {
-      return const SignInPage();
-    }
-
-    /// If the user is authenticated, show the home test page
-    /// TODO: Replace with the real home page
-    return const HomeTestPage();
+    return const SignInPage();
   }
 }
