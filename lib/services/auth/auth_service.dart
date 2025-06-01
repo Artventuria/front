@@ -11,9 +11,69 @@ import '../../exceptions/auth_exception.dart';
 class AuthService {
   final ApiService _apiService;
   final StorageService _storageService;
-  final AuthNotificationService _authNotificationService = AuthNotificationService();
+  final AuthNotificationService _authNotificationService =
+      AuthNotificationService();
 
   AuthService(this._apiService, this._storageService);
+
+  // Register endpoint
+  Future<AuthResponseModel> register(
+      String username, String email, String password) async {
+    try {
+      final response = await _apiService.post(
+        '/api/auth/register',
+        data: {
+          'username': username,
+          'email': email,
+          'password': password,
+        },
+      );
+
+      final authResponse = AuthResponseModel.fromJson(response.data);
+
+      // Save tokens and user data to secure storage
+      await _storageService.saveAuthData(
+        accessToken: authResponse.tokens.accessToken,
+        refreshToken: authResponse.tokens.refreshToken,
+        expiresIn: authResponse.tokens.expiresIn,
+        user: authResponse.user,
+      );
+
+      // Notify the app that user has registered and logged in
+      _authNotificationService.notifyLoggedIn();
+
+      return authResponse;
+    } on DioException catch (e) {
+      if (e.response != null) {
+        // Handle specific error responses
+        final statusCode = e.response!.statusCode;
+        final errorData = e.response!.data;
+
+        if (statusCode == 400) {
+          if (errorData is Map && errorData.containsKey('message')) {
+            final message = errorData['message'];
+            if (message == 'User already exists') {
+              throw AuthException('registerErrorUserExists',
+                  code: 'user_exists');
+            } else if (message == 'Email already exists') {
+              throw AuthException('registerErrorEmailExists',
+                  code: 'email_exists');
+            } else {
+              throw AuthException('registerErrorValidation',
+                  code: 'validation_error');
+            }
+          }
+        } else if (statusCode == 409) {
+          throw AuthException('registerErrorDuplicate',
+              code: 'duplicate_error');
+        }
+      }
+      // Generic error
+      throw AuthException('loginErrorConnection', code: 'connection_error');
+    } catch (e) {
+      throw AuthException('registerErrorUnexpected', code: 'unexpected_error');
+    }
+  }
 
   // Login endpoint
   Future<AuthResponseModel> login(String email, String password) async {
@@ -47,9 +107,11 @@ class AuthService {
         final errorData = e.response!.data;
 
         if (statusCode == 401) {
-          throw AuthException('loginErrorInvalidCredentials', code: 'invalid_credentials');
+          throw AuthException('loginErrorInvalidCredentials',
+              code: 'invalid_credentials');
         } else if (statusCode == 403) {
-          throw AuthException('loginErrorAccountBlocked', code: 'account_blocked');
+          throw AuthException('loginErrorAccountBlocked',
+              code: 'account_blocked');
         } else if (errorData is Map && errorData.containsKey('message')) {
           throw AuthException(errorData['message']);
         }
