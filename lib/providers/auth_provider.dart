@@ -33,7 +33,7 @@ class AuthProvider with ChangeNotifier {
   Future<void> _checkCurrentAuthStatus() async {
     try {
       final isLoggedIn = await _authService.isLoggedIn();
-      
+
       if (isLoggedIn) {
         _user = await _authService.getCurrentUser();
         _status = AuthStatus.authenticated;
@@ -72,10 +72,31 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  // Signup method will be implemented here
+  // Signup method
   Future<bool> signup(String username, String email, String password) async {
-    // This will be implemented in the next step
-    return false;
+    try {
+      _status = AuthStatus.authenticating;
+      _errorMessage = '';
+      notifyListeners();
+
+      final authResponse =
+          await _authService.register(username, email, password);
+      _user = authResponse.user;
+      _status = AuthStatus.authenticated;
+      notifyListeners();
+      return true;
+    } catch (e) {
+      _status = AuthStatus.error;
+      // Store the translation key directly if it's an AuthException
+      if (e is AuthException) {
+        _errorMessage = e.message;
+      } else {
+        // Fallback for other types of exceptions
+        _errorMessage = 'registerErrorUnexpected';
+      }
+      notifyListeners();
+      return false;
+    }
   }
 
   // Logout method
