@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:front/l10n/app_localizations.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
+import 'package:provider/provider.dart';
 
 import '../../utils/constants.dart';
+import '../../utils/error_messages_helper.dart';
+import '../../providers/auth_provider.dart';
 import '../../widgets/auth/auth_button_widget.dart';
 import '../../widgets/auth/auth_input_field_widget.dart';
 import '../../widgets/common/white_header_container.dart';
 import '../../widgets/common/disable_swipe_back.dart';
 import '../../widgets/common/page_transition.dart';
 import 'sign_in_page.dart';
+import 'password_validator.dart';
 
 class ResetPasswordPage extends StatefulWidget {
   final String
@@ -26,6 +30,9 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   final TextEditingController _confirmPasswordController =
       TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  bool _isLoading = false;
+  bool _showSuccessMessage = false;
+  String _errorMessage = '';
 
   @override
   void dispose() {
@@ -34,37 +41,60 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     super.dispose();
   }
 
-  void _resetPassword() {
+  Future<void> _resetPassword() async {
     if (_formKey.currentState?.validate() ?? false) {
       // Close keyboard before submitting
       FocusScope.of(context).unfocus();
 
-      // TODO: Implement password reset logic using the token
+      setState(() {
+        _isLoading = true;
+        _showSuccessMessage = false;
+        _errorMessage = '';
+      });
+
       if (kDebugMode) {
         debugPrint('Processing password reset request');
         debugPrint('Token received: ${widget.token.substring(0, 3)}...');
       }
 
-      // Verify the widget is still mounted before using context
-      if (!mounted) return;
+      try {
+        final authProvider = Provider.of<AuthProvider>(context, listen: false);
+        final success = await authProvider.resetPassword(
+          widget.token,
+          _newPasswordController.text,
+        );
 
-      // After the reset is successful, redirect to the sign-in page
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Password has been reset successfully!'),
-          duration: Duration(seconds: 3),
-        ),
-      );
-
-      // After a few seconds, navigate to the sign-in page
-      Future.delayed(const Duration(seconds: 3), () {
-        // Verify if the widget is still mounted before using the context
         if (!mounted) return;
 
-        Navigator.of(context).pushReplacement(
-          AppPageTransition.fade(const SignInPage()),
-        );
-      });
+        setState(() {
+          _isLoading = false;
+        });
+
+        if (success) {
+          setState(() {
+            _showSuccessMessage = true;
+            _isLoading = false;
+            // Clear the form on success
+            _newPasswordController.clear();
+            _confirmPasswordController.clear();
+          });
+        } else {
+          setState(() {
+            _errorMessage = authProvider.errorMessage;
+          });
+        }
+      } catch (e) {
+        if (kDebugMode) {
+          debugPrint('Error during password reset: $e');
+        }
+
+        if (!mounted) return;
+
+        setState(() {
+          _isLoading = false;
+          _errorMessage = 'loginErrorUnexpected';
+        });
+      }
     }
   }
 
@@ -131,47 +161,81 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 24.0),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              // New password field
-                              AuthInputField(
-                                label: l10n.newPassword,
-                                controller: _newPasswordController,
-                                isPassword: true,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return l10n.passwordRequired;
-                                  }
-                                  if (value.length < 6) {
-                                    return l10n.passwordTooShort;
-                                  }
-                                  return null;
-                                },
-                              ),
-                              const SizedBox(height: 16),
-                              // Confirm password field
-                              AuthInputField(
-                                label: l10n.confirmPassword,
-                                controller: _confirmPasswordController,
-                                isPassword: true,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return l10n.passwordRequired;
-                                  }
-                                  if (value != _newPasswordController.text) {
-                                    return l10n.passwordsDoNotMatch;
-                                  }
-                                  return null;
-                                },
-                              ),
-                              const SizedBox(height: 24),
-                              // Reset button
-                              Center(
-                                child: AuthButton(
-                                  text: l10n.resetButton,
-                                  onTap: _resetPassword,
+                              // Show success message
+                              if (_showSuccessMessage)
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      bottom: 16.0, top: 16.0),
+                                  child: Center(
+                                    child: Text(
+                                      l10n.passwordResetSuccessful,
+                                      style: const TextStyle(
+                                        color: Colors.green,
+                                        fontSize: 14,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
                                 ),
-                              ),
+                              // Show error message if any
+                              if (_errorMessage.isNotEmpty)
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      bottom: 16.0, top: 16.0),
+                                  child: Center(
+                                    child: Text(
+                                      // Use the helper to translate error messages
+                                      ErrorMessagesHelper.getAuthErrorMessage(
+                                          l10n, _errorMessage),
+                                      style: const TextStyle(
+                                        color: AppColors.errorColor,
+                                        fontSize: 14,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                              // Only show form if not successful yet
+                              if (!_showSuccessMessage)
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  children: [
+                                    // New password field
+                                    AuthInputField(
+                                      label: l10n.newPassword,
+                                      controller: _newPasswordController,
+                                      isPassword: true,
+                                      validator: PasswordValidator.validate,
+                                    ),
+                                    const SizedBox(height: 16),
+                                    // Confirm password field
+                                    AuthInputField(
+                                      label: l10n.confirmPassword,
+                                      controller: _confirmPasswordController,
+                                      isPassword: true,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return l10n.passwordRequired;
+                                        }
+                                        if (value != _newPasswordController.text) {
+                                          return l10n.passwordsDoNotMatch;
+                                        }
+                                        return null;
+                                      },
+                                    ),
+                                    const SizedBox(height: 24),
+                                    // Reset button
+                                    Center(
+                                      child: AuthButton(
+                                        text: l10n.resetButton,
+                                        onTap: _isLoading ? null : _resetPassword,
+                                        isLoading: _isLoading,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               const SizedBox(height: 16),
                               // Back to sign in text button
                               Center(
