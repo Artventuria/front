@@ -31,6 +31,14 @@ class ErrorMessagesHelper {
         return l10n.registerErrorValidation;
       case 'registerErrorUnexpected':
         return l10n.loginErrorUnexpected;
+        
+      // Reset password specific errors
+      case 'resetPasswordTokenExpired':
+        return l10n.resetPasswordTokenExpired;
+      case 'resetPasswordInvalidToken':
+        return l10n.resetPasswordTokenExpired; // Using the same user-friendly message
+      case 'resetPasswordTokenNotFound':
+        return l10n.resetPasswordTokenExpired; // Using the same user-friendly message
 
       default:
         return errorKey; // Return the original message if no translation is found
