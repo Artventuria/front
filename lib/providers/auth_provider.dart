@@ -143,6 +143,27 @@ class AuthProvider with ChangeNotifier {
       return false;
     }
   }
+  
+  // Reset password method
+  Future<bool> resetPassword(String token, String newPassword) async {
+    try {
+      _errorMessage = '';
+      notifyListeners();
+      
+      final success = await _authService.resetPassword(token, newPassword);
+      return success;
+    } catch (e) {
+      // Store the translation key directly if it's an AuthException
+      if (e is AuthException) {
+        _errorMessage = e.message;
+      } else {
+        // Fallback for other types of exceptions
+        _errorMessage = 'loginErrorUnexpected';
+      }
+      notifyListeners();
+      return false;
+    }
+  }
 
   // Reset error state
   void resetError() {
