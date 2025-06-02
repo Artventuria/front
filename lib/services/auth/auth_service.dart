@@ -177,8 +177,35 @@ class AuthService {
     return await _storageService.isLoggedIn();
   }
 
-  /// Complete logout
-  /// Clears all authentication data and performs a complete cleanup
+  // Forgot password endpoint
+  // Sends a password reset link to the specified email
+  Future<bool> forgotPassword(String email) async {
+    try {
+      await _apiService.post(
+        '/api/auth/forgot-password',
+        data: {
+          'email': email,
+        },
+      );
+      
+      // If the request was successful (didn't throw), return true
+      return true;
+    } on DioException catch (e) {
+      if (kDebugMode) {
+        debugPrint('Forgot password error: $e');
+      }
+      // Handle specific error responses if needed
+      return false;
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('Unexpected error during password reset: $e');
+      }
+      return false;
+    }
+  }
+
+  // Complete logout
+  // Clears all authentication data and performs a complete cleanup
   Future<void> logout() async {
     try {
       // 1. Inform the server of the logout to invalidate tokens
