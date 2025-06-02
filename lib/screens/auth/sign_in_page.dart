@@ -211,14 +211,11 @@ class _SignInPageState extends State<SignInPage> {
 
                               // Sign in button
                               Center(
-                                child: _isLoading
-                                    ? const CircularProgressIndicator(
-                                        color: AppColors.white,
-                                      )
-                                    : AuthButton(
-                                        text: l10n.signInButton,
-                                        onTap: _signIn,
-                                      ),
+                                child: AuthButton(
+                                  text: l10n.signInButton,
+                                  onTap: _isLoading ? null : _signIn,
+                                  isLoading: _isLoading,
+                                ),
                               ),
                               const SizedBox(height: 16),
                               // Link to sign up

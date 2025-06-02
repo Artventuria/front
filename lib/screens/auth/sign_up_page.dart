@@ -219,14 +219,11 @@ class _SignUpPageState extends State<SignUpPage> {
                                 ),
                               // Create button
                               Center(
-                                child: _isLoading
-                                    ? const CircularProgressIndicator(
-                                        color: AppColors.white,
-                                      )
-                                    : AuthButton(
-                                        text: l10n.createButton,
-                                        onTap: _signUp,
-                                      ),
+                                child: AuthButton(
+                                  text: l10n.createButton,
+                                  onTap: _isLoading ? null : _signUp,
+                                  isLoading: _isLoading,
+                                ),
                               ),
                               const SizedBox(height: 16),
                               // Already have an account text button
