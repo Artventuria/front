@@ -117,6 +117,33 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  // Forgot password method
+  Future<bool> forgotPassword(String email) async {
+    try {
+      _errorMessage = '';
+      notifyListeners();
+      
+      final success = await _authService.forgotPassword(email);
+      
+      if (!success) {
+        _errorMessage = 'loginErrorConnection';
+        notifyListeners();
+      }
+      
+      return success;
+    } catch (e) {
+      // Store the translation key directly if it's an AuthException
+      if (e is AuthException) {
+        _errorMessage = e.message;
+      } else {
+        // Fallback for other types of exceptions
+        _errorMessage = 'loginErrorUnexpected';
+      }
+      notifyListeners();
+      return false;
+    }
+  }
+
   // Reset error state
   void resetError() {
     _errorMessage = '';
