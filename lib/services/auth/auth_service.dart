@@ -203,6 +203,54 @@ class AuthService {
       return false;
     }
   }
+  
+  // Reset password endpoint
+  // Resets the password using the token received by email
+  Future<bool> resetPassword(String token, String newPassword) async {
+    try {
+      final response = await _apiService.post(
+        '/api/auth/reset-password',
+        data: {
+          'token': token,
+          'newPassword': newPassword,
+        },
+      );
+      
+      // If the request was successful (status code 200), return true
+      return response.statusCode == 200;
+    } on DioException catch (e) {
+      if (kDebugMode) {
+        debugPrint('Reset password error: $e');
+      }
+      
+      if (e.response != null) {
+        // Handle specific error responses
+        final statusCode = e.response!.statusCode;
+        final errorData = e.response!.data;
+        
+        if (statusCode == 400) {
+          // Check for expired or used token message
+          if (errorData is Map && errorData.containsKey('message') && 
+              errorData['message'].toString().contains('expired or has been used')) {
+            throw AuthException('resetPasswordTokenExpired', code: 'token_expired_or_used');
+          } else {
+            throw AuthException('resetPasswordInvalidToken', code: 'invalid_token');
+          }
+        } else if (statusCode == 404) {
+          throw AuthException('resetPasswordTokenNotFound', code: 'token_not_found');
+        } else if (errorData is Map && errorData.containsKey('message')) {
+          throw AuthException(errorData['message']);
+        }
+      }
+      // Generic connection error
+      throw AuthException('loginErrorConnection', code: 'connection_error');
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('Unexpected error during password reset: $e');
+      }
+      throw AuthException('loginErrorUnexpected', code: 'unexpected_error');
+    }
+  }
 
   // Complete logout
   // Clears all authentication data and performs a complete cleanup
