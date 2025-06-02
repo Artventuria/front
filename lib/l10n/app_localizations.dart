@@ -320,6 +320,12 @@ abstract class AppLocalizations {
   /// **'Passwords do not match'**
   String get passwordsDoNotMatch;
 
+  /// No description provided for @passwordResetSuccessful.
+  ///
+  /// In en, this message translates to:
+  /// **'Your password has been reset successfully. You can now sign in with your new password. ✅'**
+  String get passwordResetSuccessful;
+
   /// No description provided for @sessionExpired.
   ///
   /// In en, this message translates to:
@@ -349,6 +355,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'An unexpected error occurred. Please try again later.'**
   String get loginErrorUnexpected;
+
+  /// No description provided for @resetPasswordTokenExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'This reset link is no longer valid. Please request a new password reset link.'**
+  String get resetPasswordTokenExpired;
 
   /// No description provided for @registerErrorDuplicate.
   ///
