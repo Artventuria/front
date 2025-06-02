@@ -129,6 +129,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get passwordsDoNotMatch => 'Passwords do not match';
 
   @override
+  String get passwordResetSuccessful =>
+      'Your password has been reset successfully. You can now sign in with your new password. ✅';
+
+  @override
   String get sessionExpired =>
       'Your session has expired. Please sign in again.';
 
@@ -145,6 +149,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get loginErrorUnexpected =>
       'An unexpected error occurred. Please try again later.';
+
+  @override
+  String get resetPasswordTokenExpired =>
+      'This reset link is no longer valid. Please request a new password reset link.';
 
   @override
   String get registerErrorDuplicate => 'This email or username already exists';

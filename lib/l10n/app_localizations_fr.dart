@@ -130,6 +130,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get passwordsDoNotMatch => 'Les mots de passe ne correspondent pas';
 
   @override
+  String get passwordResetSuccessful =>
+      'Ton mot de passe a été réinitialisé avec succès. Tu peux maintenant te connecter avec ton nouveau mot de passe. ✅';
+
+  @override
   String get sessionExpired =>
       'Votre session a expiré. Veuillez vous reconnecter.';
 
@@ -146,6 +150,10 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get loginErrorUnexpected =>
       'Une erreur inattendue est survenue. Veuillez réessayer plus tard.';
+
+  @override
+  String get resetPasswordTokenExpired =>
+      'Ce lien de réinitialisation n\'est plus valide. Veuillez demander un nouveau lien de réinitialisation.';
 
   @override
   String get registerErrorDuplicate =>
