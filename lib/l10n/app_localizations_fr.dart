@@ -107,6 +107,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get backToSignIn => 'Retour à la connexion';
 
   @override
+  String get passwordResetSuccess =>
+      'Si un compte existe avec cet email, un lien de réinitialisation a été envoyé. Veuillez vérifier votre boîte de réception. 📥';
+
+  @override
   String get newPasswordTitle => 'Créer un nouveau mot de passe';
 
   @override

@@ -278,6 +278,12 @@ abstract class AppLocalizations {
   /// **'Back to Sign in'**
   String get backToSignIn;
 
+  /// No description provided for @passwordResetSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'If an account exists with this email, a password reset link has been sent. Please check your inbox. 📥'**
+  String get passwordResetSuccess;
+
   /// No description provided for @newPasswordTitle.
   ///
   /// In en, this message translates to:

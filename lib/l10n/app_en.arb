@@ -33,6 +33,7 @@
   "resetPasswordSubtitle": "Enter your email and we'll send you a reset link.",
   "sendButton": "Send",
   "backToSignIn": "Back to Sign in",
+  "passwordResetSuccess": "If an account exists with this email, a password reset link has been sent. Please check your inbox. 📥",
 
   "newPasswordTitle": "Create new password",
   "newPasswordSubtitle": "Your password must be different from previous used passwords.",

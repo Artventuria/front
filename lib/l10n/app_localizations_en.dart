@@ -106,6 +106,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get backToSignIn => 'Back to Sign in';
 
   @override
+  String get passwordResetSuccess =>
+      'If an account exists with this email, a password reset link has been sent. Please check your inbox. 📥';
+
+  @override
   String get newPasswordTitle => 'Create new password';
 
   @override

@@ -33,6 +33,7 @@
   "resetPasswordSubtitle": "Saisis ton email et nous t'enverrons un lien de réinitialisation.",
   "sendButton": "Envoyer",
   "backToSignIn": "Retour à la connexion",
+  "passwordResetSuccess": "Si un compte existe avec cet email, un lien de réinitialisation a été envoyé. Veuillez vérifier votre boîte de réception. 📥",
 
   "newPasswordTitle": "Créer un nouveau mot de passe",
   "newPasswordSubtitle": "Votre mot de passe doit être différent des mots de passe précédemment utilisés.",
