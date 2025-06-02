@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:front/l10n/app_localizations.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
+import 'package:provider/provider.dart';
 
 import '../../utils/constants.dart';
+import '../../utils/error_messages_helper.dart';
 import '../../widgets/auth/auth_button_widget.dart';
 import '../../widgets/auth/auth_input_field_widget.dart';
 import '../../widgets/common/white_header_container.dart';
 import '../../widgets/common/disable_swipe_back.dart';
 import '../../widgets/common/page_transition.dart';
+import '../../providers/auth_provider.dart';
 import 'sign_in_page.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
@@ -21,6 +24,9 @@ class ForgotPasswordPage extends StatefulWidget {
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final TextEditingController _emailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  bool _isLoading = false;
+  bool _showSuccessMessage = false;
+  String _errorMessage = '';
 
   @override
   void dispose() {
@@ -28,22 +34,47 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     super.dispose();
   }
 
-  void _sendResetLink() {
+  Future<void> _sendResetLink() async {
     if (_formKey.currentState?.validate() ?? false) {
       // Close keyboard before submitting
       FocusScope.of(context).unfocus();
-      // TODO: Implement password reset logic
-      if (kDebugMode) {
-        debugPrint('Send password reset link request');
+
+      // Reset messages and show loading indicator
+      setState(() {
+        _isLoading = true;
+        _showSuccessMessage = false;
+        _errorMessage = '';
+      });
+
+      try {
+        final authProvider = Provider.of<AuthProvider>(context, listen: false);
+        final success =
+            await authProvider.forgotPassword(_emailController.text);
+
+        if (mounted) {
+          setState(() {
+            _isLoading = false;
+            if (success) {
+              // Show success message in the UI
+              _showSuccessMessage = true;
+            } else {
+              // Show error message in the UI
+              _errorMessage = 'loginErrorConnection';
+            }
+          });
+        }
+      } catch (e) {
+        if (kDebugMode) {
+          debugPrint('Error sending password reset: $e');
+        }
+
+        if (mounted) {
+          setState(() {
+            _isLoading = false;
+            _errorMessage = 'loginErrorUnexpected';
+          });
+        }
       }
-      // Show a snackbar to inform the user
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content:
-              Text('Password reset link sent to: ${_emailController.text}'),
-          duration: const Duration(seconds: 3),
-        ),
-      );
     }
   }
 
@@ -103,7 +134,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     // Ensure scroll works even with little content
                     physics: const AlwaysScrollableScrollPhysics(),
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 30, bottom: 40),
+                      padding: const EdgeInsets.only(top: 30, bottom: 24),
                       child: Form(
                         key: _formKey,
                         child: Padding(
@@ -128,12 +159,46 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                   return null;
                                 },
                               ),
+                              // Show success message or error message
+                              if (_showSuccessMessage)
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 16.0),
+                                  child: Center(
+                                    child: Text(
+                                      l10n.passwordResetSuccess,
+                                      style: const TextStyle(
+                                        color: Colors.green,
+                                        fontSize: 14,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                              if (_errorMessage.isNotEmpty)
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 16.0),
+                                  child: Center(
+                                    child: Text(
+                                      // Use the helper to translate error messages
+                                      ErrorMessagesHelper.getAuthErrorMessage(
+                                          l10n, _errorMessage),
+                                      style: const TextStyle(
+                                        color: AppColors.errorColor,
+                                        fontSize: 14,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
                               const SizedBox(height: 24),
                               // Send button
                               Center(
                                 child: AuthButton(
                                   text: l10n.sendButton,
-                                  onTap: _sendResetLink,
+                                  onTap: _isLoading
+                                      ? null
+                                      : () => _sendResetLink(),
+                                  isLoading: _isLoading,
                                 ),
                               ),
                               const SizedBox(height: 16),
