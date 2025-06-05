@@ -12,9 +12,10 @@ import '../../widgets/auth/auth_input_field_widget.dart';
 import '../../widgets/common/white_header_container.dart';
 import '../../widgets/common/disable_swipe_back.dart';
 import '../../widgets/common/page_transition.dart';
+import '../../screens/authenticated/home_page.dart';
 import 'sign_up_page.dart';
 import 'forgot_password_page.dart';
-import '../../screens/authenticated/home_test_page.dart';
+
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -77,7 +78,7 @@ class _SignInPageState extends State<SignInPage> {
         // Navigate to home page - this is safe since we've checked mounted
         Navigator.of(context).pushAndRemoveUntil(
           AppPageTransition.fade(
-            const HomeTestPage(),
+            const HomePage(),
           ),
           (route) => false,
         );
