@@ -51,5 +51,20 @@
   "registerErrorDuplicate": "Cet email ou nom d'utilisateur existe déjà",
   "registerErrorUserExists": "Cet utilisateur existe déjà",
   "registerErrorEmailExists": "Cet email est déjà utilisé",
-  "registerErrorValidation": "Veuillez vérifier vos informations"
+  "registerErrorValidation": "Veuillez vérifier vos informations",
+
+  "homePageExplore": "Explorer",
+  "homePageRecentlyCollected": "Récemment collectés",
+  "homePageStillToCollect": "À collectionner",
+  "options": "Options",
+  "logout": "Déconnexion",
+  "logoutConfirmTitle": "Déconnexion",
+  "logoutConfirmMessage": "Êtes-vous sûr de vouloir vous déconnecter ?",
+  "cancel": "Annuler",
+  "confirm": "Confirmer",
+  "errorLoadingArtworks": "Erreur lors du chargement des œuvres",
+  "retryButton": "Réessayer",
+  "allCollectedCongrats": "Félicitations ! Vous avez collecté toutes les œuvres disponibles.",
+  "seeMore": "voir plus",
+  "seeLess": "voir moins"
 }

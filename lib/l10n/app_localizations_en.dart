@@ -165,4 +165,47 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get registerErrorValidation => 'Please check your information';
+
+  @override
+  String get homePageExplore => 'Explore';
+
+  @override
+  String get homePageRecentlyCollected => 'Recently collected';
+
+  @override
+  String get homePageStillToCollect => 'Still to collect';
+
+  @override
+  String get options => 'Options';
+
+  @override
+  String get logout => 'Logout';
+
+  @override
+  String get logoutConfirmTitle => 'Logout';
+
+  @override
+  String get logoutConfirmMessage => 'Are you sure you want to logout?';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get confirm => 'Confirm';
+
+  @override
+  String get errorLoadingArtworks => 'Error loading artworks';
+
+  @override
+  String get retryButton => 'Retry';
+
+  @override
+  String get allCollectedCongrats =>
+      'Congratulations! You have collected all available artworks.';
+
+  @override
+  String get seeMore => 'see more';
+
+  @override
+  String get seeLess => 'see less';
 }

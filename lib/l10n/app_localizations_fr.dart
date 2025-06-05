@@ -167,4 +167,48 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get registerErrorValidation => 'Veuillez vérifier vos informations';
+
+  @override
+  String get homePageExplore => 'Explorer';
+
+  @override
+  String get homePageRecentlyCollected => 'Récemment collectés';
+
+  @override
+  String get homePageStillToCollect => 'À collectionner';
+
+  @override
+  String get options => 'Options';
+
+  @override
+  String get logout => 'Déconnexion';
+
+  @override
+  String get logoutConfirmTitle => 'Déconnexion';
+
+  @override
+  String get logoutConfirmMessage =>
+      'Êtes-vous sûr de vouloir vous déconnecter ?';
+
+  @override
+  String get cancel => 'Annuler';
+
+  @override
+  String get confirm => 'Confirmer';
+
+  @override
+  String get errorLoadingArtworks => 'Erreur lors du chargement des œuvres';
+
+  @override
+  String get retryButton => 'Réessayer';
+
+  @override
+  String get allCollectedCongrats =>
+      'Félicitations ! Vous avez collecté toutes les œuvres disponibles.';
+
+  @override
+  String get seeMore => 'voir plus';
+
+  @override
+  String get seeLess => 'voir moins';
 }
