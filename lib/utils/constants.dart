@@ -23,6 +23,10 @@ class AppColors {
   static const textDarkGrey = Color(0xFF666666);
   static const pointsBackground = Color(0xFFFFF4E8);
   static const pointsColor = Color(0xFFFFA176);
+
+  // Circular artwork gradient colors
+  static const circularGradientStart = Color(0xFFFFA176);
+  static const circularGradientEnd = Color(0xFF888DFA);
 }
 
 class AppTextStyles {
