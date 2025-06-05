@@ -41,7 +41,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get signInSubtitle =>
-      'Connectez-vous ou créez votre compte pour commencer votre aventure artistique.';
+      'Connecte-toi ou crée ton compte pour commencer ton aventure artistique.';
 
   @override
   String get email => 'Email';
@@ -53,7 +53,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get signInButton => 'Se connecter';
 
   @override
-  String get noAccount => 'Pas encore de compte ? Inscrivez-vous';
+  String get noAccount => 'Pas encore de compte ? Inscris-toi';
 
   @override
   String get forgotPassword => 'Mot de passe oublié ?';
@@ -73,4 +73,98 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get exploreButton => 'Commençons !';
+
+  @override
+  String get signUpTitle => 'Crée ton compte';
+
+  @override
+  String get signUpSubtitle =>
+      'Rejoins l\'aventure et commence à construire ta collection.';
+
+  @override
+  String get username => 'Nom d\'utilisateur';
+
+  @override
+  String get createButton => 'Créer';
+
+  @override
+  String get hasAccount => 'Tu as déjà un compte ? Connecte-toi';
+
+  @override
+  String get usernameRequired => 'Veuillez saisir votre nom d\'utilisateur';
+
+  @override
+  String get resetPasswordTitle => 'Réinitialise ton mot de passe';
+
+  @override
+  String get resetPasswordSubtitle =>
+      'Saisis ton email et nous t\'enverrons un lien de réinitialisation.';
+
+  @override
+  String get sendButton => 'Envoyer';
+
+  @override
+  String get backToSignIn => 'Retour à la connexion';
+
+  @override
+  String get passwordResetSuccess =>
+      'Si un compte existe avec cet email, un lien de réinitialisation a été envoyé. Veuillez vérifier votre boîte de réception. 📥';
+
+  @override
+  String get newPasswordTitle => 'Créer un nouveau mot de passe';
+
+  @override
+  String get newPasswordSubtitle =>
+      'Votre mot de passe doit être différent des mots de passe précédemment utilisés.';
+
+  @override
+  String get newPassword => 'Nouveau mot de passe';
+
+  @override
+  String get confirmPassword => 'Confirmer le mot de passe';
+
+  @override
+  String get resetButton => 'Réinitialiser';
+
+  @override
+  String get passwordsDoNotMatch => 'Les mots de passe ne correspondent pas';
+
+  @override
+  String get passwordResetSuccessful =>
+      'Ton mot de passe a été réinitialisé avec succès. Tu peux maintenant te connecter avec ton nouveau mot de passe. ✅';
+
+  @override
+  String get sessionExpired =>
+      'Votre session a expiré. Veuillez vous reconnecter.';
+
+  @override
+  String get loginErrorInvalidCredentials => 'Email ou mot de passe incorrect';
+
+  @override
+  String get loginErrorAccountBlocked => 'Votre compte est bloqué';
+
+  @override
+  String get loginErrorConnection =>
+      'Erreur de connexion. Veuillez vérifier votre connexion internet et réessayer.';
+
+  @override
+  String get loginErrorUnexpected =>
+      'Une erreur inattendue est survenue. Veuillez réessayer plus tard.';
+
+  @override
+  String get resetPasswordTokenExpired =>
+      'Ce lien de réinitialisation n\'est plus valide. Veuillez demander un nouveau lien de réinitialisation.';
+
+  @override
+  String get registerErrorDuplicate =>
+      'Cet email ou nom d\'utilisateur existe déjà';
+
+  @override
+  String get registerErrorUserExists => 'Cet utilisateur existe déjà';
+
+  @override
+  String get registerErrorEmailExists => 'Cet email est déjà utilisé';
+
+  @override
+  String get registerErrorValidation => 'Veuillez vérifier vos informations';
 }

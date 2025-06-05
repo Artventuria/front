@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class AuthButton extends StatelessWidget {
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final String text;
   final double width;
   final double height;
+  final bool isLoading;
 
   const AuthButton({
     super.key,
@@ -12,6 +13,7 @@ class AuthButton extends StatelessWidget {
     required this.text,
     this.width = 155,
     this.height = 46,
+    this.isLoading = false,
   });
 
   @override
@@ -29,29 +31,30 @@ class AuthButton extends StatelessWidget {
           ],
         ),
         borderRadius: BorderRadius.circular(23.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.2),
-            spreadRadius: 1,
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
       ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(23.0),
-          onTap: onTap,
+          onTap: isLoading ? null : onTap,
           child: Center(
-            child: Text(
-              text,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            child: isLoading
+                ? const SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                      strokeWidth: 2.0,
+                    ),
+                  )
+                : Text(
+                    text,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
           ),
         ),
       ),

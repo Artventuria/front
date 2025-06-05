@@ -20,5 +20,36 @@
   "emailInvalid": "Please enter a valid email",
   "passwordRequired": "Please enter your password",
   "passwordTooShort": "Password must be at least 6 characters",
-  "exploreButton": "Let's explore!"
+  "exploreButton": "Let's explore!",
+
+  "signUpTitle": "Create Your Account",
+  "signUpSubtitle": "Join the adventure and start building your collection.",
+  "username": "Username",
+  "createButton": "Create",
+  "hasAccount": "Already have an account? Sign in",
+  "usernameRequired": "Please enter your username",
+
+  "resetPasswordTitle": "Reset",
+  "resetPasswordSubtitle": "Enter your email and we'll send you a reset link.",
+  "sendButton": "Send",
+  "backToSignIn": "Back to Sign in",
+  "passwordResetSuccess": "If an account exists with this email, a password reset link has been sent. Please check your inbox. 📥",
+
+  "newPasswordTitle": "Create new password",
+  "newPasswordSubtitle": "Your password must be different from previous used passwords.",
+  "newPassword": "New password",
+  "confirmPassword": "Confirm password",
+  "resetButton": "Reset",
+  "passwordsDoNotMatch": "Passwords do not match",
+  "passwordResetSuccessful": "Your password has been reset successfully. You can now sign in with your new password. ✅",
+  "sessionExpired": "Your session has expired. Please sign in again.",
+  "loginErrorInvalidCredentials": "Email or password is incorrect",
+  "loginErrorAccountBlocked": "Your account is blocked",
+  "loginErrorConnection": "Connection error. Please check your internet connection and try again.",
+  "loginErrorUnexpected": "An unexpected error occurred. Please try again later.",
+  "resetPasswordTokenExpired": "This reset link is no longer valid. Please request a new password reset link.",
+  "registerErrorDuplicate": "This email or username already exists",
+  "registerErrorUserExists": "This username already exists",
+  "registerErrorEmailExists": "This email is already in use",
+  "registerErrorValidation": "Please check your information"
 }

@@ -1,44 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:front/l10n/app_localizations.dart';
-import 'package:keyboard_dismisser/keyboard_dismisser.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:provider/provider.dart';
+import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 import '../../utils/error_messages_helper.dart';
 
 import '../../providers/auth_provider.dart';
+import '../../l10n/app_localizations.dart';
 import '../../utils/constants.dart';
 import '../../widgets/auth/auth_button_widget.dart';
 import '../../widgets/auth/auth_input_field_widget.dart';
 import '../../widgets/common/white_header_container.dart';
 import '../../widgets/common/disable_swipe_back.dart';
 import '../../widgets/common/page_transition.dart';
-import 'sign_up_page.dart';
-import 'forgot_password_page.dart';
-import '../../screens/authenticated/home_test_page.dart';
+import 'sign_in_page.dart';
+import 'password_validator.dart';
 
-class SignInPage extends StatefulWidget {
-  const SignInPage({super.key});
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
 
   @override
-  State<SignInPage> createState() => _SignInPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _SignInPageState extends State<SignInPage> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
+  final _usernameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   bool _isLoading = false;
   String _errorMessage = '';
 
   @override
   void dispose() {
+    _usernameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
 
-  Future<void> _signIn() async {
+  void _signUp() async {
     // Close keyboard first
     FocusScope.of(context).unfocus();
 
@@ -48,48 +50,50 @@ class _SignInPageState extends State<SignInPage> {
         _errorMessage = '';
       });
 
-      late bool loginSuccess;
-      String? errorMsg;
+      if (kDebugMode) {
+        debugPrint('Processing sign up request');
+      }
 
       try {
-        // Get the provider before async gap
+        // Get the authentication provider
         final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
-        // Perform login operation
-        loginSuccess = await authProvider.login(
+        // Try to sign up
+        final success = await authProvider.signup(
+          _usernameController.text.trim(),
           _emailController.text.trim(),
           _passwordController.text,
         );
 
-        // Store error message if login failed
-        errorMsg = loginSuccess ? null : authProvider.errorMessage;
+        if (success && mounted) {
+          // Redirect to home page
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            '/home',
+            (route) => false,
+          );
+        } else if (mounted) {
+          // Store the error message
+          setState(() {
+            _errorMessage = authProvider.errorMessage;
+          });
+        }
       } catch (e) {
-        // Handle any exceptions
-        loginSuccess = false;
-        errorMsg = e.toString();
-      }
+        if (kDebugMode) {
+          debugPrint('Error during signup: $e');
+        }
 
-      // Check if widget is still mounted after async operation
-      if (!mounted) return;
-
-      // Update state based on login results
-      if (loginSuccess) {
-        // Navigate to home page - this is safe since we've checked mounted
-        Navigator.of(context).pushAndRemoveUntil(
-          AppPageTransition.fade(
-            const HomeTestPage(),
-          ),
-          (route) => false,
-        );
-      } else if (errorMsg != null) {
-        setState(() {
-          _errorMessage = errorMsg!;
-          _isLoading = false;
-        });
-      } else {
-        setState(() {
-          _isLoading = false;
-        });
+        if (mounted) {
+          // Store the generic error
+          setState(() {
+            _errorMessage = "registerErrorUnexpected";
+          });
+        }
+      } finally {
+        if (mounted) {
+          setState(() {
+            _isLoading = false;
+          });
+        }
       }
     }
   }
@@ -101,17 +105,14 @@ class _SignInPageState extends State<SignInPage> {
 
     return DisableSwipeBack(
       child: KeyboardDismisser(
-        gestures: const [
-          GestureType.onTap,
-          GestureType.onPanUpdateDownDirection
-        ],
+        gestures: [GestureType.onTap, GestureType.onPanUpdateDownDirection],
         child: Scaffold(
           // Prevent content from being hidden by the keyboard
           resizeToAvoidBottomInset: true,
           body: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -120,7 +121,7 @@ class _SignInPageState extends State<SignInPage> {
                   AppColors.gradientMiddle,
                   AppColors.gradientEnd,
                 ],
-                stops: [0.0, 0.5, 1.0],
+                stops: const [0.0, 0.5, 1.0],
               ),
             ),
             child: Stack(
@@ -131,9 +132,10 @@ class _SignInPageState extends State<SignInPage> {
                   left: 0,
                   right: 0,
                   child: WhiteHeaderContainer(
-                    title: l10n.signInTitle,
-                    subtitle: l10n.signInSubtitle,
+                    title: l10n.signUpTitle,
+                    subtitle: l10n.signUpSubtitle,
                     height: whiteContainerHeight,
+                    topPadding: 40.0,
                   ),
                 ),
                 // Form content
@@ -152,12 +154,26 @@ class _SignInPageState extends State<SignInPage> {
                       padding: const EdgeInsets.only(top: 30, bottom: 40),
                       child: Form(
                         key: _formKey,
+                        // AutovalidateMode allows validating on user interaction
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 24.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // Email field with validation and autovalidation
+                              // Username field with validation
+                              AuthInputField(
+                                label: l10n.username,
+                                controller: _usernameController,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return l10n.usernameRequired;
+                                  }
+                                  return null;
+                                },
+                              ),
+                              const SizedBox(height: 16),
+                              // Email field
                               AuthInputField(
                                 label: l10n.email,
                                 controller: _emailController,
@@ -175,31 +191,24 @@ class _SignInPageState extends State<SignInPage> {
                                 },
                               ),
                               const SizedBox(height: 16),
-                              // Password field with validation and autovalidation
+                              // Password field
                               AuthInputField(
                                 label: l10n.password,
                                 controller: _passwordController,
                                 isPassword: true,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return l10n.passwordRequired;
-                                  }
-                                  if (value.length < 6) {
-                                    return l10n.passwordTooShort;
-                                  }
-                                  return null;
-                                },
+                                validator: PasswordValidator.validate,
                               ),
                               const SizedBox(height: 24),
-                              // Error message if any
+                              // Show error message if any
                               if (_errorMessage.isNotEmpty)
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 16.0),
                                   child: Center(
                                     child: Text(
-                                      // Translate error message based on key
+                                      // Show error message
                                       ErrorMessagesHelper.getAuthErrorMessage(
-                                          l10n, _errorMessage),
+                                          AppLocalizations.of(context)!,
+                                          _errorMessage),
                                       style: const TextStyle(
                                         color: AppColors.errorColor,
                                         fontSize: 14,
@@ -208,57 +217,35 @@ class _SignInPageState extends State<SignInPage> {
                                     ),
                                   ),
                                 ),
-
-                              // Sign in button
+                              // Create button
                               Center(
                                 child: AuthButton(
-                                  text: l10n.signInButton,
-                                  onTap: _isLoading ? null : _signIn,
+                                  text: l10n.createButton,
+                                  onTap: _isLoading ? null : _signUp,
                                   isLoading: _isLoading,
                                 ),
                               ),
                               const SizedBox(height: 16),
-                              // Link to sign up
+                              // Already have an account text button
                               Center(
                                 child: TextButton(
                                   onPressed: () {
                                     // Close keyboard before navigating
                                     FocusScope.of(context).unfocus();
-                                    // Navigate to sign up page
+                                    // Navigate to sign in page
                                     Navigator.of(context).pushReplacement(
                                       AppPageTransition.fade(
-                                          const SignUpPage()),
+                                          const SignInPage()),
                                     );
                                   },
                                   child: Text(
-                                    l10n.noAccount,
-                                    style: const TextStyle(
+                                    l10n.hasAccount,
+                                    style: TextStyle(
                                       color: AppColors.textPrimary,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w300,
                                     ),
-                                  ),
-                                ),
-                              ),
-                              // Forgot password link
-                              Center(
-                                child: TextButton(
-                                  onPressed: () {
-                                    // Close keyboard before navigating
-                                    FocusScope.of(context).unfocus();
-                                    // Navigate to forgot password page
-                                    Navigator.of(context).pushReplacement(
-                                      AppPageTransition.fade(
-                                          const ForgotPasswordPage()),
-                                    );
-                                  },
-                                  child: Text(
-                                    l10n.forgotPassword,
-                                    style: const TextStyle(
-                                      color: AppColors.textPrimary,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w300,
-                                    ),
+                                    textAlign: TextAlign.center,
                                   ),
                                 ),
                               ),

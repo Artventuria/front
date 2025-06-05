@@ -72,4 +72,97 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get exploreButton => 'Let\'s explore!';
+
+  @override
+  String get signUpTitle => 'Create Your Account';
+
+  @override
+  String get signUpSubtitle =>
+      'Join the adventure and start building your collection.';
+
+  @override
+  String get username => 'Username';
+
+  @override
+  String get createButton => 'Create';
+
+  @override
+  String get hasAccount => 'Already have an account? Sign in';
+
+  @override
+  String get usernameRequired => 'Please enter your username';
+
+  @override
+  String get resetPasswordTitle => 'Reset';
+
+  @override
+  String get resetPasswordSubtitle =>
+      'Enter your email and we\'ll send you a reset link.';
+
+  @override
+  String get sendButton => 'Send';
+
+  @override
+  String get backToSignIn => 'Back to Sign in';
+
+  @override
+  String get passwordResetSuccess =>
+      'If an account exists with this email, a password reset link has been sent. Please check your inbox. 📥';
+
+  @override
+  String get newPasswordTitle => 'Create new password';
+
+  @override
+  String get newPasswordSubtitle =>
+      'Your password must be different from previous used passwords.';
+
+  @override
+  String get newPassword => 'New password';
+
+  @override
+  String get confirmPassword => 'Confirm password';
+
+  @override
+  String get resetButton => 'Reset';
+
+  @override
+  String get passwordsDoNotMatch => 'Passwords do not match';
+
+  @override
+  String get passwordResetSuccessful =>
+      'Your password has been reset successfully. You can now sign in with your new password. ✅';
+
+  @override
+  String get sessionExpired =>
+      'Your session has expired. Please sign in again.';
+
+  @override
+  String get loginErrorInvalidCredentials => 'Email or password is incorrect';
+
+  @override
+  String get loginErrorAccountBlocked => 'Your account is blocked';
+
+  @override
+  String get loginErrorConnection =>
+      'Connection error. Please check your internet connection and try again.';
+
+  @override
+  String get loginErrorUnexpected =>
+      'An unexpected error occurred. Please try again later.';
+
+  @override
+  String get resetPasswordTokenExpired =>
+      'This reset link is no longer valid. Please request a new password reset link.';
+
+  @override
+  String get registerErrorDuplicate => 'This email or username already exists';
+
+  @override
+  String get registerErrorUserExists => 'This username already exists';
+
+  @override
+  String get registerErrorEmailExists => 'This email is already in use';
+
+  @override
+  String get registerErrorValidation => 'Please check your information';
 }

@@ -217,6 +217,174 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Let\'s explore!'**
   String get exploreButton;
+
+  /// No description provided for @signUpTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Your Account'**
+  String get signUpTitle;
+
+  /// No description provided for @signUpSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Join the adventure and start building your collection.'**
+  String get signUpSubtitle;
+
+  /// No description provided for @username.
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get username;
+
+  /// No description provided for @createButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get createButton;
+
+  /// No description provided for @hasAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account? Sign in'**
+  String get hasAccount;
+
+  /// No description provided for @usernameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your username'**
+  String get usernameRequired;
+
+  /// No description provided for @resetPasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get resetPasswordTitle;
+
+  /// No description provided for @resetPasswordSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email and we\'ll send you a reset link.'**
+  String get resetPasswordSubtitle;
+
+  /// No description provided for @sendButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get sendButton;
+
+  /// No description provided for @backToSignIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Sign in'**
+  String get backToSignIn;
+
+  /// No description provided for @passwordResetSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'If an account exists with this email, a password reset link has been sent. Please check your inbox. 📥'**
+  String get passwordResetSuccess;
+
+  /// No description provided for @newPasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create new password'**
+  String get newPasswordTitle;
+
+  /// No description provided for @newPasswordSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your password must be different from previous used passwords.'**
+  String get newPasswordSubtitle;
+
+  /// No description provided for @newPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New password'**
+  String get newPassword;
+
+  /// No description provided for @confirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm password'**
+  String get confirmPassword;
+
+  /// No description provided for @resetButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get resetButton;
+
+  /// No description provided for @passwordsDoNotMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get passwordsDoNotMatch;
+
+  /// No description provided for @passwordResetSuccessful.
+  ///
+  /// In en, this message translates to:
+  /// **'Your password has been reset successfully. You can now sign in with your new password. ✅'**
+  String get passwordResetSuccessful;
+
+  /// No description provided for @sessionExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Your session has expired. Please sign in again.'**
+  String get sessionExpired;
+
+  /// No description provided for @loginErrorInvalidCredentials.
+  ///
+  /// In en, this message translates to:
+  /// **'Email or password is incorrect'**
+  String get loginErrorInvalidCredentials;
+
+  /// No description provided for @loginErrorAccountBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account is blocked'**
+  String get loginErrorAccountBlocked;
+
+  /// No description provided for @loginErrorConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection error. Please check your internet connection and try again.'**
+  String get loginErrorConnection;
+
+  /// No description provided for @loginErrorUnexpected.
+  ///
+  /// In en, this message translates to:
+  /// **'An unexpected error occurred. Please try again later.'**
+  String get loginErrorUnexpected;
+
+  /// No description provided for @resetPasswordTokenExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'This reset link is no longer valid. Please request a new password reset link.'**
+  String get resetPasswordTokenExpired;
+
+  /// No description provided for @registerErrorDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'This email or username already exists'**
+  String get registerErrorDuplicate;
+
+  /// No description provided for @registerErrorUserExists.
+  ///
+  /// In en, this message translates to:
+  /// **'This username already exists'**
+  String get registerErrorUserExists;
+
+  /// No description provided for @registerErrorEmailExists.
+  ///
+  /// In en, this message translates to:
+  /// **'This email is already in use'**
+  String get registerErrorEmailExists;
+
+  /// No description provided for @registerErrorValidation.
+  ///
+  /// In en, this message translates to:
+  /// **'Please check your information'**
+  String get registerErrorValidation;
 }
 
 class _AppLocalizationsDelegate

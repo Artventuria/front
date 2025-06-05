@@ -1,95 +1,79 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:front/l10n/app_localizations.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:provider/provider.dart';
 
-import '../../utils/error_messages_helper.dart';
-
-import '../../providers/auth_provider.dart';
 import '../../utils/constants.dart';
+import '../../utils/error_messages_helper.dart';
 import '../../widgets/auth/auth_button_widget.dart';
 import '../../widgets/auth/auth_input_field_widget.dart';
 import '../../widgets/common/white_header_container.dart';
 import '../../widgets/common/disable_swipe_back.dart';
 import '../../widgets/common/page_transition.dart';
-import 'sign_up_page.dart';
-import 'forgot_password_page.dart';
-import '../../screens/authenticated/home_test_page.dart';
+import '../../providers/auth_provider.dart';
+import 'sign_in_page.dart';
 
-class SignInPage extends StatefulWidget {
-  const SignInPage({super.key});
+class ForgotPasswordPage extends StatefulWidget {
+  const ForgotPasswordPage({super.key});
 
   @override
-  State<SignInPage> createState() => _SignInPageState();
+  State<ForgotPasswordPage> createState() => _ForgotPasswordPageState();
 }
 
-class _SignInPageState extends State<SignInPage> {
+class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
   bool _isLoading = false;
+  bool _showSuccessMessage = false;
   String _errorMessage = '';
 
   @override
   void dispose() {
     _emailController.dispose();
-    _passwordController.dispose();
     super.dispose();
   }
 
-  Future<void> _signIn() async {
-    // Close keyboard first
-    FocusScope.of(context).unfocus();
-
+  Future<void> _sendResetLink() async {
     if (_formKey.currentState?.validate() ?? false) {
+      // Close keyboard before submitting
+      FocusScope.of(context).unfocus();
+
+      // Reset messages and show loading indicator
       setState(() {
         _isLoading = true;
+        _showSuccessMessage = false;
         _errorMessage = '';
       });
 
-      late bool loginSuccess;
-      String? errorMsg;
-
       try {
-        // Get the provider before async gap
         final authProvider = Provider.of<AuthProvider>(context, listen: false);
+        final success =
+            await authProvider.forgotPassword(_emailController.text);
 
-        // Perform login operation
-        loginSuccess = await authProvider.login(
-          _emailController.text.trim(),
-          _passwordController.text,
-        );
-
-        // Store error message if login failed
-        errorMsg = loginSuccess ? null : authProvider.errorMessage;
+        if (mounted) {
+          setState(() {
+            _isLoading = false;
+            if (success) {
+              // Show success message in the UI
+              _showSuccessMessage = true;
+            } else {
+              // Show error message in the UI
+              _errorMessage = 'loginErrorConnection';
+            }
+          });
+        }
       } catch (e) {
-        // Handle any exceptions
-        loginSuccess = false;
-        errorMsg = e.toString();
-      }
+        if (kDebugMode) {
+          debugPrint('Error sending password reset: $e');
+        }
 
-      // Check if widget is still mounted after async operation
-      if (!mounted) return;
-
-      // Update state based on login results
-      if (loginSuccess) {
-        // Navigate to home page - this is safe since we've checked mounted
-        Navigator.of(context).pushAndRemoveUntil(
-          AppPageTransition.fade(
-            const HomeTestPage(),
-          ),
-          (route) => false,
-        );
-      } else if (errorMsg != null) {
-        setState(() {
-          _errorMessage = errorMsg!;
-          _isLoading = false;
-        });
-      } else {
-        setState(() {
-          _isLoading = false;
-        });
+        if (mounted) {
+          setState(() {
+            _isLoading = false;
+            _errorMessage = 'loginErrorUnexpected';
+          });
+        }
       }
     }
   }
@@ -131,12 +115,13 @@ class _SignInPageState extends State<SignInPage> {
                   left: 0,
                   right: 0,
                   child: WhiteHeaderContainer(
-                    title: l10n.signInTitle,
-                    subtitle: l10n.signInSubtitle,
+                    title: l10n.resetPasswordTitle,
+                    subtitle: l10n.resetPasswordSubtitle,
                     height: whiteContainerHeight,
+                    topPadding: 40.0,
                   ),
                 ),
-                // Form content
+                // Scrollable form with keyboard optimization
                 Positioned(
                   top: whiteContainerHeight,
                   left: 0,
@@ -149,7 +134,7 @@ class _SignInPageState extends State<SignInPage> {
                     // Ensure scroll works even with little content
                     physics: const AlwaysScrollableScrollPhysics(),
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 30, bottom: 40),
+                      padding: const EdgeInsets.only(top: 30, bottom: 24),
                       child: Form(
                         key: _formKey,
                         child: Padding(
@@ -157,7 +142,7 @@ class _SignInPageState extends State<SignInPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // Email field with validation and autovalidation
+                              // Email field
                               AuthInputField(
                                 label: l10n.email,
                                 controller: _emailController,
@@ -174,30 +159,27 @@ class _SignInPageState extends State<SignInPage> {
                                   return null;
                                 },
                               ),
-                              const SizedBox(height: 16),
-                              // Password field with validation and autovalidation
-                              AuthInputField(
-                                label: l10n.password,
-                                controller: _passwordController,
-                                isPassword: true,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return l10n.passwordRequired;
-                                  }
-                                  if (value.length < 6) {
-                                    return l10n.passwordTooShort;
-                                  }
-                                  return null;
-                                },
-                              ),
-                              const SizedBox(height: 24),
-                              // Error message if any
+                              // Show success message or error message
+                              if (_showSuccessMessage)
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 16.0),
+                                  child: Center(
+                                    child: Text(
+                                      l10n.passwordResetSuccess,
+                                      style: const TextStyle(
+                                        color: Colors.green,
+                                        fontSize: 14,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
                               if (_errorMessage.isNotEmpty)
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 16.0),
                                   child: Center(
                                     child: Text(
-                                      // Translate error message based on key
+                                      // Use the helper to translate error messages
                                       ErrorMessagesHelper.getAuthErrorMessage(
                                           l10n, _errorMessage),
                                       style: const TextStyle(
@@ -208,52 +190,32 @@ class _SignInPageState extends State<SignInPage> {
                                     ),
                                   ),
                                 ),
-
-                              // Sign in button
+                              const SizedBox(height: 24),
+                              // Send button
                               Center(
                                 child: AuthButton(
-                                  text: l10n.signInButton,
-                                  onTap: _isLoading ? null : _signIn,
+                                  text: l10n.sendButton,
+                                  onTap: _isLoading
+                                      ? null
+                                      : () => _sendResetLink(),
                                   isLoading: _isLoading,
                                 ),
                               ),
                               const SizedBox(height: 16),
-                              // Link to sign up
+                              // Back to sign in text button
                               Center(
                                 child: TextButton(
                                   onPressed: () {
                                     // Close keyboard before navigating
                                     FocusScope.of(context).unfocus();
-                                    // Navigate to sign up page
+                                    // Navigate to sign in page
                                     Navigator.of(context).pushReplacement(
                                       AppPageTransition.fade(
-                                          const SignUpPage()),
+                                          const SignInPage()),
                                     );
                                   },
                                   child: Text(
-                                    l10n.noAccount,
-                                    style: const TextStyle(
-                                      color: AppColors.textPrimary,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              // Forgot password link
-                              Center(
-                                child: TextButton(
-                                  onPressed: () {
-                                    // Close keyboard before navigating
-                                    FocusScope.of(context).unfocus();
-                                    // Navigate to forgot password page
-                                    Navigator.of(context).pushReplacement(
-                                      AppPageTransition.fade(
-                                          const ForgotPasswordPage()),
-                                    );
-                                  },
-                                  child: Text(
-                                    l10n.forgotPassword,
+                                    l10n.backToSignIn,
                                     style: const TextStyle(
                                       color: AppColors.textPrimary,
                                       fontSize: 14,
