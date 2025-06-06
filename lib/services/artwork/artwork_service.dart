@@ -64,4 +64,29 @@ class ArtworkService {
       rethrow;
     }
   }
+
+  /// Get artworks that the user has recently collected (last 7 days)
+  /// No pagination needed as all recently collected artworks are returned at once
+  Future<List<ArtworkModel>> getRecentlyCollectedArtworks() async {
+    try {
+      // Call API
+      final response = await _apiService.get(
+        '/api/users/me/recently-collected-artworks',
+      );
+
+      // Extract data from the response
+      final List<dynamic> artworksJson = response.data as List<dynamic>;
+
+      // Convert to list of ArtworkModel objects
+      final artworks =
+          artworksJson.map((json) => ArtworkModel.fromJson(json)).toList();
+
+      return artworks;
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error fetching recently collected artworks: $e');
+      }
+      rethrow;
+    }
+  }
 }
