@@ -21,6 +21,7 @@ class AppColors {
   static const textGrey = Color(0xFF888888);
   static const textLightGrey = Color(0xFFAAAAAA);
   static const textDarkGrey = Color(0xFF666666);
+  static const standardGrey = Colors.grey;
   static const pointsBackground = Color(0xFFFFF4E8);
   static const pointsColor = Color(0xFFFFA176);
 
