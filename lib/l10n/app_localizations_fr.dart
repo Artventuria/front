@@ -68,6 +68,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get passwordRequired => 'Veuillez saisir votre mot de passe';
 
   @override
+  String get noRecentArtworks => 'Pas d\'œuvres collectées récemment';
+
+  @override
   String get passwordTooShort =>
       'Le mot de passe doit contenir au moins 6 caractères';
 

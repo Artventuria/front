@@ -206,6 +206,12 @@ abstract class AppLocalizations {
   /// **'Please enter your password'**
   String get passwordRequired;
 
+  /// No description provided for @noRecentArtworks.
+  ///
+  /// In en, this message translates to:
+  /// **'No recently collected artworks'**
+  String get noRecentArtworks;
+
   /// No description provided for @passwordTooShort.
   ///
   /// In en, this message translates to:

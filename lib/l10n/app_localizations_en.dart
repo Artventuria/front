@@ -68,6 +68,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get passwordRequired => 'Please enter your password';
 
   @override
+  String get noRecentArtworks => 'No recently collected artworks';
+
+  @override
   String get passwordTooShort => 'Password must be at least 6 characters';
 
   @override

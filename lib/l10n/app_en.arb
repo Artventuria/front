@@ -19,6 +19,7 @@
   "emailRequired": "Please enter your email",
   "emailInvalid": "Please enter a valid email",
   "passwordRequired": "Please enter your password",
+  "noRecentArtworks": "No recently collected artworks",
   "passwordTooShort": "Password must be at least 6 characters",
   "exploreButton": "Let's explore!",
 
