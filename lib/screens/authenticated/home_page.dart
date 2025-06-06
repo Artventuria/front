@@ -26,18 +26,35 @@ class _HomePageState extends State<HomePage> {
     _scrollService = HomeScrollService(_scrollController);
     
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final authProvider = Provider.of<AuthProvider>(context, listen: false);
-      final artworkProvider = Provider.of<ArtworkProvider>(context, listen: false);
-      
-      if (authProvider.user != null) {
-        artworkProvider.loadStillToCollectArtworks(
-          userId: authProvider.user!.id,
-          refresh: true,
-        );
-      }
-      
+      _loadInitialData();
       _scrollService.initializeScrollListener(context);
     });
+  }
+  
+  /// Load initial data once if they haven't been loaded yet
+  void _loadInitialData() {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final artworkProvider = Provider.of<ArtworkProvider>(context, listen: false);
+    
+    if (authProvider.user != null) {
+      // Only load data if they haven't been loaded yet
+      artworkProvider.loadStillToCollectArtworks(
+        userId: authProvider.user!.id,
+      );
+      
+      artworkProvider.loadRecentlyCollectedArtworks();
+    }
+  }
+  
+  /// Force the refresh of all data (pull-to-refresh)
+  Future<void> _refreshData() async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final artworkProvider = Provider.of<ArtworkProvider>(context, listen: false);
+    
+    if (authProvider.user != null) {
+      return artworkProvider.refreshAllData(authProvider.user!.id);
+    }
+    return Future.value();
   }
 
   @override
@@ -67,18 +84,23 @@ class _HomePageState extends State<HomePage> {
                 onOptionsPressed: () => HomeOptionsHelper.showOptionsMenu(context),
               ),
               Expanded(
-                child: SingleChildScrollView(
-                  controller: _scrollController,
-                  padding: EdgeInsets.zero,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 0),
-                      RecentlyCollectedSection(),
-                      const SizedBox(height: 5),
-                      const StillToCollectSection(),
-                      const SizedBox(height: 1),
-                    ],
+                child: RefreshIndicator(
+                  onRefresh: _refreshData,
+                  color: AppColors.purpleIndicator,
+                  child: SingleChildScrollView(
+                    controller: _scrollController,
+                    padding: EdgeInsets.zero,
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 0),
+                        const RecentlyCollectedSection(),
+                        const SizedBox(height: 5),
+                        const StillToCollectSection(),
+                        const SizedBox(height: 1),
+                      ],
+                    ),
                   ),
                 ),
               ),
