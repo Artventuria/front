@@ -7,7 +7,7 @@ import '../../services/auth/auth_notification_service.dart';
 import '../../l10n/app_localizations.dart';
 import '../../screens/auth/sign_in_page.dart';
 import '../../screens/landing/landing_page.dart';
-import '../../screens/authenticated/home_page.dart';
+import '../../screens/authenticated/main_container.dart';
 
 /// Widget that handles conditional navigation based on authentication state
 class AuthWrapper extends StatefulWidget {
@@ -129,10 +129,9 @@ class _AuthWrapperState extends State<AuthWrapper> {
       );
     }
 
-    /// If the user is authenticated, show the home test page regardless of whether it's first launch
-    /// This ensures that after successful registration, user goes to home page
+    /// If the user is authenticated, show the main container with horizontal navigation
     if (authProvider.isAuthenticated) {
-      return HomePage();
+      return const MainContainer();
     }
 
     /// If it's the first launch and user is not authenticated, redirect to the landing page
