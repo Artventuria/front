@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../utils/constants.dart';
 import '../../widgets/landing/model_viewer_widget.dart';
-import '../../widgets/landing/page_indicator_widget.dart';
+import '../../widgets/common/page_indicator_widget.dart';
 import '../../widgets/landing/explore_button_widget.dart';
 import '../../widgets/common/white_header_container.dart';
 import '../../l10n/app_localizations.dart';
