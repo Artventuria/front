@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:artventuria/utils/constants.dart';
+import 'package:front/utils/constants.dart';
 
 class CircularArtworkWidget extends StatelessWidget {
   final String imageName;
@@ -23,7 +23,10 @@ class CircularArtworkWidget extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [AppColors.circularGradientStart, AppColors.circularGradientEnd],
+            colors: [
+              AppColors.circularGradientStart,
+              AppColors.circularGradientEnd
+            ],
           ),
         ),
         child: Container(
