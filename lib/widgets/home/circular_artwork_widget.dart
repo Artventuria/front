@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:front/utils/constants.dart';
 
 class CircularArtworkWidget extends StatelessWidget {
@@ -34,7 +35,9 @@ class CircularArtworkWidget extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(
-              image: AssetImage('assets/images_dev/$imageName'),
+              image: CachedNetworkImageProvider(
+                imageName,
+              ),
               fit: BoxFit.cover,
             ),
           ),
