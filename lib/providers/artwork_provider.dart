@@ -12,13 +12,19 @@ class ArtworkProvider extends ChangeNotifier {
 
   List<ArtworkModel> _stillToCollectArtworks = [];
   List<ArtworkModel> _recentlyCollectedArtworks = [];
+  List<ArtworkModel> _searchResults = [];
   bool _isLoadingStillToCollect = false;
   bool _isLoadingRecentlyCollected = false;
+  bool _isLoadingSearch = false;
   bool _hasErrorStillToCollect = false;
   bool _hasErrorRecentlyCollected = false;
+  bool _hasErrorSearch = false;
   String? _errorStillToCollect;
   String? _errorRecentlyCollected;
+  String? _errorSearch;
   String? _nextPageCursor;
+  int _searchOffset = 0;
+  bool _hasMoreSearchResults = true;
 
   // Flags to track if data has been loaded at least once
   bool _stillToCollectInitialized = false;
@@ -30,10 +36,19 @@ class ArtworkProvider extends ChangeNotifier {
   List<ArtworkModel> get stillToCollectArtworks => _stillToCollectArtworks;
   List<ArtworkModel> get recentlyCollectedArtworks =>
       _recentlyCollectedArtworks;
+  List<ArtworkModel> get searchResults => _searchResults;
 
-  bool get isLoading => _isLoadingStillToCollect || _isLoadingRecentlyCollected;
+  bool get isLoading =>
+      _isLoadingStillToCollect ||
+      _isLoadingRecentlyCollected ||
+      _isLoadingSearch;
   bool get isLoadingStillToCollect => _isLoadingStillToCollect;
   bool get isLoadingRecentlyCollected => _isLoadingRecentlyCollected;
+  bool get isLoadingSearch => _isLoadingSearch;
+
+  bool get hasErrorSearch => _hasErrorSearch;
+  String? get errorSearch => _errorSearch;
+  bool get hasMoreSearchResults => _hasMoreSearchResults;
 
   // Getters for initialization status
   bool get isStillToCollectInitialized => _stillToCollectInitialized;
@@ -169,12 +184,66 @@ class ArtworkProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Force refresh homepage data
+  /// Method to refresh all data from scratch
   Future<void> refreshAllData(int userId) async {
     await Future.wait([
-      loadStillToCollectArtworks(
-          userId: userId, refresh: true, forceReload: true),
-      loadRecentlyCollectedArtworks(forceReload: true)
+      loadStillToCollectArtworks(userId: userId, forceReload: true),
+      loadRecentlyCollectedArtworks(forceReload: true),
     ]);
+  }
+
+  /// Search artworks by artist or title
+  /// [query] : Search term (artist or artwork name)
+  /// [resetResults] : If true, reset previous results (for a new search)
+  Future<void> searchArtworks({
+    required String query,
+    bool resetResults = false,
+  }) async {
+    if (query.isEmpty) {
+      _searchResults = [];
+      _hasMoreSearchResults = false;
+      notifyListeners();
+      return;
+    }
+
+    try {
+      if (resetResults) {
+        _searchResults = [];
+        _searchOffset = 0;
+        _hasMoreSearchResults = true;
+      }
+
+      _isLoadingSearch = true;
+      _hasErrorSearch = false;
+      _errorSearch = null;
+      notifyListeners();
+
+      // Call the search service with pagination
+      final results = await _artworkService.searchArtworks(
+        query: query,
+        limit: 10,
+        offset: _searchOffset,
+      );
+
+      // Update results and state
+      if (results.isEmpty) {
+        _hasMoreSearchResults = false;
+      } else {
+        _searchOffset += results.length;
+        _searchResults =
+            resetResults ? results : [..._searchResults, ...results];
+      }
+
+      _isLoadingSearch = false;
+      notifyListeners();
+    } catch (e) {
+      _hasErrorSearch = true;
+      _errorSearch = e.toString();
+      _isLoadingSearch = false;
+      notifyListeners();
+      if (kDebugMode) {
+        print('Error searching artworks: $e');
+      }
+    }
   }
 }
