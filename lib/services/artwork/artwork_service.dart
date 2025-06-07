@@ -89,4 +89,43 @@ class ArtworkService {
       rethrow;
     }
   }
+
+  /// Search artworks by artist or title
+  /// [query] : Search term
+  /// [limit] : Number of artworks to retrieve per page (default to 10)
+  /// [offset] : Pagination offset (default to 0)
+  Future<List<ArtworkModel>> searchArtworks({
+    required String query,
+    int limit = 10,
+    int offset = 0,
+  }) async {
+    try {
+      // Query parameters
+      final queryParams = <String, dynamic>{
+        'query': query,
+        'limit': limit,
+        'offset': offset,
+      };
+
+      // API call with search endpoint
+      final response = await _apiService.get(
+        '/api/artworks/search',
+        queryParameters: queryParams,
+      );
+
+      // Extract data from the response
+      final List<dynamic> artworksJson = response.data as List<dynamic>;
+
+      // Convert to list of ArtworkModel objects
+      final artworks =
+          artworksJson.map((json) => ArtworkModel.fromJson(json)).toList();
+
+      return artworks;
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error searching artworks: $e');
+      }
+      rethrow;
+    }
+  }
 }
