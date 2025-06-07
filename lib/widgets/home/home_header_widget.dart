@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../utils/constants.dart';
 import '../../l10n/app_localizations.dart';
+import '../search/artwork_search_delegate.dart';
 
 class HomeHeaderWidget extends StatelessWidget {
   final ScrollController scrollController;
@@ -50,7 +51,10 @@ class HomeHeaderWidget extends StatelessWidget {
                   icon: const Icon(Icons.search,
                       size: 20, color: AppColors.searchIconColor),
                   onPressed: () {
-                    // TODO: Implement search functionality
+                    showSearch(
+                      context: context,
+                      delegate: ArtworkSearchDelegate(context),
+                    );
                   },
                 ),
               ),
