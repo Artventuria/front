@@ -11,6 +11,24 @@ class AppColors {
   static const white = Colors.white;
   static const solidPinkBackground = Color(0xFFF1CBD1);
   static const errorColor = Color(0xFFE57373);
+  
+  // Home page colors
+  static const homeBackgroundEnd = Color(0xFFFCF3F4);
+  static const subtitlePink = Color(0xFFD2BBC7);
+  static const searchIconColor = Color(0xFFDABCCB);
+  
+  // Artwork item colors
+  static const textGrey = Color(0xFF888888);
+  static const textLightGrey = Color(0xFFAAAAAA);
+  static const textDarkGrey = Color(0xFF666666);
+  static const standardGrey = Colors.grey;
+  static const lightGrey = Color(0xFFEEEEEE);
+  static const pointsBackground = Color(0xFFFFF4E8);
+  static const pointsColor = Color(0xFFFFA176);
+
+  // Circular artwork gradient colors
+  static const circularGradientStart = Color(0xFFFFA176);
+  static const circularGradientEnd = Color(0xFF888DFA);
 }
 
 class AppTextStyles {

@@ -68,6 +68,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get passwordRequired => 'Veuillez saisir votre mot de passe';
 
   @override
+  String get noRecentArtworks => 'Pas d\'œuvres collectées récemment';
+
+  @override
   String get passwordTooShort =>
       'Le mot de passe doit contenir au moins 6 caractères';
 
@@ -167,4 +170,57 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get registerErrorValidation => 'Veuillez vérifier vos informations';
+
+  @override
+  String get homePageExplore => 'Explorer';
+
+  @override
+  String get homePageRecentlyCollected => 'Récemment collectés';
+
+  @override
+  String get homePageStillToCollect => 'À collectionner';
+
+  @override
+  String get options => 'Options';
+
+  @override
+  String get logout => 'Déconnexion';
+
+  @override
+  String get logoutConfirmTitle => 'Déconnexion';
+
+  @override
+  String get logoutConfirmMessage =>
+      'Êtes-vous sûr de vouloir vous déconnecter ?';
+
+  @override
+  String get cancel => 'Annuler';
+
+  @override
+  String get confirm => 'Confirmer';
+
+  @override
+  String get errorLoadingArtworks => 'Erreur lors du chargement des œuvres';
+
+  @override
+  String get retryButton => 'Réessayer';
+
+  @override
+  String get allCollectedCongrats =>
+      'Félicitations ! Vous avez collecté toutes les œuvres disponibles.';
+
+  @override
+  String get seeMore => 'voir plus';
+
+  @override
+  String get seeLess => 'voir moins';
+
+  @override
+  String get searchArtworksHint => 'Entrez un nom d\'artiste ou d\'œuvre';
+
+  @override
+  String get noSearchResults => 'Aucun résultat trouvé';
+
+  @override
+  String get searchArtwork => 'Rechercher une œuvre';
 }

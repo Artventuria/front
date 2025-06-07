@@ -19,6 +19,7 @@
   "emailRequired": "Please enter your email",
   "emailInvalid": "Please enter a valid email",
   "passwordRequired": "Please enter your password",
+  "noRecentArtworks": "No recently collected artworks",
   "passwordTooShort": "Password must be at least 6 characters",
   "exploreButton": "Let's explore!",
 
@@ -51,5 +52,23 @@
   "registerErrorDuplicate": "This email or username already exists",
   "registerErrorUserExists": "This username already exists",
   "registerErrorEmailExists": "This email is already in use",
-  "registerErrorValidation": "Please check your information"
+  "registerErrorValidation": "Please check your information",
+
+  "homePageExplore": "Explore",
+  "homePageRecentlyCollected": "Recently collected",
+  "homePageStillToCollect": "Still to collect",
+  "options": "Options",
+  "logout": "Logout",
+  "logoutConfirmTitle": "Logout",
+  "logoutConfirmMessage": "Are you sure you want to logout?",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "errorLoadingArtworks": "Error loading artworks",
+  "retryButton": "Retry",
+  "allCollectedCongrats": "Congratulations! You have collected all available artworks.",
+  "seeMore": "see more",
+  "seeLess": "see less",
+  "searchArtworksHint": "Enter an artist or artwork name",
+  "noSearchResults": "No results found",
+  "searchArtwork": "Search artwork"
 }

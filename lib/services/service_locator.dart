@@ -2,6 +2,7 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 import '../providers/auth_provider.dart';
+import '../providers/artwork_provider.dart';
 import 'api/api_service.dart';
 import 'auth/auth_service.dart';
 import 'storage/storage_service.dart';
@@ -28,7 +29,9 @@ class ServiceLocator {
         ChangeNotifierProvider<AuthProvider>(
           create: (_) => AuthProvider(_authService),
         ),
-        // Add other providers here as needed
+        ChangeNotifierProvider<ArtworkProvider>(
+          create: (_) => ArtworkProvider.create(_storageService, _apiService),
+        ),
       ];
 
   // Service getters

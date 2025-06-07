@@ -206,6 +206,12 @@ abstract class AppLocalizations {
   /// **'Please enter your password'**
   String get passwordRequired;
 
+  /// No description provided for @noRecentArtworks.
+  ///
+  /// In en, this message translates to:
+  /// **'No recently collected artworks'**
+  String get noRecentArtworks;
+
   /// No description provided for @passwordTooShort.
   ///
   /// In en, this message translates to:
@@ -385,6 +391,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please check your information'**
   String get registerErrorValidation;
+
+  /// No description provided for @homePageExplore.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore'**
+  String get homePageExplore;
+
+  /// No description provided for @homePageRecentlyCollected.
+  ///
+  /// In en, this message translates to:
+  /// **'Recently collected'**
+  String get homePageRecentlyCollected;
+
+  /// No description provided for @homePageStillToCollect.
+  ///
+  /// In en, this message translates to:
+  /// **'Still to collect'**
+  String get homePageStillToCollect;
+
+  /// No description provided for @options.
+  ///
+  /// In en, this message translates to:
+  /// **'Options'**
+  String get options;
+
+  /// No description provided for @logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logout;
+
+  /// No description provided for @logoutConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logoutConfirmTitle;
+
+  /// No description provided for @logoutConfirmMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to logout?'**
+  String get logoutConfirmMessage;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirm;
+
+  /// No description provided for @errorLoadingArtworks.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading artworks'**
+  String get errorLoadingArtworks;
+
+  /// No description provided for @retryButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retryButton;
+
+  /// No description provided for @allCollectedCongrats.
+  ///
+  /// In en, this message translates to:
+  /// **'Congratulations! You have collected all available artworks.'**
+  String get allCollectedCongrats;
+
+  /// No description provided for @seeMore.
+  ///
+  /// In en, this message translates to:
+  /// **'see more'**
+  String get seeMore;
+
+  /// No description provided for @seeLess.
+  ///
+  /// In en, this message translates to:
+  /// **'see less'**
+  String get seeLess;
+
+  /// No description provided for @searchArtworksHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an artist or artwork name'**
+  String get searchArtworksHint;
+
+  /// No description provided for @noSearchResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No results found'**
+  String get noSearchResults;
+
+  /// No description provided for @searchArtwork.
+  ///
+  /// In en, this message translates to:
+  /// **'Search artwork'**
+  String get searchArtwork;
 }
 
 class _AppLocalizationsDelegate

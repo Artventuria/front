@@ -67,6 +67,7 @@ dependencies:
   json_serializable: ^6.7.1 # JSON serialization code generation
   shared_preferences: ^2.5.3 # Local storage for preferences
   form_field_validator: ^1.1.0 # Form field validation
+  cached_network_image: ^3.4.1
 
 dev_dependencies:
   flutter_test:
