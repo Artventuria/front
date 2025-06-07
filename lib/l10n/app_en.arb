@@ -67,5 +67,8 @@
   "retryButton": "Retry",
   "allCollectedCongrats": "Congratulations! You have collected all available artworks.",
   "seeMore": "see more",
-  "seeLess": "see less"
+  "seeLess": "see less",
+  "searchArtworksHint": "Enter an artist or artwork name",
+  "noSearchResults": "No results found",
+  "searchArtwork": "Search artwork"
 }

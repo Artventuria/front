@@ -475,6 +475,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'see less'**
   String get seeLess;
+
+  /// No description provided for @searchArtworksHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an artist or artwork name'**
+  String get searchArtworksHint;
+
+  /// No description provided for @noSearchResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No results found'**
+  String get noSearchResults;
+
+  /// No description provided for @searchArtwork.
+  ///
+  /// In en, this message translates to:
+  /// **'Search artwork'**
+  String get searchArtwork;
 }
 
 class _AppLocalizationsDelegate

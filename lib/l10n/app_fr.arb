@@ -67,5 +67,8 @@
   "retryButton": "Réessayer",
   "allCollectedCongrats": "Félicitations ! Vous avez collecté toutes les œuvres disponibles.",
   "seeMore": "voir plus",
-  "seeLess": "voir moins"
+  "seeLess": "voir moins",
+  "searchArtworksHint": "Entrez un nom d'artiste ou d'œuvre",
+  "noSearchResults": "Aucun résultat trouvé",
+  "searchArtwork": "Rechercher une œuvre"
 }

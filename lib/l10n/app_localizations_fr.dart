@@ -214,4 +214,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get seeLess => 'voir moins';
+
+  @override
+  String get searchArtworksHint => 'Entrez un nom d\'artiste ou d\'œuvre';
+
+  @override
+  String get noSearchResults => 'Aucun résultat trouvé';
+
+  @override
+  String get searchArtwork => 'Rechercher une œuvre';
 }
