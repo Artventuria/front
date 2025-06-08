@@ -15,7 +15,8 @@ class ArtworkScrollView extends StatelessWidget {
   Widget build(BuildContext context) {
     final artworkProvider = Provider.of<ArtworkProvider>(context);
 
-    if (artworkProvider.isLoading && artworkProvider.stillToCollectArtworks.isEmpty) {
+    if (artworkProvider.isLoading &&
+        artworkProvider.stillToCollectArtworks.isEmpty) {
       return const Center(
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 40),
@@ -24,7 +25,8 @@ class ArtworkScrollView extends StatelessWidget {
       );
     }
 
-    if (artworkProvider.hasError && artworkProvider.stillToCollectArtworks.isEmpty) {
+    if (artworkProvider.hasError &&
+        artworkProvider.stillToCollectArtworks.isEmpty) {
       return Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
@@ -41,7 +43,8 @@ class ArtworkScrollView extends StatelessWidget {
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
-                  final authProvider = Provider.of<AuthProvider>(context, listen: false);
+                  final authProvider =
+                      Provider.of<AuthProvider>(context, listen: false);
                   if (authProvider.user != null) {
                     artworkProvider.loadStillToCollectArtworks(
                       userId: authProvider.user!.id,
@@ -60,14 +63,16 @@ class ArtworkScrollView extends StatelessWidget {
       );
     }
 
-    if (artworkProvider.stillToCollectArtworks.isEmpty && !artworkProvider.isLoading) {
+    if (artworkProvider.stillToCollectArtworks.isEmpty &&
+        !artworkProvider.isLoading) {
       return Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.check_circle_outline, size: 48, color: Colors.green),
+              const Icon(Icons.check_circle_outline,
+                  size: 48, color: Colors.green),
               const SizedBox(height: 16),
               Text(
                 AppLocalizations.of(context)!.allCollectedCongrats,
@@ -105,6 +110,7 @@ class ArtworkScrollView extends StatelessWidget {
           location: artwork.location,
           points: artwork.rarityPoints,
           description: artwork.description,
+          artwork: artwork,
         );
       },
     );
