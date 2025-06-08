@@ -5,6 +5,7 @@ import '../../l10n/app_localizations.dart';
 import '../../models/artwork/artwork_model.dart';
 import '../../providers/artwork_provider.dart';
 import '../../utils/constants.dart';
+import '../../screens/artwork/artwork_detail_page.dart';
 
 class ArtworkSearchDelegate extends SearchDelegate<ArtworkModel?> {
   // Timer for the search debounce
@@ -26,7 +27,8 @@ class ArtworkSearchDelegate extends SearchDelegate<ArtworkModel?> {
   }
 
   @override
-  String get searchFieldLabel => AppLocalizations.of(parentContext)?.searchArtwork ?? 'Search artwork';
+  String get searchFieldLabel =>
+      AppLocalizations.of(parentContext)?.searchArtwork ?? 'Search artwork';
 
   @override
   ThemeData appBarTheme(BuildContext context) {
@@ -214,8 +216,13 @@ class ArtworkSearchDelegate extends SearchDelegate<ArtworkModel?> {
         overflow: TextOverflow.ellipsis,
       ),
       onTap: () {
-        // TODO: Navigate to artwork details
-        close(context, artwork);
+        // Navigation to artwork detail page
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ArtworkDetailPage(artwork: artwork),
+          ),
+        );
       },
     );
   }
