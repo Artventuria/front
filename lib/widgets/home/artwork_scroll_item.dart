@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../utils/constants.dart';
 import '../../l10n/app_localizations.dart';
+import '../../screens/artwork/artwork_detail_page.dart';
+import '../../models/artwork/artwork_model.dart';
 import 'full_screen_artwork_page.dart';
 
 class ArtworkScrollItem extends StatefulWidget {
@@ -12,6 +14,7 @@ class ArtworkScrollItem extends StatefulWidget {
   final String location;
   final int points;
   final String description;
+  final ArtworkModel? artwork;
 
   const ArtworkScrollItem({
     super.key,
@@ -22,6 +25,7 @@ class ArtworkScrollItem extends StatefulWidget {
     required this.location,
     required this.points,
     required this.description,
+    this.artwork,
   });
 
   @override
@@ -175,6 +179,56 @@ class _ArtworkScrollItemState extends State<ArtworkScrollItem> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Button to access details
+                if (widget.artwork != null)
+                  Container(
+                    width: double.infinity,
+                    margin: const EdgeInsets.only(bottom: 8, top: 2),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(12),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                ArtworkDetailPage(artwork: widget.artwork!),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: AppColors.purpleIndicator.withAlpha(40),
+                            width: 0.8,
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.info_outline,
+                              size: 14,
+                              color: AppColors.purpleIndicator.withAlpha(180),
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              AppLocalizations.of(context)!.viewDetails,
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: AppColors.purpleIndicator.withAlpha(180),
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                 Text(
                   widget.description,
                   style: const TextStyle(
@@ -197,13 +251,18 @@ class _ArtworkScrollItemState extends State<ArtworkScrollItem> {
                       },
                       child: Padding(
                         padding: const EdgeInsets.only(top: 4),
-                        child: Text(
-                          AppLocalizations.of(context)!.seeMore,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.purpleIndicator,
-                          ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              AppLocalizations.of(context)!.seeMore,
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.purpleIndicator,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
