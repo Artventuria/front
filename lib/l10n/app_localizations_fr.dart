@@ -216,6 +216,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get seeLess => 'voir moins';
 
   @override
+  String get viewDetails => 'Voir les détails';
+
+  @override
   String get searchArtworksHint => 'Entrez un nom d\'artiste ou d\'œuvre';
 
   @override
@@ -223,4 +226,64 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get searchArtwork => 'Rechercher une œuvre';
+
+  @override
+  String get description => 'Description';
+
+  @override
+  String get detailedDescription => 'Description détaillée';
+
+  @override
+  String get historicalContext => 'Contexte historique';
+
+  @override
+  String get specifications => 'Caractéristiques';
+
+  @override
+  String get materials => 'Matériaux';
+
+  @override
+  String get dimensions => 'Dimensions';
+
+  @override
+  String get tags => 'Étiquettes';
+
+  @override
+  String get additionalDetails => 'Détails supplémentaires';
+
+  @override
+  String get externalLinks => 'Liens externes';
+
+  @override
+  String get artworkStats => 'Statistiques';
+
+  @override
+  String get rarityPoints => 'Points de rareté';
+
+  @override
+  String get status => 'Statut';
+
+  @override
+  String get loading => 'Chargement...';
+
+  @override
+  String get collected => 'Collecté';
+
+  @override
+  String get notCollected => 'Non collecté';
+
+  @override
+  String get loadingEllipsis => '...';
+
+  @override
+  String get points => 'pts';
+
+  @override
+  String get didYouKnow => 'Le saviez-vous ?';
+
+  @override
+  String get fullScreen => 'Plein écran';
+
+  @override
+  String get notAvailable => 'N/A';
 }

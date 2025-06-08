@@ -210,7 +210,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get seeMore => 'see more';
 
   @override
-  String get seeLess => 'see less';
+  String get seeLess => 'See less';
+
+  @override
+  String get viewDetails => 'View details';
 
   @override
   String get searchArtworksHint => 'Enter an artist or artwork name';
@@ -220,4 +223,64 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get searchArtwork => 'Search artwork';
+
+  @override
+  String get description => 'Description';
+
+  @override
+  String get detailedDescription => 'Detailed Description';
+
+  @override
+  String get historicalContext => 'Historical Context';
+
+  @override
+  String get specifications => 'Specifications';
+
+  @override
+  String get materials => 'Materials';
+
+  @override
+  String get dimensions => 'Dimensions';
+
+  @override
+  String get tags => 'Tags';
+
+  @override
+  String get additionalDetails => 'Additional Details';
+
+  @override
+  String get externalLinks => 'External Links';
+
+  @override
+  String get artworkStats => 'Artwork Stats';
+
+  @override
+  String get rarityPoints => 'Rarity Points';
+
+  @override
+  String get status => 'Status';
+
+  @override
+  String get loading => 'Loading...';
+
+  @override
+  String get collected => 'Collected';
+
+  @override
+  String get notCollected => 'Not collected';
+
+  @override
+  String get loadingEllipsis => '...';
+
+  @override
+  String get points => 'pts';
+
+  @override
+  String get didYouKnow => 'Did you know?';
+
+  @override
+  String get fullScreen => 'Full screen';
+
+  @override
+  String get notAvailable => 'N/A';
 }
