@@ -286,4 +286,22 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get notAvailable => 'N/A';
+
+  @override
+  String get leaderboard => 'Classement';
+
+  @override
+  String get searchFriend => 'Rechercher un ami';
+
+  @override
+  String get leaderboardLoadingError =>
+      'Erreur lors du chargement du classement';
+
+  @override
+  String get leaderboardNoData => 'Aucune donnée de classement disponible';
+
+  @override
+  String leaderboardNoResultsFor(Object searchText) {
+    return 'Aucun résultat trouvé pour \"$searchText\"';
+  }
 }

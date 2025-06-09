@@ -619,6 +619,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'N/A'**
   String get notAvailable;
+
+  /// No description provided for @leaderboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Leaderboard'**
+  String get leaderboard;
+
+  /// No description provided for @searchFriend.
+  ///
+  /// In en, this message translates to:
+  /// **'Search a friend'**
+  String get searchFriend;
+
+  /// No description provided for @leaderboardLoadingError.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading leaderboard'**
+  String get leaderboardLoadingError;
+
+  /// No description provided for @leaderboardNoData.
+  ///
+  /// In en, this message translates to:
+  /// **'No leaderboard data available'**
+  String get leaderboardNoData;
+
+  /// No description provided for @leaderboardNoResultsFor.
+  ///
+  /// In en, this message translates to:
+  /// **'No results found for \"{searchText}\"'**
+  String leaderboardNoResultsFor(Object searchText);
 }
 
 class _AppLocalizationsDelegate

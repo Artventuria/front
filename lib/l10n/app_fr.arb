@@ -92,5 +92,10 @@
   "points": "pts",
   "didYouKnow": "Le saviez-vous ?",
   "fullScreen": "Plein écran",
-  "notAvailable": "N/A"
+  "notAvailable": "N/A",
+  "leaderboard": "Classement",
+  "searchFriend": "Rechercher un ami",
+  "leaderboardLoadingError": "Erreur lors du chargement du classement",
+  "leaderboardNoData": "Aucune donnée de classement disponible",
+  "leaderboardNoResultsFor": "Aucun résultat trouvé pour \"{searchText}\""
 }
