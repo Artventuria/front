@@ -29,6 +29,16 @@ class AppColors {
   // Circular artwork gradient colors
   static const circularGradientStart = Color(0xFFFFA176);
   static const circularGradientEnd = Color(0xFF888DFA);
+  
+  // Leaderboard colors
+  static const buttonPurple = Color(0xFF372940);
+  static const searchGradientStart = Color(0xFFFFAE88);
+  static const searchGradientEnd = Color(0xFF8F93EA);
+  static const hintTextGrey = Color(0xFF999999);
+  static const medalGold = Color(0xFFFFD700);
+  static const medalSilver = Color(0xFFC0C0C0);
+  static const medalBronze = Color(0xFFCD7F32);
+  static const avatarShadow = Color(0xC7F6D1EB);
 }
 
 class AppTextStyles {
