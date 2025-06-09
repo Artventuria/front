@@ -92,5 +92,10 @@
   "points": "pts",
   "didYouKnow": "Did you know?",
   "fullScreen": "Full screen",
-  "notAvailable": "N/A"
+  "notAvailable": "N/A",
+  "leaderboard": "Leaderboard",
+  "searchFriend": "Search a friend",
+  "leaderboardLoadingError": "Error loading leaderboard",
+  "leaderboardNoData": "No leaderboard data available",
+  "leaderboardNoResultsFor": "No results found for \"{searchText}\""
 }

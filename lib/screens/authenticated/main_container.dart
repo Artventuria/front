@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../widgets/common/page_indicator_widget.dart';
+import 'leaderboard_page.dart';
 import 'home_page.dart';
 import 'test_page.dart';
 
@@ -32,6 +33,7 @@ class _MainContainerState extends State<MainContainer> {
             });
           },
           children: const [
+            LeaderboardPage(),
             HomePage(),
             TestPage(),
           ],
@@ -42,7 +44,7 @@ class _MainContainerState extends State<MainContainer> {
           left: 0,
           right: 0,
           child: PageIndicator(
-            totalPages: 2,
+            totalPages: 3,
             currentPage: _currentPageIndex,
             onPageTapped: (index) {
               _pageController.animateToPage(

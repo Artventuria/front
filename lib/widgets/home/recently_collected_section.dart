@@ -69,12 +69,12 @@ class _RecentlyCollectedSectionState extends State<RecentlyCollectedSection> {
                         color: AppColors.standardGrey, fontSize: 12),
                   ),
                   const SizedBox(height: 8),
-                  TextButton(
+                  ElevatedButton(
                     onPressed: () {
                       artworkProvider.loadRecentlyCollectedArtworks();
                     },
-                    style: TextButton.styleFrom(
-                      foregroundColor: AppColors.purpleIndicator,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.purpleIndicator,
                     ),
                     child: Text(AppLocalizations.of(context)!.retryButton),
                   ),
