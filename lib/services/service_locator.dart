@@ -3,6 +3,7 @@ import 'package:provider/single_child_widget.dart';
 
 import '../providers/auth_provider.dart';
 import '../providers/artwork_provider.dart';
+import '../providers/leaderboard_provider.dart';
 import 'api/api_service.dart';
 import 'auth/auth_service.dart';
 import 'storage/storage_service.dart';
@@ -31,6 +32,9 @@ class ServiceLocator {
         ),
         ChangeNotifierProvider<ArtworkProvider>(
           create: (_) => ArtworkProvider.create(_storageService, _apiService),
+        ),
+        ChangeNotifierProvider<LeaderboardProvider>(
+          create: (_) => LeaderboardProvider.create(_apiService),
         ),
       ];
 
