@@ -128,4 +128,46 @@ class ArtworkService {
       rethrow;
     }
   }
+
+  /// Check if an artwork is in the user's collection
+  /// [artworkId] : ID of the artwork to check
+  /// Returns true if the artwork is in the collection, false otherwise
+  Future<bool> isArtworkInCollection(String artworkId) async {
+    try {
+      // Call API with the correct endpoint
+      final response = await _apiService.get(
+        '/api/artworks/$artworkId/in-collection',
+      );
+
+      // The API returns a boolean directly
+      return response.data.toString().toLowerCase() == 'true';
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error checking if artwork is in collection: $e');
+      }
+      // In case of error, consider the artwork is not in the collection
+      return false;
+    }
+  }
+
+  /// Get the number of collectors for an artwork
+  /// [artworkId] : ID of the artwork to check
+  /// Returns the number of collectors
+  Future<int> getArtworkCollectorsCount(String artworkId) async {
+    try {
+      // Call API with the correct endpoint
+      final response = await _apiService.get(
+        '/api/artworks/$artworkId/collectors-count',
+      );
+
+      // The API returns an integer directly
+      return int.tryParse(response.data.toString()) ?? 0;
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error getting artwork collectors count: $e');
+      }
+      // In case of error, return 0
+      return 0;
+    }
+  }
 }

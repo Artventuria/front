@@ -473,8 +473,14 @@ abstract class AppLocalizations {
   /// No description provided for @seeLess.
   ///
   /// In en, this message translates to:
-  /// **'see less'**
+  /// **'See less'**
   String get seeLess;
+
+  /// No description provided for @viewDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'View details'**
+  String get viewDetails;
 
   /// No description provided for @searchArtworksHint.
   ///
@@ -493,6 +499,126 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Search artwork'**
   String get searchArtwork;
+
+  /// No description provided for @description.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get description;
+
+  /// No description provided for @detailedDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Detailed Description'**
+  String get detailedDescription;
+
+  /// No description provided for @historicalContext.
+  ///
+  /// In en, this message translates to:
+  /// **'Historical Context'**
+  String get historicalContext;
+
+  /// No description provided for @specifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Specifications'**
+  String get specifications;
+
+  /// No description provided for @materials.
+  ///
+  /// In en, this message translates to:
+  /// **'Materials'**
+  String get materials;
+
+  /// No description provided for @dimensions.
+  ///
+  /// In en, this message translates to:
+  /// **'Dimensions'**
+  String get dimensions;
+
+  /// No description provided for @tags.
+  ///
+  /// In en, this message translates to:
+  /// **'Tags'**
+  String get tags;
+
+  /// No description provided for @additionalDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Additional Details'**
+  String get additionalDetails;
+
+  /// No description provided for @externalLinks.
+  ///
+  /// In en, this message translates to:
+  /// **'External Links'**
+  String get externalLinks;
+
+  /// No description provided for @artworkStats.
+  ///
+  /// In en, this message translates to:
+  /// **'Artwork Stats'**
+  String get artworkStats;
+
+  /// No description provided for @rarityPoints.
+  ///
+  /// In en, this message translates to:
+  /// **'Rarity Points'**
+  String get rarityPoints;
+
+  /// No description provided for @status.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get status;
+
+  /// No description provided for @loading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading...'**
+  String get loading;
+
+  /// No description provided for @collected.
+  ///
+  /// In en, this message translates to:
+  /// **'Collected'**
+  String get collected;
+
+  /// No description provided for @notCollected.
+  ///
+  /// In en, this message translates to:
+  /// **'Not collected'**
+  String get notCollected;
+
+  /// No description provided for @loadingEllipsis.
+  ///
+  /// In en, this message translates to:
+  /// **'...'**
+  String get loadingEllipsis;
+
+  /// No description provided for @points.
+  ///
+  /// In en, this message translates to:
+  /// **'pts'**
+  String get points;
+
+  /// No description provided for @didYouKnow.
+  ///
+  /// In en, this message translates to:
+  /// **'Did you know?'**
+  String get didYouKnow;
+
+  /// No description provided for @fullScreen.
+  ///
+  /// In en, this message translates to:
+  /// **'Full screen'**
+  String get fullScreen;
+
+  /// No description provided for @notAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'N/A'**
+  String get notAvailable;
 }
 
 class _AppLocalizationsDelegate

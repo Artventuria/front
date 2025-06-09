@@ -187,9 +187,43 @@ class ArtworkProvider extends ChangeNotifier {
   /// Method to refresh all data from scratch
   Future<void> refreshAllData(int userId) async {
     await Future.wait([
-      loadStillToCollectArtworks(userId: userId, forceReload: true),
+      // Use refresh: true to completely reset the list
+      // and forceReload: true to ignore initialization check
+      loadStillToCollectArtworks(
+        userId: userId,
+        forceReload: true,
+        refresh: true,
+      ),
       loadRecentlyCollectedArtworks(forceReload: true),
     ]);
+  }
+
+  /// Check if an artwork is in the user's collection
+  /// [artworkId] : ID of the artwork to check
+  /// Returns true if the artwork is in the collection, false otherwise
+  Future<bool> isArtworkInCollection(String artworkId) async {
+    try {
+      return await _artworkService.isArtworkInCollection(artworkId);
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error checking if artwork is in collection: $e');
+      }
+      return false;
+    }
+  }
+
+  /// Get the number of collectors of an artwork
+  /// [artworkId] : ID of the artwork to check
+  /// Returns the number of collectors
+  Future<int> getArtworkCollectorsCount(String artworkId) async {
+    try {
+      return await _artworkService.getArtworkCollectorsCount(artworkId);
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error getting artwork collectors count: $e');
+      }
+      return 0;
+    }
   }
 
   /// Search artworks by artist or title

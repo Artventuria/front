@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../l10n/app_localizations.dart';
 import '../../utils/constants.dart';
 import '../../providers/artwork_provider.dart';
+import '../../screens/artwork/artwork_detail_page.dart';
 import 'circular_artwork_widget.dart';
 
 class RecentlyCollectedSection extends StatefulWidget {
@@ -58,12 +59,14 @@ class _RecentlyCollectedSectionState extends State<RecentlyCollectedSection> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(Icons.error_outline, size: 24, color: AppColors.standardGrey),
+                  const Icon(Icons.error_outline,
+                      size: 24, color: AppColors.standardGrey),
                   const SizedBox(height: 8),
                   Text(
                     AppLocalizations.of(context)!.errorLoadingArtworks,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(color: AppColors.standardGrey, fontSize: 12),
+                    style: const TextStyle(
+                        color: AppColors.standardGrey, fontSize: 12),
                   ),
                   const SizedBox(height: 8),
                   TextButton(
@@ -116,7 +119,13 @@ class _RecentlyCollectedSectionState extends State<RecentlyCollectedSection> {
                   child: CircularArtworkWidget(
                     imageName: artwork.metadata.imageUrl,
                     onTap: () {
-                      // TODO: Add navigation to artwork details
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              ArtworkDetailPage(artwork: artwork),
+                        ),
+                      );
                     },
                   ),
                 );

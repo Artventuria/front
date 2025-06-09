@@ -16,7 +16,8 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>
+    with AutomaticKeepAliveClientMixin {
   final ScrollController _scrollController = ScrollController();
   late HomeScrollService _scrollService;
 
@@ -24,33 +25,41 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _scrollService = HomeScrollService(_scrollController);
-    
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _loadInitialData();
       _scrollService.initializeScrollListener(context);
     });
   }
-  
+
   /// Load initial data once if they haven't been loaded yet
   void _loadInitialData() {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final artworkProvider = Provider.of<ArtworkProvider>(context, listen: false);
-    
+    final artworkProvider =
+        Provider.of<ArtworkProvider>(context, listen: false);
+
     if (authProvider.user != null) {
-      // Only load data if they haven't been loaded yet
-      artworkProvider.loadStillToCollectArtworks(
-        userId: authProvider.user!.id,
-      );
-      
+      // Check if the data is already initialized before loading
+      // to avoid unnecessary reloads when returning to the home page
+      if (!artworkProvider.isStillToCollectInitialized ||
+          artworkProvider.stillToCollectArtworks.isEmpty) {
+        artworkProvider.loadStillToCollectArtworks(
+          userId: authProvider.user!.id,
+        );
+      }
+
+      // The Recently Collected section already handles its own loading in its initState
+      // and checks if the data is already initialized
       artworkProvider.loadRecentlyCollectedArtworks();
     }
   }
-  
+
   /// Force the refresh of all data (pull-to-refresh)
   Future<void> _refreshData() async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final artworkProvider = Provider.of<ArtworkProvider>(context, listen: false);
-    
+    final artworkProvider =
+        Provider.of<ArtworkProvider>(context, listen: false);
+
     if (authProvider.user != null) {
       return artworkProvider.refreshAllData(authProvider.user!.id);
     }
@@ -64,7 +73,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context); // Required for AutomaticKeepAliveClientMixin
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -81,7 +94,8 @@ class _HomePageState extends State<HomePage> {
             children: [
               HomeHeaderWidget(
                 scrollController: _scrollController,
-                onOptionsPressed: () => HomeOptionsHelper.showOptionsMenu(context),
+                onOptionsPressed: () =>
+                    HomeOptionsHelper.showOptionsMenu(context),
               ),
               Expanded(
                 child: RefreshIndicator(
