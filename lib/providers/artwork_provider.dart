@@ -233,10 +233,16 @@ class ArtworkProvider extends ChangeNotifier {
     required String query,
     bool resetResults = false,
   }) async {
+    // Return early if query is empty
     if (query.isEmpty) {
       _searchResults = [];
       _hasMoreSearchResults = false;
       notifyListeners();
+      return;
+    }
+  
+    // Avoid multiple simultaneous requests
+    if (_isLoadingSearch) {
       return;
     }
 
@@ -251,21 +257,42 @@ class ArtworkProvider extends ChangeNotifier {
       _hasErrorSearch = false;
       _errorSearch = null;
       notifyListeners();
+    
+      // Store the current offset for this request
+      final requestOffset = _searchOffset;
 
       // Call the search service with pagination
       final results = await _artworkService.searchArtworks(
         query: query,
         limit: 10,
-        offset: _searchOffset,
+        offset: requestOffset,
       );
 
       // Update results and state
       if (results.isEmpty) {
         _hasMoreSearchResults = false;
       } else {
-        _searchOffset += results.length;
-        _searchResults =
-            resetResults ? results : [..._searchResults, ...results];
+        // Update offset for next request
+        _searchOffset = requestOffset + results.length;
+      
+        if (resetResults) {
+          _searchResults = results;
+        } else {
+          // Create a set of existing artwork IDs to check for duplicates
+          final existingIds = _searchResults.map((artwork) => artwork.id).toSet();
+        
+          // Only add artworks that aren't already in the list
+          final uniqueNewResults = results.where(
+            (artwork) => !existingIds.contains(artwork.id)
+          ).toList();
+        
+          if (uniqueNewResults.isEmpty) {
+            // If no new unique artworks were found, we've reached the end
+            _hasMoreSearchResults = false;
+          } else {
+            _searchResults = [..._searchResults, ...uniqueNewResults];
+          }
+        }
       }
 
       _isLoadingSearch = false;
