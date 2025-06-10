@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import '../models/user_profile.dart';
 import '../models/artwork/artwork_model.dart';
 import '../services/api/api_service.dart';
-import '../services/api/api_response.dart';
 
 class UserCollectionProvider extends ChangeNotifier {
   final ApiService _apiService;
@@ -49,9 +48,8 @@ class UserCollectionProvider extends ChangeNotifier {
 
     try {
       final response = await _apiService.get('/api/users/me');
-      final apiResponse = ApiResponse.fromDioResponse(response);
-      if (apiResponse.data != null) {
-        _userProfile = UserProfile.fromJson(apiResponse.data);
+      if (response.data != null) {
+        _userProfile = UserProfile.fromJson(response.data);
         _isInitialized = true;
       } else {
         _isError = true;
@@ -96,14 +94,13 @@ class UserCollectionProvider extends ChangeNotifier {
         },
       );
 
-      final apiResponse = ApiResponse.fromDioResponse(response);
-      if (apiResponse.data != null) {
-        final List<dynamic> artworksJson = apiResponse.data;
+      if (response.data != null) {
+        final List<dynamic> artworksJson = response.data;
         final List<ArtworkModel> newArtworks =
             artworksJson.map((json) => ArtworkModel.fromJson(json)).toList();
 
         // Get total count from headers
-        final totalCountHeader = apiResponse.headers?['x-total-count'];
+        final totalCountHeader = response.headers.value('x-total-count');
         if (totalCountHeader != null) {
           _totalArtworksCount = int.tryParse(totalCountHeader) ?? 0;
         }
