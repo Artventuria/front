@@ -19,10 +19,14 @@ class _RecentlyCollectedSectionState extends State<RecentlyCollectedSection> {
   @override
   void initState() {
     super.initState();
-    // Load recently collected artworks on widget initialization
-    final artworkProvider =
-        Provider.of<ArtworkProvider>(context, listen: false);
-    artworkProvider.loadRecentlyCollectedArtworks();
+    // Load recently collected artworks after the first frame is built
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) { // Check if the widget is still in the tree
+        final artworkProvider =
+            Provider.of<ArtworkProvider>(context, listen: false);
+        artworkProvider.loadRecentlyCollectedArtworks();
+      }
+    });
   }
 
   @override
