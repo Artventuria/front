@@ -72,6 +72,9 @@
   "searchArtworksHint": "Entrez un nom d'artiste ou d'œuvre",
   "noSearchResults": "Aucun résultat trouvé",
   "searchArtwork": "Rechercher une œuvre",
+  "searchMyCollection": "Rechercher dans ma collection",
+  "searchMyCollectionHint": "Saisissez un terme pour rechercher dans votre collection",
+  "noSearchResultsInCollection": "Aucune œuvre trouvée dans votre collection",
 
   "description": "Description",
   "detailedDescription": "Description détaillée",
