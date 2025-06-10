@@ -9,6 +9,7 @@ class AppColors {
   static const gradientEnd = Color(0xFFF4CDD6);
   static const textPrimary = Color(0xFF6A515E);
   static const white = Colors.white;
+  static const transparent = Colors.transparent;
   static const solidPinkBackground = Color(0xFFF1CBD1);
   static const errorColor = Color(0xFFE57373);
   
@@ -16,6 +17,8 @@ class AppColors {
   static const homeBackgroundEnd = Color(0xFFFCF3F4);
   static const subtitlePink = Color(0xFFD2BBC7);
   static const searchIconColor = Color(0xFFDABCCB);
+  static const searchIcon = Color(0xFFDABCCB);
+  static const textDarkBrown = Color(0xFF56494E);
   
   // Artwork item colors
   static const textGrey = Color(0xFF888888);
@@ -39,6 +42,12 @@ class AppColors {
   static const medalSilver = Color(0xFFC0C0C0);
   static const medalBronze = Color(0xFFCD7F32);
   static const avatarShadow = Color(0xC7F6D1EB);
+  
+  // My Collection page colors
+  static const statCardBackground = Color(0xFFFAE7E9);
+  static const dividerGrey = Color(0x33808080); // Colors.grey with alpha 0.2
+  static const imageErrorBackground = Color(0xFFD3D3D3); // Colors.grey[300]
+  static const transparentBlack = Color(0x80000000); // Colors.black with alpha 80
 }
 
 class AppTextStyles {
