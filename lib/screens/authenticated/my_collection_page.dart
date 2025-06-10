@@ -7,7 +7,7 @@ import '../../models/artwork/artwork_model.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/user_collection_provider.dart';
 import '../../utils/constants.dart';
-import '../../widgets/search/artwork_search_delegate.dart';
+import '../../widgets/search/user_collection_search_delegate.dart';
 import '../../screens/artwork/artwork_detail_page.dart';
 import '../../widgets/home/full_screen_artwork_page.dart';
 import '../../l10n/app_localizations.dart';
@@ -56,7 +56,7 @@ class _MyCollectionPageState extends State<MyCollectionPage>
     // Use await with showSearch to handle the asynchronous operation properly
     final ArtworkModel? artwork = await showSearch<ArtworkModel?>(
       context: context,
-      delegate: ArtworkSearchDelegate(context),
+      delegate: UserCollectionSearchDelegate(context),
     );
     
     // Check if the widget is still mounted and artwork is not null before proceeding
