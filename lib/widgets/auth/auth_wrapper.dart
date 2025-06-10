@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -120,8 +121,8 @@ class _AuthWrapperState extends State<AuthWrapper> {
     /// Listen to authentication state
     final authProvider = Provider.of<AuthProvider>(context);
 
-    /// Show a loading indicator during initial authentication verification
-    if (authProvider.status == AuthStatus.initial) {
+    /// Show a loading indicator during initial authentication verification or while authenticating
+    if (authProvider.status == AuthStatus.initial || authProvider.status == AuthStatus.authenticating) {
       return const Scaffold(
         body: Center(
           child: CircularProgressIndicator(),
@@ -131,7 +132,8 @@ class _AuthWrapperState extends State<AuthWrapper> {
 
     /// If the user is authenticated, show the main container with horizontal navigation
     if (authProvider.isAuthenticated) {
-      return const MainContainer();
+      // Use ValueKey with the user ID to force the reconstruction of MainContainer when the user changes.
+      return MainContainer(key: ValueKey(authProvider.user?.id));
     }
 
     /// If it's the first launch and user is not authenticated, redirect to the landing page

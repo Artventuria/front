@@ -12,8 +12,10 @@ class MainContainer extends StatefulWidget {
 }
 
 class _MainContainerState extends State<MainContainer> {
-  final PageController _pageController = PageController();
-  int _currentPageIndex = 0;
+  // Initialize PageController to show HomePage (index 1) by default
+  final PageController _pageController = PageController(initialPage: 1);
+  // Set current page index to reflect HomePage as the default
+  int _currentPageIndex = 1;
 
   @override
   void dispose() {
