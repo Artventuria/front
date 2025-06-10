@@ -9,34 +9,50 @@ class UserCollectionProvider extends ChangeNotifier {
 
   UserCollectionProvider(this._apiService);
 
-  // Separate loading and error flags for each data type
+  // User profile
+  UserProfile? _userProfile;
   bool _isLoadingProfile = false;
+
+  // Collection artworks
+  List<ArtworkModel> _collectedArtworks = [];
   bool _isLoadingArtworks = false;
+  int _offset = 0;
+  final int _limit = 10;
+  bool _hasMoreArtworks = true;
+  int _totalArtworksCount = 0;
+
+  // Search results
+  List<ArtworkModel> _searchResults = [];
+  bool _isLoadingSearch = false;
+  bool _hasMoreSearchResults = true;
+  int _searchOffset = 0;
+  bool _hasErrorSearch = false;
+  String? _errorSearch;
+
+  // Error handling
   bool _isError = false;
   String? _errorMessage;
-  UserProfile? _userProfile;
-  List<ArtworkModel> _collectedArtworks = [];
-  bool _isInitialized = false;
-  int _totalArtworksCount = 0;
-  bool _hasMoreArtworks = true;
 
-  // Pagination
-  static const int _limit = 10;
-  int _offset = 0;
+  // Initialization status
+  bool _isInitialized = false;
 
   // Getters
-  bool get isLoadingProfile => _isLoadingProfile;
-  bool get isLoadingArtworks => _isLoadingArtworks;
-  // A general isLoading for the whole page initial load
-  bool get isLoading =>
-      _isLoadingProfile || (_isLoadingArtworks && _collectedArtworks.isEmpty);
-  bool get isError => _isError;
-  String? get errorMessage => _errorMessage;
   UserProfile? get userProfile => _userProfile;
   List<ArtworkModel> get collectedArtworks => _collectedArtworks;
-  bool get isInitialized => _isInitialized;
+  List<ArtworkModel> get searchResults => _searchResults;
+  bool get isLoadingProfile => _isLoadingProfile;
+  bool get isLoadingArtworks => _isLoadingArtworks;
+  bool get isLoadingSearch => _isLoadingSearch;
+  bool get isLoading =>
+      _isLoadingProfile || (_isLoadingArtworks && _collectedArtworks.isEmpty);
   bool get hasMoreArtworks => _hasMoreArtworks;
+  bool get hasMoreSearchResults => _hasMoreSearchResults;
   int get totalArtworksCount => _totalArtworksCount;
+  bool get isError => _isError;
+  bool get hasErrorSearch => _hasErrorSearch;
+  String? get errorMessage => _errorMessage;
+  String? get errorSearch => _errorSearch;
+  bool get isInitialized => _isInitialized;
 
   // Load user profile data
   Future<void> loadUserProfile() async {
@@ -169,5 +185,106 @@ class UserCollectionProvider extends ChangeNotifier {
     _isError = false;
     _errorMessage = null;
     notifyListeners();
+  }
+
+  void resetSearchError() {
+    _hasErrorSearch = false;
+    _errorSearch = null;
+    notifyListeners();
+  }
+
+  /// Search artworks in user's collection
+  /// [query] : Search term (artist or artwork name)
+  /// [resetResults] : If true, reset previous results (for a new search)
+  Future<void> searchCollectionArtworks({
+    required String query,
+    bool resetResults = false,
+  }) async {
+    // Return early if query is empty
+    if (query.isEmpty) {
+      _searchResults = [];
+      _hasMoreSearchResults = false;
+      notifyListeners();
+      return;
+    }
+  
+    // Avoid multiple simultaneous requests
+    if (_isLoadingSearch) {
+      return;
+    }
+
+    try {
+      if (resetResults) {
+        _searchResults = [];
+        _searchOffset = 0;
+        _hasMoreSearchResults = true;
+      }
+
+      _isLoadingSearch = true;
+      _hasErrorSearch = false;
+      _errorSearch = null;
+      notifyListeners();
+    
+      // Store the current offset for this request
+      final requestOffset = _searchOffset;
+
+      // Call the search service with pagination
+      final response = await _apiService.get(
+        '/api/artworks/my-collection/search',
+        queryParameters: {
+          'query': query,
+          'limit': _limit,
+          'offset': requestOffset,
+        },
+      );
+
+      if (response.data != null) {
+        final List<dynamic> artworksJson = response.data;
+        final List<ArtworkModel> newArtworks =
+            artworksJson.map((json) => ArtworkModel.fromJson(json)).toList();
+
+        // Update results and state
+        if (newArtworks.isEmpty) {
+          _hasMoreSearchResults = false;
+        } else {
+          // Update offset for next request
+          _searchOffset = requestOffset + newArtworks.length;
+        
+          if (resetResults) {
+            _searchResults = newArtworks;
+          } else {
+            // Create a set of existing artwork IDs to check for duplicates
+            final existingIds = _searchResults.map((artwork) => artwork.id).toSet();
+          
+            // Only add artworks that aren't already in the list
+            final uniqueNewArtworks = newArtworks.where(
+              (artwork) => !existingIds.contains(artwork.id)
+            ).toList();
+          
+            if (uniqueNewArtworks.isEmpty) {
+              // If no new unique artworks were found, we've reached the end
+              _hasMoreSearchResults = false;
+            } else {
+              _searchResults = [..._searchResults, ...uniqueNewArtworks];
+            }
+          }
+        }
+      } else {
+        _hasErrorSearch = true;
+        _errorSearch = 'Failed to search collection';
+        if (kDebugMode) {
+          debugPrint('Failed to search collection');
+        }
+      }
+    } catch (e) {
+      _hasErrorSearch = true;
+      _errorSearch = 'An error occurred while searching collection';
+      if (kDebugMode) {
+        debugPrint('Error searching collection: $e');
+      }
+    } finally {
+      _isLoadingSearch = false;
+      notifyListeners();
+    }
   }
 }
