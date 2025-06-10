@@ -482,23 +482,41 @@ abstract class AppLocalizations {
   /// **'View details'**
   String get viewDetails;
 
-  /// No description provided for @searchArtworksHint.
-  ///
-  /// In en, this message translates to:
-  /// **'Enter an artist or artwork name'**
-  String get searchArtworksHint;
-
-  /// No description provided for @noSearchResults.
-  ///
-  /// In en, this message translates to:
-  /// **'No results found'**
-  String get noSearchResults;
-
   /// No description provided for @searchArtwork.
   ///
   /// In en, this message translates to:
   /// **'Search artwork'**
   String get searchArtwork;
+
+  /// No description provided for @searchArtworksHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type to search for artworks'**
+  String get searchArtworksHint;
+
+  /// No description provided for @noSearchResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No artworks found'**
+  String get noSearchResults;
+
+  /// No description provided for @searchMyCollection.
+  ///
+  /// In en, this message translates to:
+  /// **'Search my collection'**
+  String get searchMyCollection;
+
+  /// No description provided for @searchMyCollectionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type to search in your collection'**
+  String get searchMyCollectionHint;
+
+  /// No description provided for @noSearchResultsInCollection.
+  ///
+  /// In en, this message translates to:
+  /// **'No artworks found in your collection'**
+  String get noSearchResultsInCollection;
 
   /// No description provided for @description.
   ///
