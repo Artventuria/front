@@ -97,5 +97,11 @@
   "searchFriend": "Search a friend",
   "leaderboardLoadingError": "Error loading leaderboard",
   "leaderboardNoData": "No leaderboard data available",
-  "leaderboardNoResultsFor": "No results found for \"{searchText}\""
+  "leaderboardNoResultsFor": "No results found for \"{searchText}\"",
+  
+  "myCollection": "My Collection",
+  "user": "User",
+  "artworks": "Artworks",
+  "badges": "Badges",
+  "noArtworksCollectedYet": "No artworks collected yet"
 }

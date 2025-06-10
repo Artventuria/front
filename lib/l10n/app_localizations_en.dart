@@ -300,4 +300,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String leaderboardNoResultsFor(Object searchText) {
     return 'No results found for \"$searchText\"';
   }
+
+  @override
+  String get myCollection => 'My Collection';
+
+  @override
+  String get user => 'User';
+
+  @override
+  String get artworks => 'Artworks';
+
+  @override
+  String get badges => 'Badges';
+
+  @override
+  String get noArtworksCollectedYet => 'No artworks collected yet';
 }

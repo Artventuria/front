@@ -304,4 +304,19 @@ class AppLocalizationsFr extends AppLocalizations {
   String leaderboardNoResultsFor(Object searchText) {
     return 'Aucun résultat trouvé pour \"$searchText\"';
   }
+
+  @override
+  String get myCollection => 'Ma Collection';
+
+  @override
+  String get user => 'Utilisateur';
+
+  @override
+  String get artworks => 'Œuvres';
+
+  @override
+  String get badges => 'Badges';
+
+  @override
+  String get noArtworksCollectedYet => 'Aucune œuvre collectée pour le moment';
 }

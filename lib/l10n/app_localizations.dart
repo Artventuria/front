@@ -649,6 +649,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No results found for \"{searchText}\"'**
   String leaderboardNoResultsFor(Object searchText);
+
+  /// No description provided for @myCollection.
+  ///
+  /// In en, this message translates to:
+  /// **'My Collection'**
+  String get myCollection;
+
+  /// No description provided for @user.
+  ///
+  /// In en, this message translates to:
+  /// **'User'**
+  String get user;
+
+  /// No description provided for @artworks.
+  ///
+  /// In en, this message translates to:
+  /// **'Artworks'**
+  String get artworks;
+
+  /// No description provided for @badges.
+  ///
+  /// In en, this message translates to:
+  /// **'Badges'**
+  String get badges;
+
+  /// No description provided for @noArtworksCollectedYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No artworks collected yet'**
+  String get noArtworksCollectedYet;
 }
 
 class _AppLocalizationsDelegate

@@ -97,5 +97,11 @@
   "searchFriend": "Rechercher un ami",
   "leaderboardLoadingError": "Erreur lors du chargement du classement",
   "leaderboardNoData": "Aucune donnée de classement disponible",
-  "leaderboardNoResultsFor": "Aucun résultat trouvé pour \"{searchText}\""
+  "leaderboardNoResultsFor": "Aucun résultat trouvé pour \"{searchText}\"",
+  
+  "myCollection": "Ma Collection",
+  "user": "Utilisateur",
+  "artworks": "Œuvres",
+  "badges": "Badges",
+  "noArtworksCollectedYet": "Aucune œuvre collectée pour le moment"
 }
