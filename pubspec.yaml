@@ -71,6 +71,7 @@ dependencies:
   url_launcher: ^6.3.1
   scrollable_positioned_list: ^0.3.8
   flutter_nfc_kit: ^3.6.0
+  device_info_plus: ^11.4.0
 
 dev_dependencies:
   flutter_test:
