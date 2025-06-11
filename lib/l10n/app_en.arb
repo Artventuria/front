@@ -54,7 +54,7 @@
   "registerErrorEmailExists": "This email is already in use",
   "registerErrorValidation": "Please check your information",
 
-  "homePageExplore": "Explore",
+  "homePageExplore": "Discover",
   "homePageRecentlyCollected": "Recently collected",
   "homePageStillToCollect": "Still to collect",
   "options": "Options",
@@ -65,6 +65,7 @@
   "confirm": "Confirm",
   "errorLoadingArtworks": "Error loading artworks",
   "retryButton": "Retry",
+  "viewArtworkButton": "View artwork",
   "allCollectedCongrats": "Congratulations! You have collected all available artworks.",
   "seeMore": "see more",
   "seeLess": "See less",
@@ -106,5 +107,17 @@
   "user": "User",
   "artworks": "Artworks",
   "badges": "Badges",
-  "noArtworksCollectedYet": "No artworks collected yet"
+  "noArtworksCollectedYet": "No artworks collected yet",
+
+  "nfcScanTitle": "Scan Artwork",
+  "nfcScanningMessage": "Ready to scan",
+  "nfcScanningInstructions": "📱 Hold your device near the Artventuria NFC tag located under the artwork",
+  "nfcNotAvailable": "❌ NFC is not available on this device",
+  "nfcMultipleTagsDetected": "⚠️ Multiple NFC tags detected. Please try again with a single tag",
+  "nfcScanSuccessful": "✅ Artwork collected!",
+  "nfcPointsEarned": "🎉 You earned {points} points!",
+  "nfcScanError": "❌ Scan failed",
+  "nfcArtworkAlreadyCollected": "⚠️ You already collected this artwork",
+  "nfcUnknownStatus": "❓ Unknown status. Please try again",
+  "nfcTagNotFound": "🔍 NFC tag not found in our database"
 }
