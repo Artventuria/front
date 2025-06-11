@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../widgets/common/page_indicator_widget.dart';
 import 'leaderboard_page.dart';
 import 'home_page.dart';
-import 'test_page.dart';
+import 'my_collection_page.dart';
 
 class MainContainer extends StatefulWidget {
   const MainContainer({super.key});
@@ -37,7 +37,7 @@ class _MainContainerState extends State<MainContainer> {
           children: const [
             LeaderboardPage(),
             HomePage(),
-            TestPage(),
+            MyCollectionPage(),
           ],
         ),
         // Page indicator at the bottom of the screen

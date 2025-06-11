@@ -69,9 +69,12 @@
   "seeMore": "see more",
   "seeLess": "See less",
   "viewDetails": "View details",
-  "searchArtworksHint": "Enter an artist or artwork name",
-  "noSearchResults": "No results found",
   "searchArtwork": "Search artwork",
+  "searchArtworksHint": "Type to search for artworks",
+  "noSearchResults": "No artworks found",
+  "searchMyCollection": "Search my collection",
+  "searchMyCollectionHint": "Type to search in your collection",
+  "noSearchResultsInCollection": "No artworks found in your collection",
 
   "description": "Description",
   "detailedDescription": "Detailed Description",
@@ -97,5 +100,11 @@
   "searchFriend": "Search a friend",
   "leaderboardLoadingError": "Error loading leaderboard",
   "leaderboardNoData": "No leaderboard data available",
-  "leaderboardNoResultsFor": "No results found for \"{searchText}\""
+  "leaderboardNoResultsFor": "No results found for \"{searchText}\"",
+  
+  "myCollection": "My Collection",
+  "user": "User",
+  "artworks": "Artworks",
+  "badges": "Badges",
+  "noArtworksCollectedYet": "No artworks collected yet"
 }

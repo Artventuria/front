@@ -219,13 +219,24 @@ class AppLocalizationsFr extends AppLocalizations {
   String get viewDetails => 'Voir les détails';
 
   @override
+  String get searchArtwork => 'Rechercher une œuvre';
+
+  @override
   String get searchArtworksHint => 'Entrez un nom d\'artiste ou d\'œuvre';
 
   @override
   String get noSearchResults => 'Aucun résultat trouvé';
 
   @override
-  String get searchArtwork => 'Rechercher une œuvre';
+  String get searchMyCollection => 'Rechercher dans ma collection';
+
+  @override
+  String get searchMyCollectionHint =>
+      'Saisissez un terme pour rechercher dans votre collection';
+
+  @override
+  String get noSearchResultsInCollection =>
+      'Aucune œuvre trouvée dans votre collection';
 
   @override
   String get description => 'Description';
@@ -304,4 +315,19 @@ class AppLocalizationsFr extends AppLocalizations {
   String leaderboardNoResultsFor(Object searchText) {
     return 'Aucun résultat trouvé pour \"$searchText\"';
   }
+
+  @override
+  String get myCollection => 'Ma Collection';
+
+  @override
+  String get user => 'Utilisateur';
+
+  @override
+  String get artworks => 'Œuvres';
+
+  @override
+  String get badges => 'Badges';
+
+  @override
+  String get noArtworksCollectedYet => 'Aucune œuvre collectée pour le moment';
 }
