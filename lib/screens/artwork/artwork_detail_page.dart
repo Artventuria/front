@@ -208,7 +208,6 @@ class _ArtworkDetailPageState extends State<ArtworkDetailPage> {
                         year: int.tryParse(
                                 widget.artwork.creationDate.split('-').first) ??
                             0,
-                        isNetworkImage: true,
                       ),
                     ),
                   );

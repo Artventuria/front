@@ -349,7 +349,6 @@ class _MyCollectionPageState extends State<MyCollectionPage>
                                                               .split('-')
                                                               .first) ??
                                                           0,
-                                                      isNetworkImage: true,
                                                     ),
                                                   ),
                                                 );

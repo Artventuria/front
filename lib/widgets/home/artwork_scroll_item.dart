@@ -94,7 +94,6 @@ class _ArtworkScrollItemState extends State<ArtworkScrollItem> {
                             title: widget.title,
                             artist: widget.artist,
                             year: widget.year,
-                            isNetworkImage: widget.imageName.startsWith('http'),
                           ),
                         ),
                       );
