@@ -90,6 +90,17 @@ class LeaderboardProvider extends ChangeNotifier {
     _errorMessage = null;
     notifyListeners();
   }
+  
+  /// Reset all data when user changes
+  void resetData() {
+    _leaderboardEntries = [];
+    _currentUserEntry = null;
+    _isLoading = false;
+    _hasError = false;
+    _errorMessage = null;
+    _isInitialized = false;
+    notifyListeners();
+  }
 
   /// Refresh leaderboard data
   Future<void> refreshLeaderboard() async {
