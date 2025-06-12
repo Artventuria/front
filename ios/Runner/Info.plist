@@ -22,10 +22,27 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.artventuria.app</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>artventuria</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NFCReaderUsageDescription</key>
+	<string>This application uses NFC to scan artworks and add them to your collection.</string>
+	<key>NSAppTransportSecurity</key>
+	<dict/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -45,20 +62,10 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	
-	<!-- Deep links configuration -->
-	<key>CFBundleURLTypes</key>
+	<key>com.apple.developer.nfc.readersession.formats</key>
 	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>com.artventuria.app</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>artventuria</string>
-			</array>
-		</dict>
+		<string>NDEF</string>
+		<string>TAG</string>
 	</array>
 </dict>
 </plist>

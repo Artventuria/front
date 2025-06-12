@@ -32,6 +32,14 @@ class ArtworkProvider extends ChangeNotifier {
   DateTime? _lastStillToCollectUpdate;
   DateTime? _lastRecentlyCollectedUpdate;
 
+  // State for collected artworks
+  List<ArtworkModel> _collectedArtworks = [];
+  bool _isLoadingCollectedArtworks = false;
+  bool _hasErrorCollectedArtworks = false;
+  String? _errorCollectedArtworks;
+  bool _collectedArtworksInitialized = false;
+  DateTime? _lastCollectedArtworksUpdate;
+
   // Getters
   List<ArtworkModel> get stillToCollectArtworks => _stillToCollectArtworks;
   List<ArtworkModel> get recentlyCollectedArtworks =>
@@ -56,11 +64,25 @@ class ArtworkProvider extends ChangeNotifier {
   DateTime? get lastStillToCollectUpdate => _lastStillToCollectUpdate;
   DateTime? get lastRecentlyCollectedUpdate => _lastRecentlyCollectedUpdate;
 
-  bool get hasError => _hasErrorStillToCollect || _hasErrorRecentlyCollected;
+  // Getters for collected artworks
+  List<ArtworkModel> get collectedArtworks => _collectedArtworks;
+  bool get isLoadingCollectedArtworks => _isLoadingCollectedArtworks;
+  bool get isCollectedArtworksInitialized => _collectedArtworksInitialized;
+  DateTime? get lastCollectedArtworksUpdate => _lastCollectedArtworksUpdate;
+  bool get hasErrorCollectedArtworks => _hasErrorCollectedArtworks;
+  String? get errorCollectedArtworks => _errorCollectedArtworks;
+
+  bool get hasError =>
+      _hasErrorStillToCollect ||
+      _hasErrorRecentlyCollected ||
+      _hasErrorCollectedArtworks;
   bool get hasErrorStillToCollect => _hasErrorStillToCollect;
   bool get hasErrorRecentlyCollected => _hasErrorRecentlyCollected;
 
-  String? get error => _errorStillToCollect ?? _errorRecentlyCollected;
+  String? get error =>
+      _errorStillToCollect ??
+      _errorRecentlyCollected ??
+      _errorCollectedArtworks;
   String? get errorStillToCollect => _errorStillToCollect;
   String? get errorRecentlyCollected => _errorRecentlyCollected;
 
@@ -132,8 +154,37 @@ class ArtworkProvider extends ChangeNotifier {
   }
 
   // Load collected artworks
-  Future<void> loadCollectedArtworks({required int userId}) async {
-    // This method will be implemented later
+  Future<void> loadCollectedArtworks(
+      {required int userId, bool forceReload = false}) async {
+    if (_collectedArtworksInitialized &&
+        !forceReload &&
+        _collectedArtworks.isNotEmpty) {
+      // Data already loaded and not forcing a reload, and list is not empty
+      return;
+    }
+
+    _isLoadingCollectedArtworks = true;
+    _hasErrorCollectedArtworks = false;
+    _errorCollectedArtworks = null;
+    notifyListeners();
+
+    try {
+      // Load collected artworks from the service
+      final artworks =
+          await _artworkService.getCollectedArtworks(userId: userId);
+      _collectedArtworks = artworks;
+      _collectedArtworksInitialized = true;
+      _lastCollectedArtworksUpdate = DateTime.now();
+    } catch (e) {
+      _hasErrorCollectedArtworks = true;
+      _errorCollectedArtworks = e.toString();
+      if (kDebugMode) {
+        debugPrint('Error loading collected artworks: $e');
+      }
+    } finally {
+      _isLoadingCollectedArtworks = false;
+      notifyListeners();
+    }
   }
 
   /// Load recently collected artworks (last 7 days)
@@ -183,6 +234,44 @@ class ArtworkProvider extends ChangeNotifier {
     _errorRecentlyCollected = null;
     notifyListeners();
   }
+  
+  /// Reset all data when user changes
+  void resetAllData() {
+    // Reset still to collect artworks
+    _stillToCollectArtworks = [];
+    _isLoadingStillToCollect = false;
+    _hasErrorStillToCollect = false;
+    _errorStillToCollect = null;
+    _stillToCollectInitialized = false;
+    _lastStillToCollectUpdate = null;
+    
+    // Reset recently collected artworks
+    _recentlyCollectedArtworks = [];
+    _isLoadingRecentlyCollected = false;
+    _hasErrorRecentlyCollected = false;
+    _errorRecentlyCollected = null;
+    _recentlyCollectedInitialized = false;
+    _lastRecentlyCollectedUpdate = null;
+    
+    // Reset collected artworks
+    _collectedArtworks = [];
+    _isLoadingCollectedArtworks = false;
+    _hasErrorCollectedArtworks = false;
+    _errorCollectedArtworks = null;
+    _collectedArtworksInitialized = false;
+    _lastCollectedArtworksUpdate = null;
+    
+    // Reset search results
+    _searchResults = [];
+    _isLoadingSearch = false;
+    _hasErrorSearch = false;
+    _errorSearch = null;
+    _searchOffset = 0;
+    _hasMoreSearchResults = true;
+    _nextPageCursor = null;
+    
+    notifyListeners();
+  }
 
   /// Method to refresh all data from scratch
   Future<void> refreshAllData(int userId) async {
@@ -195,6 +284,7 @@ class ArtworkProvider extends ChangeNotifier {
         refresh: true,
       ),
       loadRecentlyCollectedArtworks(forceReload: true),
+      loadCollectedArtworks(userId: userId, forceReload: true),
     ]);
   }
 
@@ -240,7 +330,7 @@ class ArtworkProvider extends ChangeNotifier {
       notifyListeners();
       return;
     }
-  
+
     // Avoid multiple simultaneous requests
     if (_isLoadingSearch) {
       return;
@@ -257,7 +347,7 @@ class ArtworkProvider extends ChangeNotifier {
       _hasErrorSearch = false;
       _errorSearch = null;
       notifyListeners();
-    
+
       // Store the current offset for this request
       final requestOffset = _searchOffset;
 
@@ -274,18 +364,19 @@ class ArtworkProvider extends ChangeNotifier {
       } else {
         // Update offset for next request
         _searchOffset = requestOffset + results.length;
-      
+
         if (resetResults) {
           _searchResults = results;
         } else {
           // Create a set of existing artwork IDs to check for duplicates
-          final existingIds = _searchResults.map((artwork) => artwork.id).toSet();
-        
+          final existingIds =
+              _searchResults.map((artwork) => artwork.id).toSet();
+
           // Only add artworks that aren't already in the list
-          final uniqueNewResults = results.where(
-            (artwork) => !existingIds.contains(artwork.id)
-          ).toList();
-        
+          final uniqueNewResults = results
+              .where((artwork) => !existingIds.contains(artwork.id))
+              .toList();
+
           if (uniqueNewResults.isEmpty) {
             // If no new unique artworks were found, we've reached the end
             _hasMoreSearchResults = false;

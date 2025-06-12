@@ -170,4 +170,32 @@ class ArtworkService {
       return 0;
     }
   }
+
+  /// Get all artworks collected by a specific user
+  /// [userId] : User ID
+  Future<List<ArtworkModel>> getCollectedArtworks({
+    required int userId,
+  }) async {
+    try {
+      // Call API with the correct endpoint for collected artworks by user ID
+      final response = await _apiService.get(
+        '/api/artworks/user/$userId/collected-artworks',
+      );
+
+      // Extract data from the response
+      // Assumes the response is a direct list of artworks.
+      final List<dynamic> artworksJson = response.data as List<dynamic>;
+
+      // Convert to list of ArtworkModel objects
+      final artworks =
+          artworksJson.map((json) => ArtworkModel.fromJson(json)).toList();
+
+      return artworks;
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error fetching collected artworks for user $userId: $e');
+      }
+      rethrow; // Rethrow for the Provider to handle
+    }
+  }
 }

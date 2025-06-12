@@ -165,7 +165,7 @@ class UserCollectionProvider extends ChangeNotifier {
   }
 
   // Reset state when logging out or changing user
-  void reset() {
+  void resetData() {
     _isLoadingProfile = false;
     _isLoadingArtworks = false;
     _isError = false;
@@ -176,6 +176,15 @@ class UserCollectionProvider extends ChangeNotifier {
     _totalArtworksCount = 0;
     _hasMoreArtworks = true;
     _offset = 0;
+    
+    // Reset search results too
+    _searchResults = [];
+    _isLoadingSearch = false;
+    _hasMoreSearchResults = true;
+    _searchOffset = 0;
+    _hasErrorSearch = false;
+    _errorSearch = null;
+    
     notifyListeners();
   }
   

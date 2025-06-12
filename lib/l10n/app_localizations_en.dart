@@ -170,7 +170,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get registerErrorValidation => 'Please check your information';
 
   @override
-  String get homePageExplore => 'Explore';
+  String get homePageExplore => 'Discover';
 
   @override
   String get homePageRecentlyCollected => 'Recently collected';
@@ -201,6 +201,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get retryButton => 'Retry';
+
+  @override
+  String get viewArtworkButton => 'View artwork';
 
   @override
   String get allCollectedCongrats =>
@@ -325,4 +328,45 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noArtworksCollectedYet => 'No artworks collected yet';
+
+  @override
+  String get nfcScanTitle => 'Scan Artwork';
+
+  @override
+  String get nfcScanningMessage => 'Ready to scan';
+
+  @override
+  String get nfcScanningInstructions =>
+      '📱 Hold your device near the Artventuria NFC tag located under the artwork';
+
+  @override
+  String get nfcNotAvailable => '❌ NFC is not available on this device';
+
+  @override
+  String get nfcMultipleTagsDetected =>
+      '⚠️ Multiple NFC tags detected. Please try again with a single tag';
+
+  @override
+  String get nfcScanSuccessful => '✅ Artwork collected!';
+
+  @override
+  String nfcPointsEarned(Object points) {
+    return '🎉 You earned $points points!';
+  }
+
+  @override
+  String get nfcScanError => '❌ Scan failed';
+
+  @override
+  String get nfcArtworkAlreadyCollected =>
+      '⚠️ You already collected this artwork';
+
+  @override
+  String get nfcUnknownStatus => '❓ Unknown status. Please try again';
+
+  @override
+  String get nfcTagNotFound => '🔍 NFC tag not found in our database';
+
+  @override
+  String get nfcSessionCanceled => '❌ NFC scan canceled, please try again';
 }

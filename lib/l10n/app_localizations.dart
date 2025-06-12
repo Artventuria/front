@@ -395,7 +395,7 @@ abstract class AppLocalizations {
   /// No description provided for @homePageExplore.
   ///
   /// In en, this message translates to:
-  /// **'Explore'**
+  /// **'Discover'**
   String get homePageExplore;
 
   /// No description provided for @homePageRecentlyCollected.
@@ -457,6 +457,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Retry'**
   String get retryButton;
+
+  /// No description provided for @viewArtworkButton.
+  ///
+  /// In en, this message translates to:
+  /// **'View artwork'**
+  String get viewArtworkButton;
 
   /// No description provided for @allCollectedCongrats.
   ///
@@ -697,6 +703,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No artworks collected yet'**
   String get noArtworksCollectedYet;
+
+  /// No description provided for @nfcScanTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Artwork'**
+  String get nfcScanTitle;
+
+  /// No description provided for @nfcScanningMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready to scan'**
+  String get nfcScanningMessage;
+
+  /// No description provided for @nfcScanningInstructions.
+  ///
+  /// In en, this message translates to:
+  /// **'📱 Hold your device near the Artventuria NFC tag located under the artwork'**
+  String get nfcScanningInstructions;
+
+  /// No description provided for @nfcNotAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'❌ NFC is not available on this device'**
+  String get nfcNotAvailable;
+
+  /// No description provided for @nfcMultipleTagsDetected.
+  ///
+  /// In en, this message translates to:
+  /// **'⚠️ Multiple NFC tags detected. Please try again with a single tag'**
+  String get nfcMultipleTagsDetected;
+
+  /// No description provided for @nfcScanSuccessful.
+  ///
+  /// In en, this message translates to:
+  /// **'✅ Artwork collected!'**
+  String get nfcScanSuccessful;
+
+  /// No description provided for @nfcPointsEarned.
+  ///
+  /// In en, this message translates to:
+  /// **'🎉 You earned {points} points!'**
+  String nfcPointsEarned(Object points);
+
+  /// No description provided for @nfcScanError.
+  ///
+  /// In en, this message translates to:
+  /// **'❌ Scan failed'**
+  String get nfcScanError;
+
+  /// No description provided for @nfcArtworkAlreadyCollected.
+  ///
+  /// In en, this message translates to:
+  /// **'⚠️ You already collected this artwork'**
+  String get nfcArtworkAlreadyCollected;
+
+  /// No description provided for @nfcUnknownStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'❓ Unknown status. Please try again'**
+  String get nfcUnknownStatus;
+
+  /// No description provided for @nfcTagNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'🔍 NFC tag not found in our database'**
+  String get nfcTagNotFound;
+
+  /// No description provided for @nfcSessionCanceled.
+  ///
+  /// In en, this message translates to:
+  /// **'❌ NFC scan canceled, please try again'**
+  String get nfcSessionCanceled;
 }
 
 class _AppLocalizationsDelegate

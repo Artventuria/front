@@ -148,7 +148,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get loginErrorConnection =>
-      'Erreur de connexion. Veuillez vérifier votre connexion internet et réessayer.';
+      '📶 Erreur de connexion. Veuillez vérifier votre connexion internet et réessayer.';
 
   @override
   String get loginErrorUnexpected =>
@@ -172,7 +172,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get registerErrorValidation => 'Veuillez vérifier vos informations';
 
   @override
-  String get homePageExplore => 'Explorer';
+  String get homePageExplore => 'Découvrir';
 
   @override
   String get homePageRecentlyCollected => 'Récemment collectés';
@@ -204,6 +204,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get retryButton => 'Réessayer';
+
+  @override
+  String get viewArtworkButton => 'Voir l\'œuvre';
 
   @override
   String get allCollectedCongrats =>
@@ -330,4 +333,47 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get noArtworksCollectedYet => 'Aucune œuvre collectée pour le moment';
+
+  @override
+  String get nfcScanTitle => 'Scanner une œuvre';
+
+  @override
+  String get nfcScanningMessage => 'Prêt à scanner';
+
+  @override
+  String get nfcScanningInstructions =>
+      '📱 Approchez votre appareil du tag NFC Artventuria situé sous l\'œuvre d\'art';
+
+  @override
+  String get nfcNotAvailable =>
+      '❌ Le NFC n\'est pas disponible sur cet appareil';
+
+  @override
+  String get nfcMultipleTagsDetected =>
+      '⚠️ Plusieurs tags NFC détectés. Veuillez réessayer avec un seul tag';
+
+  @override
+  String get nfcScanSuccessful => '✅ Œuvre collectée !';
+
+  @override
+  String nfcPointsEarned(Object points) {
+    return '🎉 Vous avez gagné $points points !';
+  }
+
+  @override
+  String get nfcScanError => '❌ Échec du scan';
+
+  @override
+  String get nfcArtworkAlreadyCollected =>
+      '⚠️ Vous avez déjà collecté cette œuvre';
+
+  @override
+  String get nfcUnknownStatus => '❓ Statut inconnu. Veuillez réessayer';
+
+  @override
+  String get nfcTagNotFound =>
+      '🔍 Tag NFC non trouvé dans notre base de données';
+
+  @override
+  String get nfcSessionCanceled => '❌ Scan NFC annulé, veuillez réessayer';
 }
