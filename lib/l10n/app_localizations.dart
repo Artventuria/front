@@ -769,6 +769,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'🔍 NFC tag not found in our database'**
   String get nfcTagNotFound;
+
+  /// No description provided for @nfcSessionCanceled.
+  ///
+  /// In en, this message translates to:
+  /// **'❌ NFC scan canceled, please try again'**
+  String get nfcSessionCanceled;
 }
 
 class _AppLocalizationsDelegate

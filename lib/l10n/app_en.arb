@@ -119,5 +119,6 @@
   "nfcScanError": "❌ Scan failed",
   "nfcArtworkAlreadyCollected": "⚠️ You already collected this artwork",
   "nfcUnknownStatus": "❓ Unknown status. Please try again",
-  "nfcTagNotFound": "🔍 NFC tag not found in our database"
+  "nfcTagNotFound": "🔍 NFC tag not found in our database",
+  "nfcSessionCanceled": "❌ NFC scan canceled, please try again"
 }

@@ -373,4 +373,7 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get nfcTagNotFound =>
       '🔍 Tag NFC non trouvé dans notre base de données';
+
+  @override
+  String get nfcSessionCanceled => '❌ Scan NFC annulé, veuillez réessayer';
 }
