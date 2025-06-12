@@ -6,7 +6,6 @@ import '../../utils/constants.dart';
 import '../../providers/artwork_provider.dart';
 import '../../screens/artwork/artwork_detail_page.dart';
 import '../../screens/nfc/nfc_scan_page.dart';
-import '../../services/storage/storage_service.dart';
 import 'circular_artwork_widget.dart';
 import 'nfc_scan_button.dart';
 
