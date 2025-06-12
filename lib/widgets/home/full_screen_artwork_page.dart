@@ -6,7 +6,6 @@ class FullScreenArtworkPage extends StatefulWidget {
   final String title;
   final String artist;
   final int year;
-  final bool isNetworkImage;
 
   const FullScreenArtworkPage({
     super.key,
@@ -14,7 +13,6 @@ class FullScreenArtworkPage extends StatefulWidget {
     required this.title,
     required this.artist,
     required this.year,
-    this.isNetworkImage = false,
   });
 
   @override
@@ -64,39 +62,32 @@ class _FullScreenArtworkPageState extends State<FullScreenArtworkPage> {
               child: InteractiveViewer(
                 minScale: 0.5,
                 maxScale: 4.0,
-                child: widget.isNetworkImage
-                    ? Image.network(
-                        widget.imageName,
-                        fit: BoxFit.contain,
-                        width: double.infinity,
-                        height: double.infinity,
-                        loadingBuilder: (context, child, loadingProgress) {
-                          if (loadingProgress == null) return child;
-                          return Center(
-                            child: CircularProgressIndicator(
-                              value: loadingProgress.expectedTotalBytes != null
-                                  ? loadingProgress.cumulativeBytesLoaded /
-                                      loadingProgress.expectedTotalBytes!
-                                  : null,
-                            ),
-                          );
-                        },
-                        errorBuilder: (context, error, stackTrace) {
-                          return Container(
-                            color: Colors.black,
-                            child: const Center(
-                              child: Icon(Icons.broken_image,
-                                  size: 64, color: Colors.white70),
-                            ),
-                          );
-                        },
-                      )
-                    : Image.asset(
-                        'assets/images_dev/${widget.imageName}',
-                        fit: BoxFit.contain,
-                        width: double.infinity,
-                        height: double.infinity,
-                      ),
+                child: Image.network(
+                widget.imageName,
+                fit: BoxFit.contain,
+                width: double.infinity,
+                height: double.infinity,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return Center(
+                    child: CircularProgressIndicator(
+                      value: loadingProgress.expectedTotalBytes != null
+                          ? loadingProgress.cumulativeBytesLoaded /
+                              loadingProgress.expectedTotalBytes!
+                          : null,
+                    ),
+                  );
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    color: Colors.black,
+                    child: const Center(
+                      child: Icon(Icons.broken_image,
+                          size: 64, color: Colors.white70),
+                    ),
+                  );
+                },
+              ),
               ),
             ),
           ),

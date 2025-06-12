@@ -335,6 +335,37 @@ class AppLocalizationsFr extends AppLocalizations {
   String get noArtworksCollectedYet => 'Aucune œuvre collectée pour le moment';
 
   @override
+  String get userProfile => 'Profil Utilisateur';
+
+  @override
+  String get searchCollection => 'Rechercher dans la collection';
+
+  @override
+  String get enterSearchTerm => 'Saisissez un terme de recherche';
+
+  @override
+  String get errorSearchCollection =>
+      'Erreur lors de la recherche dans la collection';
+
+  @override
+  String get tryAgain => 'Réessayer';
+
+  @override
+  String get noSearchResultsFound => 'Aucun résultat trouvé';
+
+  @override
+  String get searchInCollection => 'Rechercher dans la collection';
+
+  @override
+  String get searchingFor => 'Recherche de';
+
+  @override
+  String get searchNow => 'Rechercher';
+
+  @override
+  String get errorLoadingProfile => 'Erreur lors du chargement du profil';
+
+  @override
   String get nfcScanTitle => 'Scanner une œuvre';
 
   @override
@@ -376,4 +407,15 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get nfcSessionCanceled => '❌ Scan NFC annulé, veuillez réessayer';
+
+  @override
+  String get searchInUserCollection => 'Rechercher dans la collection';
+
+  @override
+  String get searchUserCollectionHint =>
+      'Saisissez un terme pour rechercher dans la collection';
+
+  @override
+  String get noArtworksFoundInCollection =>
+      'Aucune œuvre trouvée dans la collection';
 }

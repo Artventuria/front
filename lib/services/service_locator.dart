@@ -5,6 +5,7 @@ import '../providers/auth_provider.dart';
 import '../providers/artwork_provider.dart';
 import '../providers/leaderboard_provider.dart';
 import '../providers/user_collection_provider.dart';
+import '../providers/user_profile_provider.dart';
 import 'api/api_service.dart';
 import 'auth/auth_service.dart';
 import 'storage/storage_service.dart';
@@ -39,6 +40,9 @@ class ServiceLocator {
         ),
         ChangeNotifierProvider<LeaderboardProvider>(
           create: (_) => LeaderboardProvider.create(_apiService),
+        ),
+        ChangeNotifierProvider<UserProfileProvider>(
+          create: (_) => UserProfileProvider(_apiService),
         ),
       ];
 

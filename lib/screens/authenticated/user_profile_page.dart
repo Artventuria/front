@@ -1,35 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
 
 import '../../models/artwork/artwork_model.dart';
-import '../../providers/auth_provider.dart';
-import '../../providers/user_collection_provider.dart';
+import '../../providers/user_profile_provider.dart';
 import '../../utils/constants.dart';
-import '../../widgets/search/user_collection_search_delegate.dart';
-import '../../screens/artwork/artwork_detail_page.dart';
+import '../../widgets/search/user_profile_search_delegate.dart';
 import '../../widgets/home/full_screen_artwork_page.dart';
+import '../../screens/artwork/artwork_detail_page.dart';
 import '../../l10n/app_localizations.dart';
 
-class MyCollectionPage extends StatefulWidget {
-  const MyCollectionPage({super.key});
+class UserProfilePage extends StatefulWidget {
+  final int userId;
+  final String username;
+
+  const UserProfilePage({
+    super.key,
+    required this.userId,
+    required this.username,
+  });
 
   @override
-  State<MyCollectionPage> createState() => _MyCollectionPageState();
+  State<UserProfilePage> createState() => _UserProfilePageState();
 }
 
-class _MyCollectionPageState extends State<MyCollectionPage>
-    with AutomaticKeepAliveClientMixin {
+class _UserProfilePageState extends State<UserProfilePage> {
   final ScrollController _scrollController = ScrollController();
-  late UserCollectionProvider _collectionProvider;
+  late UserProfileProvider _profileProvider;
   bool _initialLoadInitiated = false;
 
   @override
   void initState() {
     super.initState();
-    _collectionProvider =
-        Provider.of<UserCollectionProvider>(context, listen: false);
+    _profileProvider = Provider.of<UserProfileProvider>(context, listen: false);
     _setupScrollListener();
   }
 
@@ -37,28 +40,28 @@ class _MyCollectionPageState extends State<MyCollectionPage>
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
               _scrollController.position.maxScrollExtent * 0.7 &&
-          !_collectionProvider.isLoading &&
-          _collectionProvider.hasMoreArtworks) {
-        _collectionProvider.loadCollectedArtworks();
+          !_profileProvider.isLoading &&
+          _profileProvider.hasMoreArtworks) {
+        _profileProvider.loadCollectedArtworks();
       }
     });
   }
 
   Future<void> _loadInitialData() async {
-    await _collectionProvider.refreshAllData();
+    await _profileProvider.refreshAllData(widget.userId);
   }
 
   Future<void> _refreshData() async {
-    await _collectionProvider.refreshAllData();
+    await _profileProvider.refreshAllData(widget.userId);
   }
 
   Future<void> _showSearch() async {
     // Use await with showSearch to handle the asynchronous operation properly
     final ArtworkModel? artwork = await showSearch<ArtworkModel?>(
       context: context,
-      delegate: UserCollectionSearchDelegate(context),
+      delegate: UserProfileSearchDelegate(context, widget.userId),
     );
-    
+
     // Check if the widget is still mounted and artwork is not null before proceeding
     if (artwork != null && mounted) {
       Navigator.pushNamed(
@@ -75,9 +78,6 @@ class _MyCollectionPageState extends State<MyCollectionPage>
     super.dispose();
   }
 
-  @override
-  bool get wantKeepAlive => true;
-
   Widget _buildDivider() {
     return Container(
       height: 24,
@@ -89,9 +89,7 @@ class _MyCollectionPageState extends State<MyCollectionPage>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final authProvider = Provider.of<AuthProvider>(context);
-
-    if (!_initialLoadInitiated && authProvider.user != null) {
+    if (!_initialLoadInitiated) {
       _initialLoadInitiated =
           true; // Mark as initiated to prevent multiple loads
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -102,12 +100,34 @@ class _MyCollectionPageState extends State<MyCollectionPage>
     }
   }
 
+  Widget _buildStatItem(String label, int value) {
+    return Expanded(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            value.toString(),
+            style: const TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              color: AppColors.textDarkBrown,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 14,
+              color: AppColors.textGrey,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    super.build(context); // Required for AutomaticKeepAliveClientMixin
-
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
-
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -129,13 +149,23 @@ class _MyCollectionPageState extends State<MyCollectionPage>
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      AppLocalizations.of(context)!.myCollection,
-                      style: GoogleFonts.merriweather(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.textPrimary,
-                      ),
+                    Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () => Navigator.of(context).pop(),
+                          child: const Icon(Icons.arrow_back,
+                              color: AppColors.textPrimary),
+                        ),
+                        const SizedBox(width: 15),
+                        Text(
+                          'Collection',
+                          style: GoogleFonts.merriweather(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.textPrimary,
+                          ),
+                        ),
+                      ],
                     ),
                     Row(
                       children: [
@@ -167,8 +197,39 @@ class _MyCollectionPageState extends State<MyCollectionPage>
               ),
               // Scrollable content
               Expanded(
-                child: Consumer<UserCollectionProvider>(
+                child: Consumer<UserProfileProvider>(
                   builder: (context, provider, child) {
+                    if (provider.isLoading && !provider.isInitialized) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+
+                    if (provider.isError && !provider.isInitialized) {
+                      return Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.error_outline,
+                                size: 48, color: Colors.grey),
+                            const SizedBox(height: 16),
+                            Text(
+                              provider.errorMessage ??
+                                  AppLocalizations.of(context)!
+                                      .errorLoadingProfile,
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 16),
+                            ElevatedButton(
+                              onPressed: _refreshData,
+                              child:
+                                  Text(AppLocalizations.of(context)!.tryAgain),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+
                     return RefreshIndicator(
                       onRefresh: _refreshData,
                       color: AppColors.purpleIndicator,
@@ -200,10 +261,8 @@ class _MyCollectionPageState extends State<MyCollectionPage>
                                               ? provider.userProfile!.username
                                                   .substring(0, 1)
                                                   .toUpperCase()
-                                              : authProvider.user != null &&
-                                                      authProvider.user!
-                                                          .username.isNotEmpty
-                                                  ? authProvider.user!.username
+                                              : widget.username.isNotEmpty
+                                                  ? widget.username
                                                       .substring(0, 1)
                                                       .toUpperCase()
                                                   : '?',
@@ -220,8 +279,7 @@ class _MyCollectionPageState extends State<MyCollectionPage>
                                     // Username
                                     Text(
                                       provider.userProfile?.username ??
-                                          authProvider.user?.username ??
-                                          AppLocalizations.of(context)!.user,
+                                          widget.username,
                                       style: const TextStyle(
                                         fontSize: 24,
                                         fontWeight: FontWeight.w600,
@@ -280,14 +338,14 @@ class _MyCollectionPageState extends State<MyCollectionPage>
                           ),
 
                           // Space between stats and artworks grid
-                          SliverToBoxAdapter(
+                          const SliverToBoxAdapter(
                             child: SizedBox(height: 24.0),
                           ),
 
                           // Grid view of artworks
-                          if (provider.isLoading &&
+                          if (provider.isLoadingArtworks &&
                               provider.collectedArtworks.isEmpty)
-                            SliverFillRemaining(
+                            const SliverFillRemaining(
                               child: Center(
                                 child: CircularProgressIndicator(),
                               ),
@@ -382,12 +440,14 @@ class _MyCollectionPageState extends State<MyCollectionPage>
                                                   errorBuilder: (context, error,
                                                       stackTrace) {
                                                     return Container(
-                                                      color: AppColors.imageErrorBackground,
+                                                      color: AppColors
+                                                          .imageErrorBackground,
                                                       child: const Center(
                                                         child: Icon(
                                                             Icons.broken_image,
                                                             size: 64,
-                                                            color: AppColors.standardGrey),
+                                                            color: AppColors
+                                                                .standardGrey),
                                                       ),
                                                     );
                                                   },
@@ -395,7 +455,6 @@ class _MyCollectionPageState extends State<MyCollectionPage>
                                               ),
                                             ),
                                           ),
-
                                           // Button to access details
                                           Positioned(
                                             bottom: 8,
@@ -419,7 +478,8 @@ class _MyCollectionPageState extends State<MyCollectionPage>
                                                   padding:
                                                       const EdgeInsets.all(6),
                                                   decoration: BoxDecoration(
-                                                    color: AppColors.transparentBlack,
+                                                    color: AppColors
+                                                        .transparentBlack,
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             15),
@@ -442,21 +502,21 @@ class _MyCollectionPageState extends State<MyCollectionPage>
                               ),
                             ),
 
-                          // Loading indicator at bottom when loading more
-                          if (provider.isLoading &&
+                          // Loading indicator at the bottom when loading more items
+                          if (provider.isLoadingArtworks &&
                               provider.collectedArtworks.isNotEmpty)
-                            SliverToBoxAdapter(
+                            const SliverToBoxAdapter(
                               child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 16.0),
+                                padding: EdgeInsets.all(16.0),
                                 child: Center(
                                   child: CircularProgressIndicator(),
                                 ),
                               ),
                             ),
 
-                          // Bottom padding
+                          // Padding at the bottom to avoid iOS safe area issues
                           const SliverToBoxAdapter(
-                            child: SizedBox(height: 70),
+                            child: SizedBox(height: 20),
                           ),
                         ],
                       ),
@@ -468,36 +528,6 @@ class _MyCollectionPageState extends State<MyCollectionPage>
           ),
         ),
       ),
-    );
-  }
-
-  String _formatNumber(int number) {
-    final formatter = NumberFormat('#,###', 'en_US');
-    return formatter.format(number).replaceAll(',', ' ');
-  }
-
-  Widget _buildStatItem(String title, int value) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          title,
-          style: TextStyle(
-            color: AppColors.textDarkBrown.withValues(alpha: 0.6),
-            fontWeight: FontWeight.w500,
-            fontSize: 14,
-          ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          _formatNumber(value),
-          style: const TextStyle(
-            color: AppColors.textDarkBrown,
-            fontWeight: FontWeight.w700,
-            fontSize: 18,
-          ),
-        ),
-      ],
     );
   }
 }

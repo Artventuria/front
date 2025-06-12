@@ -112,7 +112,6 @@ class ArtworkGridView extends StatelessWidget {
                             year: int.tryParse(
                                     artwork.creationDate.split('-').first) ??
                                 0,
-                            isNetworkImage: true,
                           ),
                         ),
                       );

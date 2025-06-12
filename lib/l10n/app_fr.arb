@@ -108,6 +108,16 @@
   "artworks": "Œuvres",
   "badges": "Badges",
   "noArtworksCollectedYet": "Aucune œuvre collectée pour le moment",
+  "userProfile": "Profil Utilisateur",
+  "searchCollection": "Rechercher dans la collection",
+  "enterSearchTerm": "Saisissez un terme de recherche",
+  "errorSearchCollection": "Erreur lors de la recherche dans la collection",
+  "tryAgain": "Réessayer",
+  "noSearchResultsFound": "Aucun résultat trouvé",
+  "searchInCollection": "Rechercher dans la collection",
+  "searchingFor": "Recherche de",
+  "searchNow": "Rechercher",
+  "errorLoadingProfile": "Erreur lors du chargement du profil",
 
   "nfcScanTitle": "Scanner une œuvre",
   "nfcScanningMessage": "Prêt à scanner",
@@ -120,5 +130,9 @@
   "nfcArtworkAlreadyCollected": "⚠️ Vous avez déjà collecté cette œuvre",
   "nfcUnknownStatus": "❓ Statut inconnu. Veuillez réessayer",
   "nfcTagNotFound": "🔍 Tag NFC non trouvé dans notre base de données",
-  "nfcSessionCanceled": "❌ Scan NFC annulé, veuillez réessayer"
+  "nfcSessionCanceled": "❌ Scan NFC annulé, veuillez réessayer",
+
+  "searchInUserCollection": "Rechercher dans la collection",
+  "searchUserCollectionHint": "Saisissez un terme pour rechercher dans la collection",
+  "noArtworksFoundInCollection": "Aucune œuvre trouvée dans la collection"
 }
