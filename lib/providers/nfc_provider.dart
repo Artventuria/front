@@ -116,7 +116,8 @@ class NfcProvider extends ChangeNotifier {
         // Handle session cancellation with a user-friendly message
         _updateScanState(
           NfcScanStatus.canceled,
-          NfcScanResultModel.error(nfcSessionCanceledMessage ?? 'NFC scan canceled by user'),
+          NfcScanResultModel.error(nfcSessionCanceledMessage ??
+              'NFC scan canceled, please try again'),
         );
       } else {
         // Handle other errors
