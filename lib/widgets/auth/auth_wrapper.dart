@@ -4,7 +4,11 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../providers/auth_provider.dart';
+import '../../providers/artwork_provider.dart';
+import '../../providers/leaderboard_provider.dart';
+import '../../providers/user_collection_provider.dart';
 import '../../services/auth/auth_notification_service.dart';
+import '../../services/provider_reset_service.dart';
 import '../../l10n/app_localizations.dart';
 import '../../screens/auth/sign_in_page.dart';
 import '../../screens/landing/landing_page.dart';
@@ -21,12 +25,16 @@ class AuthWrapper extends StatefulWidget {
 class _AuthWrapperState extends State<AuthWrapper> {
   bool _hasLaunchedBefore = false;
   bool _checkingFirstLaunch = true;
+  String? _previousUserId;
 
   // Auth notification service instance
   final _authNotificationService = AuthNotificationService();
 
   // Navigation key to allow navigation from outside of the context
   final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+
+  // Provider reset service instance
+  late ProviderResetService _providerResetService;
 
   @override
   void initState() {
@@ -35,6 +43,17 @@ class _AuthWrapperState extends State<AuthWrapper> {
 
     // Listen to auth events
     _authNotificationService.authEvents.listen(_handleAuthEvent);
+
+    // Initialize provider reset service in the next frame when providers are available
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _providerResetService = ProviderResetService(
+        artworkProvider: Provider.of<ArtworkProvider>(context, listen: false),
+        leaderboardProvider:
+            Provider.of<LeaderboardProvider>(context, listen: false),
+        userCollectionProvider:
+            Provider.of<UserCollectionProvider>(context, listen: false),
+      );
+    });
   }
 
   @override
@@ -59,12 +78,17 @@ class _AuthWrapperState extends State<AuthWrapper> {
           ),
         );
 
-        // Update the auth provider state
+        // Reset all providers data before logout
         if (context.mounted) {
+          _providerResetService.resetAllProviders();
           Provider.of<AuthProvider>(context, listen: false).logout();
         }
         break;
       case AuthEvent.manualLogout:
+        // Reset all providers data for manual logout too
+        if (context.mounted) {
+          _providerResetService.resetAllProviders();
+        }
         // No need to show a snackbar for manual logout
         // The AuthProvider state is already updated by the logout button
         break;
@@ -122,7 +146,8 @@ class _AuthWrapperState extends State<AuthWrapper> {
     final authProvider = Provider.of<AuthProvider>(context);
 
     /// Show a loading indicator during initial authentication verification or while authenticating
-    if (authProvider.status == AuthStatus.initial || authProvider.status == AuthStatus.authenticating) {
+    if (authProvider.status == AuthStatus.initial ||
+        authProvider.status == AuthStatus.authenticating) {
       return const Scaffold(
         body: Center(
           child: CircularProgressIndicator(),
@@ -132,6 +157,27 @@ class _AuthWrapperState extends State<AuthWrapper> {
 
     /// If the user is authenticated, show the main container with horizontal navigation
     if (authProvider.isAuthenticated) {
+      // Check if user has changed and reset providers if needed
+      final currentUserId = authProvider.user?.id.toString();
+      if (_previousUserId != null && _previousUserId != currentUserId) {
+        // User has changed, reset all providers data
+        if (kDebugMode) {
+          debugPrint(
+              'User changed from $_previousUserId to $currentUserId, resetting providers');
+        }
+        _providerResetService.resetAllProviders();
+
+        // Load initial data for the new user
+        if (currentUserId != null) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            _providerResetService.loadInitialDataForUser(authProvider.user!.id);
+          });
+        }
+      }
+
+      // Update previous user ID
+      _previousUserId = currentUserId;
+
       // Use ValueKey with the user ID to force the reconstruction of MainContainer when the user changes.
       return MainContainer(key: ValueKey(authProvider.user?.id));
     }
