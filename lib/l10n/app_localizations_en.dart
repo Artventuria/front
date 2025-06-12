@@ -330,6 +330,36 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noArtworksCollectedYet => 'No artworks collected yet';
 
   @override
+  String get userProfile => 'User Profile';
+
+  @override
+  String get searchCollection => 'Search in collection';
+
+  @override
+  String get enterSearchTerm => 'Enter a search term';
+
+  @override
+  String get errorSearchCollection => 'Error searching collection';
+
+  @override
+  String get tryAgain => 'Try again';
+
+  @override
+  String get noSearchResultsFound => 'No search results found';
+
+  @override
+  String get searchInCollection => 'Search in collection';
+
+  @override
+  String get searchingFor => 'Searching for';
+
+  @override
+  String get searchNow => 'Search now';
+
+  @override
+  String get errorLoadingProfile => 'Error loading profile';
+
+  @override
   String get nfcScanTitle => 'Scan Artwork';
 
   @override
@@ -369,4 +399,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get nfcSessionCanceled => '❌ NFC scan canceled, please try again';
+
+  @override
+  String get searchInUserCollection => 'Search in collection';
+
+  @override
+  String get searchUserCollectionHint => 'Type to search in this collection';
+
+  @override
+  String get noArtworksFoundInCollection =>
+      'No artworks found in this collection';
 }

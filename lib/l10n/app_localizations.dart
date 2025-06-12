@@ -704,6 +704,66 @@ abstract class AppLocalizations {
   /// **'No artworks collected yet'**
   String get noArtworksCollectedYet;
 
+  /// No description provided for @userProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'User Profile'**
+  String get userProfile;
+
+  /// No description provided for @searchCollection.
+  ///
+  /// In en, this message translates to:
+  /// **'Search in collection'**
+  String get searchCollection;
+
+  /// No description provided for @enterSearchTerm.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a search term'**
+  String get enterSearchTerm;
+
+  /// No description provided for @errorSearchCollection.
+  ///
+  /// In en, this message translates to:
+  /// **'Error searching collection'**
+  String get errorSearchCollection;
+
+  /// No description provided for @tryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get tryAgain;
+
+  /// No description provided for @noSearchResultsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No search results found'**
+  String get noSearchResultsFound;
+
+  /// No description provided for @searchInCollection.
+  ///
+  /// In en, this message translates to:
+  /// **'Search in collection'**
+  String get searchInCollection;
+
+  /// No description provided for @searchingFor.
+  ///
+  /// In en, this message translates to:
+  /// **'Searching for'**
+  String get searchingFor;
+
+  /// No description provided for @searchNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Search now'**
+  String get searchNow;
+
+  /// No description provided for @errorLoadingProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading profile'**
+  String get errorLoadingProfile;
+
   /// No description provided for @nfcScanTitle.
   ///
   /// In en, this message translates to:
@@ -775,6 +835,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'❌ NFC scan canceled, please try again'**
   String get nfcSessionCanceled;
+
+  /// No description provided for @searchInUserCollection.
+  ///
+  /// In en, this message translates to:
+  /// **'Search in collection'**
+  String get searchInUserCollection;
+
+  /// No description provided for @searchUserCollectionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type to search in this collection'**
+  String get searchUserCollectionHint;
+
+  /// No description provided for @noArtworksFoundInCollection.
+  ///
+  /// In en, this message translates to:
+  /// **'No artworks found in this collection'**
+  String get noArtworksFoundInCollection;
 }
 
 class _AppLocalizationsDelegate
