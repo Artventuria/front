@@ -234,6 +234,44 @@ class ArtworkProvider extends ChangeNotifier {
     _errorRecentlyCollected = null;
     notifyListeners();
   }
+  
+  /// Reset all data when user changes
+  void resetAllData() {
+    // Reset still to collect artworks
+    _stillToCollectArtworks = [];
+    _isLoadingStillToCollect = false;
+    _hasErrorStillToCollect = false;
+    _errorStillToCollect = null;
+    _stillToCollectInitialized = false;
+    _lastStillToCollectUpdate = null;
+    
+    // Reset recently collected artworks
+    _recentlyCollectedArtworks = [];
+    _isLoadingRecentlyCollected = false;
+    _hasErrorRecentlyCollected = false;
+    _errorRecentlyCollected = null;
+    _recentlyCollectedInitialized = false;
+    _lastRecentlyCollectedUpdate = null;
+    
+    // Reset collected artworks
+    _collectedArtworks = [];
+    _isLoadingCollectedArtworks = false;
+    _hasErrorCollectedArtworks = false;
+    _errorCollectedArtworks = null;
+    _collectedArtworksInitialized = false;
+    _lastCollectedArtworksUpdate = null;
+    
+    // Reset search results
+    _searchResults = [];
+    _isLoadingSearch = false;
+    _hasErrorSearch = false;
+    _errorSearch = null;
+    _searchOffset = 0;
+    _hasMoreSearchResults = true;
+    _nextPageCursor = null;
+    
+    notifyListeners();
+  }
 
   /// Method to refresh all data from scratch
   Future<void> refreshAllData(int userId) async {
