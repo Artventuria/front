@@ -11,13 +11,13 @@ import 'widgets/auth/auth_wrapper.dart';
 void main() async {
   // Ensure Flutter binding is initialized
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // Initialize environment configuration
   await EnvConfigService.initialize();
-  
+
   // Initialize service locator and services
-  await ServiceLocator.init();
-  
+  await ServiceLocator.initialize();
+
   runApp(
     MultiProvider(
       providers: ServiceLocator.providers,
