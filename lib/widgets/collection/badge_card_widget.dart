@@ -87,7 +87,7 @@ class BadgeCardWidget extends StatelessWidget {
                 Row(
                   children: [
                     Icon(
-                      Icons.stars,
+                      Icons.brush,
                       size: 16,
                       color: badge.obtained
                           ? AppColors.purpleIndicator
