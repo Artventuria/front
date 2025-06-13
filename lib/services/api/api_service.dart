@@ -11,7 +11,8 @@ import '../../models/auth/auth_response_model.dart';
 class ApiService {
   late final Dio _dio;
   final StorageService _storageService;
-  final AuthNotificationService _authNotificationService = AuthNotificationService();
+  final AuthNotificationService _authNotificationService =
+      AuthNotificationService();
 
   // Lock to prevent competing refreshes
   bool _isRefreshing = false;
@@ -55,6 +56,12 @@ class ApiService {
           return handler.next(options);
         },
         onError: (DioException error, handler) async {
+          // If it's a 401 error on the login endpoint, let it pass normally
+          if (error.requestOptions.path.contains('/api/auth/login') &&
+              error.response?.statusCode == 401) {
+            return handler.next(error);
+          }
+
           if (error.response?.statusCode == 401) {
             // Token expired, try to refresh
             bool refreshSuccess = false;
