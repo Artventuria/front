@@ -19,11 +19,10 @@ class NfcProvider extends ChangeNotifier {
 
   /// Initialize the NFC service
   void initializeService(StorageService? storageService) {
-    if (storageService != null) {
-      _nfcService = NfcService(ApiService(storageService));
-    } else {
-      _nfcService = NfcService(ApiService(StorageService()));
-    }
+    // Utiliser le storageService fourni ou en créer un nouveau, puis initialiser le ApiService avec
+    final storage = storageService ?? StorageService();
+    final apiService = ApiService(storage);
+    _nfcService = NfcService(apiService);
   }
 
   /// Start the complete NFC scanning process
