@@ -16,7 +16,6 @@ import '../../screens/authenticated/home_page.dart';
 import 'sign_up_page.dart';
 import 'forgot_password_page.dart';
 
-
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
 
@@ -31,6 +30,24 @@ class _SignInPageState extends State<SignInPage> {
 
   bool _isLoading = false;
   String _errorMessage = '';
+
+  // To save error message between reconstructions
+  static String? _lastErrorMessage;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Retrieve saved error message if it exists
+    if (_lastErrorMessage != null && _lastErrorMessage!.isNotEmpty) {
+      _errorMessage = _lastErrorMessage!;
+
+      // Reset to avoid infinite display
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _lastErrorMessage = null;
+      });
+    }
+  }
 
   @override
   void dispose() {
@@ -64,6 +81,11 @@ class _SignInPageState extends State<SignInPage> {
 
         // Store error message if login failed
         errorMsg = loginSuccess ? null : authProvider.errorMessage;
+
+        // Save error message for reuse after reconstruction if necessary
+        if (!loginSuccess && errorMsg != null && errorMsg.isNotEmpty) {
+          _lastErrorMessage = errorMsg;
+        }
       } catch (e) {
         // Handle any exceptions
         loginSuccess = false;

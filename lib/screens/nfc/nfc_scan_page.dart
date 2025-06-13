@@ -9,6 +9,7 @@ import '../../models/artwork/artwork_model.dart';
 import '../../models/nfc/nfc_scan_result_model.dart';
 import '../../providers/artwork_provider.dart';
 import '../../providers/auth_provider.dart';
+import '../../providers/badge_provider.dart';
 import '../../providers/leaderboard_provider.dart';
 import '../../providers/nfc_provider.dart';
 import '../../providers/user_collection_provider.dart';
@@ -121,11 +122,14 @@ class _NfcScanPageState extends State<NfcScanPage>
             Provider.of<UserCollectionProvider>(currentContext, listen: false);
         final leaderboardProvider =
             Provider.of<LeaderboardProvider>(currentContext, listen: false);
+        final badgeProvider =
+            Provider.of<BadgeProvider>(currentContext, listen: false);
 
         await Future.wait([
           artworkProvider.refreshAllData(userId),
           userCollectionProvider.refreshAllData(),
           leaderboardProvider.refreshLeaderboard(),
+          badgeProvider.loadUserBadges(forceReload: true),
         ]);
         if (kDebugMode) {
           debugPrint("NFC Page: All data refreshed.");

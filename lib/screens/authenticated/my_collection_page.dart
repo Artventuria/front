@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../models/artwork/artwork_model.dart';
 import '../../providers/auth_provider.dart';
@@ -92,6 +93,79 @@ class _MyCollectionPageState extends State<MyCollectionPage>
       );
     }
   }
+  
+  // Show the logout menu
+  void _showLogoutMenu(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.logout, color: Colors.red),
+                  title: Text(
+                    AppLocalizations.of(context)!.logout,
+                    style: const TextStyle(
+                      color: Colors.red,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
+                    _confirmLogout(context, authProvider);
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+  
+  // Show the logout confirmation dialog
+  void _confirmLogout(BuildContext context, AuthProvider authProvider) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(
+          AppLocalizations.of(context)!.logoutConfirmTitle,
+          style: GoogleFonts.merriweather(),
+        ),
+        content: Text(
+          AppLocalizations.of(context)!.logoutConfirmMessage,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(
+              AppLocalizations.of(context)!.cancel,
+              style: const TextStyle(color: Colors.grey),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              authProvider.logout();
+            },
+            child: Text(
+              AppLocalizations.of(context)!.confirm,
+              style: TextStyle(color: AppColors.purpleIndicator),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   void dispose() {
@@ -143,7 +217,7 @@ class _MyCollectionPageState extends State<MyCollectionPage>
                 title: AppLocalizations.of(context)!.myCollection,
                 onSearchPressed: _showSearch,
                 onMenuPressed: () {
-                  // Options menu
+                  _showLogoutMenu(context);
                 },
               ),
 

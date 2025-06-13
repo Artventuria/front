@@ -41,34 +41,38 @@ class LeaderboardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: () {
-          // Not open profile if it's the actual user
-          if (!isCurrentUser) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => UserProfilePage(
-                  userId: entry.userId,
-                  username: entry.username,
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      decoration: isCurrentUser
+          ? BoxDecoration(
+              border: Border.all(color: AppColors.gradientEnd, width: 2.0),
+              borderRadius: BorderRadius.circular(12.0),
+            )
+          : null,
+      child: Material(
+        color: Colors.white.withValues(alpha: 0.05),
+        borderRadius: BorderRadius.circular(12.0),
+        child: InkWell(
+          splashColor: AppColors.gradientEnd.withValues(alpha: 0.2),
+          highlightColor: AppColors.gradientEnd.withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(12.0),
+          onTap: () {
+            // Not open profile if it's the actual user
+            if (!isCurrentUser) {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => UserProfilePage(
+                    userId: entry.userId,
+                    username: entry.username,
+                  ),
                 ),
-              ),
-            );
-          }
-        },
-        child: Container(
-          margin: const EdgeInsets.only(bottom: 16),
-          padding: const EdgeInsets.symmetric(
-              vertical: 8,
-              horizontal: 12), // Added horizontal padding for bordered item
-          decoration: isCurrentUser
-              ? BoxDecoration(
-                  border: Border.all(color: AppColors.gradientEnd, width: 2.0),
-                  borderRadius: BorderRadius.circular(12.0),
-                )
-              : null,
+              );
+            }
+          },
           child: Padding(
             padding: const EdgeInsets.symmetric(
-                horizontal: 0), // Horizontal padding handled by page
+                vertical: 8,
+                horizontal: 12), // Added horizontal padding for bordered item
             child: Row(
               children: [
                 // Profile Image with Rank Overlay
@@ -194,6 +198,8 @@ class LeaderboardItem extends StatelessWidget {
               ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

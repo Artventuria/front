@@ -11,6 +11,33 @@ class ArtworkScrollView extends StatelessWidget {
     super.key,
   });
 
+  Widget _buildCompletedCollectionMessage(BuildContext context) {
+    // Container with fixed height to maintain the same position in both views
+    return Container(
+      height: 200,
+      alignment: Alignment.center,
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            '👏',
+            style: TextStyle(fontSize: 48),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            AppLocalizations.of(context)!.allCollectedCongrats,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final artworkProvider = Provider.of<ArtworkProvider>(context);
@@ -25,6 +52,14 @@ class ArtworkScrollView extends StatelessWidget {
       );
     }
 
+    // Show the congratulations message only if the request has succeeded and the array is empty
+    // That is, when the user has really collected everything
+    if (artworkProvider.stillToCollectArtworks.isEmpty && 
+        !artworkProvider.isLoading && 
+        !artworkProvider.hasError) {
+      return _buildCompletedCollectionMessage(context);
+    }
+    
     if (artworkProvider.hasError &&
         artworkProvider.stillToCollectArtworks.isEmpty) {
       return Center(
@@ -63,26 +98,12 @@ class ArtworkScrollView extends StatelessWidget {
       );
     }
 
+    // Show the congratulations message only if the request has succeeded and the array is empty
+    // That is, when the user has really collected everything
     if (artworkProvider.stillToCollectArtworks.isEmpty &&
-        !artworkProvider.isLoading) {
-      return Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(Icons.check_circle_outline,
-                  size: 48, color: Colors.green),
-              const SizedBox(height: 16),
-              Text(
-                AppLocalizations.of(context)!.allCollectedCongrats,
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-        ),
-      );
+        !artworkProvider.isLoading &&
+        !artworkProvider.hasError) {
+      return _buildCompletedCollectionMessage(context);
     }
 
     return ListView.builder(

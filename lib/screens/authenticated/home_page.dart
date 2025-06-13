@@ -6,7 +6,6 @@ import '../../services/home/home_scroll_service.dart';
 import '../../widgets/home/home_header_widget.dart';
 import '../../widgets/home/recently_collected_section.dart';
 import '../../widgets/home/still_to_collect_section.dart';
-import '../../utils/home_options_helper.dart';
 import '../../utils/constants.dart';
 
 class HomePage extends StatefulWidget {
@@ -94,8 +93,6 @@ class _HomePageState extends State<HomePage>
             children: [
               HomeHeaderWidget(
                 scrollController: _scrollController,
-                onOptionsPressed: () =>
-                    HomeOptionsHelper.showOptionsMenu(context),
               ),
               Expanded(
                 child: RefreshIndicator(
