@@ -418,4 +418,19 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get noArtworksFoundInCollection =>
       'Aucune œuvre trouvée dans la collection';
+
+  @override
+  String get swipeToSeeBadges => 'Swipez pour voir vos badges';
+
+  @override
+  String get swipeToSeeArtworks => 'Swipez pour voir vos œuvres';
+
+  @override
+  String get errorLoadingBadges => 'Erreur lors du chargement des badges';
+
+  @override
+  String get noBadgesAvailable => 'Aucun badge disponible';
+
+  @override
+  String get pointsAbbreviation => 'pts';
 }

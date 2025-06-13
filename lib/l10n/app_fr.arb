@@ -134,5 +134,11 @@
 
   "searchInUserCollection": "Rechercher dans la collection",
   "searchUserCollectionHint": "Saisissez un terme pour rechercher dans la collection",
-  "noArtworksFoundInCollection": "Aucune œuvre trouvée dans la collection"
+  "noArtworksFoundInCollection": "Aucune œuvre trouvée dans la collection",
+
+  "swipeToSeeBadges": "Swipez pour voir vos badges",
+  "swipeToSeeArtworks": "Swipez pour voir vos œuvres",
+  "errorLoadingBadges": "Erreur lors du chargement des badges",
+  "noBadgesAvailable": "Aucun badge disponible",
+  "pointsAbbreviation": "pts"
 }
