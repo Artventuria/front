@@ -853,6 +853,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No artworks found in this collection'**
   String get noArtworksFoundInCollection;
+
+  /// No description provided for @swipeToSeeBadges.
+  ///
+  /// In en, this message translates to:
+  /// **'Swipe to see your badges'**
+  String get swipeToSeeBadges;
+
+  /// No description provided for @swipeToSeeArtworks.
+  ///
+  /// In en, this message translates to:
+  /// **'Swipe to see your artworks'**
+  String get swipeToSeeArtworks;
+
+  /// No description provided for @errorLoadingBadges.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading badges'**
+  String get errorLoadingBadges;
+
+  /// No description provided for @noBadgesAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No badges available'**
+  String get noBadgesAvailable;
+
+  /// No description provided for @pointsAbbreviation.
+  ///
+  /// In en, this message translates to:
+  /// **'pts'**
+  String get pointsAbbreviation;
+
+  /// No description provided for @badgeProgressionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress'**
+  String get badgeProgressionLabel;
+
+  /// No description provided for @badgeObtained.
+  ///
+  /// In en, this message translates to:
+  /// **'Obtained'**
+  String get badgeObtained;
 }
 
 class _AppLocalizationsDelegate

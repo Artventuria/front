@@ -134,5 +134,13 @@
 
   "searchInUserCollection": "Search in collection",
   "searchUserCollectionHint": "Type to search in this collection",
-  "noArtworksFoundInCollection": "No artworks found in this collection"
+  "noArtworksFoundInCollection": "No artworks found in this collection",
+
+  "swipeToSeeBadges": "Swipe to see your badges",
+  "swipeToSeeArtworks": "Swipe to see your artworks",
+  "errorLoadingBadges": "Error loading badges",
+  "noBadgesAvailable": "No badges available",
+  "pointsAbbreviation": "pts",
+  "badgeProgressionLabel": "Progress",
+  "badgeObtained": "Obtained"
 }
