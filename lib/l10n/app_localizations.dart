@@ -623,7 +623,7 @@ abstract class AppLocalizations {
   /// No description provided for @points.
   ///
   /// In en, this message translates to:
-  /// **'pts'**
+  /// **'Points'**
   String get points;
 
   /// No description provided for @didYouKnow.

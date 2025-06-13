@@ -290,7 +290,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get loadingEllipsis => '...';
 
   @override
-  String get points => 'pts';
+  String get points => 'Points';
 
   @override
   String get didYouKnow => 'Le saviez-vous ?';
