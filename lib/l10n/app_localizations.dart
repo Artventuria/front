@@ -883,6 +883,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'pts'**
   String get pointsAbbreviation;
+
+  /// No description provided for @badgeProgressionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress'**
+  String get badgeProgressionLabel;
+
+  /// No description provided for @badgeObtained.
+  ///
+  /// In en, this message translates to:
+  /// **'Obtained'**
+  String get badgeObtained;
 }
 
 class _AppLocalizationsDelegate

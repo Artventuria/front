@@ -433,4 +433,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get pointsAbbreviation => 'pts';
+
+  @override
+  String get badgeProgressionLabel => 'Progression';
+
+  @override
+  String get badgeObtained => 'Obtenu';
 }

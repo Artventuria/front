@@ -424,4 +424,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pointsAbbreviation => 'pts';
+
+  @override
+  String get badgeProgressionLabel => 'Progress';
+
+  @override
+  String get badgeObtained => 'Obtained';
 }

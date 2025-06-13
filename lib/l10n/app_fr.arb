@@ -140,5 +140,7 @@
   "swipeToSeeArtworks": "Swipez pour voir vos œuvres",
   "errorLoadingBadges": "Erreur lors du chargement des badges",
   "noBadgesAvailable": "Aucun badge disponible",
-  "pointsAbbreviation": "pts"
+  "pointsAbbreviation": "pts",
+  "badgeProgressionLabel": "Progression",
+  "badgeObtained": "Obtenu"
 }
