@@ -10,6 +10,33 @@ import '../home/full_screen_artwork_page.dart';
 class ArtworkGridView extends StatelessWidget {
   const ArtworkGridView({super.key});
 
+  Widget _buildCompletedCollectionMessage(BuildContext context) {
+    // Container with fixed height to maintain the same position in both views
+    return Container(
+      height: 200,
+      alignment: Alignment.center,
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            '👏',
+            style: TextStyle(fontSize: 48),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            AppLocalizations.of(context)!.allCollectedCongrats,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final artworkProvider = Provider.of<ArtworkProvider>(context);
@@ -17,6 +44,12 @@ class ArtworkGridView extends StatelessWidget {
 
     if (artworkProvider.isLoading && artworks.isEmpty) {
       return const Center(child: CircularProgressIndicator());
+    }
+
+    // Show the congratulations message only if the request has succeeded and the array is empty
+    // That is, when the user has really collected everything
+    if (artworks.isEmpty && !artworkProvider.isLoading && !artworkProvider.hasError) {
+      return _buildCompletedCollectionMessage(context);
     }
 
     if (artworkProvider.hasError && artworks.isEmpty) {
@@ -55,21 +88,7 @@ class ArtworkGridView extends StatelessWidget {
     }
 
     if (artworks.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.check_circle_outline,
-                size: 48, color: Colors.green),
-            const SizedBox(height: 16),
-            Text(
-              AppLocalizations.of(context)!.allCollectedCongrats,
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      );
+      return _buildCompletedCollectionMessage(context);
     }
 
     return Padding(
