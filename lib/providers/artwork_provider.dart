@@ -32,14 +32,6 @@ class ArtworkProvider extends ChangeNotifier {
   DateTime? _lastStillToCollectUpdate;
   DateTime? _lastRecentlyCollectedUpdate;
 
-  // State for collected artworks
-  List<ArtworkModel> _collectedArtworks = [];
-  bool _isLoadingCollectedArtworks = false;
-  bool _hasErrorCollectedArtworks = false;
-  String? _errorCollectedArtworks;
-  bool _collectedArtworksInitialized = false;
-  DateTime? _lastCollectedArtworksUpdate;
-
   // Getters
   List<ArtworkModel> get stillToCollectArtworks => _stillToCollectArtworks;
   List<ArtworkModel> get recentlyCollectedArtworks =>
@@ -64,25 +56,15 @@ class ArtworkProvider extends ChangeNotifier {
   DateTime? get lastStillToCollectUpdate => _lastStillToCollectUpdate;
   DateTime? get lastRecentlyCollectedUpdate => _lastRecentlyCollectedUpdate;
 
-  // Getters for collected artworks
-  List<ArtworkModel> get collectedArtworks => _collectedArtworks;
-  bool get isLoadingCollectedArtworks => _isLoadingCollectedArtworks;
-  bool get isCollectedArtworksInitialized => _collectedArtworksInitialized;
-  DateTime? get lastCollectedArtworksUpdate => _lastCollectedArtworksUpdate;
-  bool get hasErrorCollectedArtworks => _hasErrorCollectedArtworks;
-  String? get errorCollectedArtworks => _errorCollectedArtworks;
-
   bool get hasError =>
       _hasErrorStillToCollect ||
-      _hasErrorRecentlyCollected ||
-      _hasErrorCollectedArtworks;
+      _hasErrorRecentlyCollected;
   bool get hasErrorStillToCollect => _hasErrorStillToCollect;
   bool get hasErrorRecentlyCollected => _hasErrorRecentlyCollected;
 
   String? get error =>
       _errorStillToCollect ??
-      _errorRecentlyCollected ??
-      _errorCollectedArtworks;
+      _errorRecentlyCollected;
   String? get errorStillToCollect => _errorStillToCollect;
   String? get errorRecentlyCollected => _errorRecentlyCollected;
 
@@ -153,40 +135,6 @@ class ArtworkProvider extends ChangeNotifier {
     }
   }
 
-  // Load collected artworks
-  Future<void> loadCollectedArtworks(
-      {required int userId, bool forceReload = false}) async {
-    if (_collectedArtworksInitialized &&
-        !forceReload &&
-        _collectedArtworks.isNotEmpty) {
-      // Data already loaded and not forcing a reload, and list is not empty
-      return;
-    }
-
-    _isLoadingCollectedArtworks = true;
-    _hasErrorCollectedArtworks = false;
-    _errorCollectedArtworks = null;
-    notifyListeners();
-
-    try {
-      // Load collected artworks from the service
-      final artworks =
-          await _artworkService.getCollectedArtworks(userId: userId);
-      _collectedArtworks = artworks;
-      _collectedArtworksInitialized = true;
-      _lastCollectedArtworksUpdate = DateTime.now();
-    } catch (e) {
-      _hasErrorCollectedArtworks = true;
-      _errorCollectedArtworks = e.toString();
-      if (kDebugMode) {
-        debugPrint('Error loading collected artworks: $e');
-      }
-    } finally {
-      _isLoadingCollectedArtworks = false;
-      notifyListeners();
-    }
-  }
-
   /// Load recently collected artworks (last 7 days)
   /// [forceReload] : If true, reload data even if it has been initialized already
   Future<void> loadRecentlyCollectedArtworks({bool forceReload = false}) async {
@@ -253,14 +201,6 @@ class ArtworkProvider extends ChangeNotifier {
     _recentlyCollectedInitialized = false;
     _lastRecentlyCollectedUpdate = null;
     
-    // Reset collected artworks
-    _collectedArtworks = [];
-    _isLoadingCollectedArtworks = false;
-    _hasErrorCollectedArtworks = false;
-    _errorCollectedArtworks = null;
-    _collectedArtworksInitialized = false;
-    _lastCollectedArtworksUpdate = null;
-    
     // Reset search results
     _searchResults = [];
     _isLoadingSearch = false;
@@ -284,7 +224,7 @@ class ArtworkProvider extends ChangeNotifier {
         refresh: true,
       ),
       loadRecentlyCollectedArtworks(forceReload: true),
-      loadCollectedArtworks(userId: userId, forceReload: true),
+  
     ]);
   }
 
