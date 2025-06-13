@@ -29,6 +29,8 @@ class _MainContainerState extends State<MainContainer> {
       children: [
         PageView(
           controller: _pageController,
+          // Avoid scrolling beyond the limits
+          physics: const ClampingScrollPhysics(),
           onPageChanged: (index) {
             setState(() {
               _currentPageIndex = index;
