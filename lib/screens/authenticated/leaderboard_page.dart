@@ -121,7 +121,7 @@ class _LeaderboardPageState extends State<LeaderboardPage>
                     horizontal: 20, vertical: 15), // Adjusted padding
                 child: Row(
                   mainAxisAlignment:
-                      MainAxisAlignment.spaceBetween, // Align title and icon
+                      MainAxisAlignment.start, // Align title 
                   children: [
                     Text(
                       localizations.leaderboard,
@@ -131,14 +131,6 @@ class _LeaderboardPageState extends State<LeaderboardPage>
                         color:
                             AppColors.textPrimary, // Matching 'Explorer' style
                       ),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.more_vert,
-                          color: AppColors
-                              .textPrimary), // Matching 'Explorer' icon color
-                      onPressed: () {
-                        // Options menu can be implemented here
-                      },
                     ),
                   ],
                 ),

@@ -6,12 +6,10 @@ import '../search/artwork_search_delegate.dart';
 
 class HomeHeaderWidget extends StatelessWidget {
   final ScrollController scrollController;
-  final VoidCallback onOptionsPressed;
 
   const HomeHeaderWidget({
     super.key,
     required this.scrollController,
-    required this.onOptionsPressed,
   });
 
   @override
@@ -57,12 +55,6 @@ class HomeHeaderWidget extends StatelessWidget {
                     );
                   },
                 ),
-              ),
-              const SizedBox(width: 10),
-              IconButton(
-                icon: const Icon(Icons.more_vert,
-                    size: 20, color: AppColors.textPrimary),
-                onPressed: onOptionsPressed,
               ),
             ],
           ),
